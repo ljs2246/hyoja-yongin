@@ -13,7 +13,7 @@
     wrap.style.zoom=zooms[size];
     wrap.classList.toggle('hj-narrow',document.documentElement.clientWidth/zooms[size]<340);
     var nav=wrap.querySelector('div[style*="repeat(6"]');
-    if(nav){var inner=document.documentElement.clientWidth/zooms[size];
+    if(nav){nav.setAttribute('data-hjnav','1');var inner=document.documentElement.clientWidth/zooms[size];
       nav.style.setProperty('grid-template-columns',inner<430?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))','important');
       var na=nav.querySelectorAll('a');for(var k=0;k<na.length;k++){na[k].style.whiteSpace='nowrap';na[k].style.padding='0';}}
     var bs=bar.querySelectorAll('button');
