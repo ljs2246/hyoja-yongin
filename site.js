@@ -11,6 +11,11 @@
   bar.appendChild(t);
   function paint(){
     wrap.style.zoom=zooms[size];
+    wrap.classList.toggle('hj-narrow',document.documentElement.clientWidth/zooms[size]<340);
+    var nav=wrap.querySelector('div[style*="repeat(6"]');
+    if(nav){var inner=document.documentElement.clientWidth/zooms[size];
+      nav.style.setProperty('grid-template-columns',inner<430?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))','important');
+      var na=nav.querySelectorAll('a');for(var k=0;k<na.length;k++){na[k].style.whiteSpace='nowrap';na[k].style.padding='0';}}
     var bs=bar.querySelectorAll('button');
     for(var i=0;i<bs.length;i++){var on=bs[i].getAttribute('data-k')===size;
       bs[i].style.background=on?'#B8501A':'#FFFFFF';bs[i].style.color=on?'#FFFFFF':'#7A3510';}
@@ -24,11 +29,12 @@
 
   // 전화 버튼: 글자가 길어도 잘리지 않게 여백을 주고, 전화번호는 한 줄로 묶어요
   var st=document.createElement('style');
-  st.textContent='a[href^="tel:"]{box-sizing:border-box;padding:12px 20px;text-align:center;line-height:1.4;flex-wrap:wrap;gap:0 .4em;border-radius:30px}a[href^="tel:"] .tn{white-space:nowrap}';
+  st.textContent='a[href^="tel:"],a[style*="min-height"]{box-sizing:border-box!important;padding:12px 20px!important;text-align:center;line-height:1.4!important;flex-wrap:wrap;gap:2px .6em;max-width:100%;min-width:0}a[href^="tel:"] .tn{white-space:nowrap}span[style*="flex:1"] a[href^="tel:"],span[style*="flex: 1"] a[href^="tel:"]{padding:0!important;display:inline!important;border-radius:0!important}a[href^="tel:"] span{min-width:0}span[style*="flex:1"],span[style*="flex: 1"]{min-width:0;overflow-wrap:anywhere}div[style*="grid-template-columns: 82px 1fr"]{grid-template-columns:82px minmax(0,1fr)!important}div[style*="1fr"]>*{min-width:0}.hj-narrow div[style*="82px"]{grid-template-columns:minmax(0,1fr)!important}';
   document.head.appendChild(st);
   var tl=document.querySelectorAll('a[href^="tel:"]');
   for(var j=0;j<tl.length;j++){var a=tl[j];if(a.children.length)continue;
     a.innerHTML=a.textContent.replace(/([0-9][0-9\-~]{5,})/g,'<span class="tn">$1</span>');}
   wrap.insertBefore(bar,wrap.firstChild);
   paint();
+  window.addEventListener('resize',paint);
 })();
