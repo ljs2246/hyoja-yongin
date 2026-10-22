@@ -179,7 +179,13 @@ a:nth-of-type(3n) svg[role=img]{animation-delay:-1.6s}
 <script src="sound.js"></script>
 <script>
 (function(){var b=document.getElementById('hj-share'),m=document.getElementById('hj-share-msg');if(!b)return;
-function say(t){m.textContent=t;m.style.display='block';}
+function say(t){m.textContent=t;m.style.display='block';extra();}
+function extra(){if(document.getElementById('hj-share-x'))return;
+var url=location.href.split('#')[0],box=document.createElement('div');box.id='hj-share-x';box.style.cssText='display:flex;flex-direction:column;gap:8px';
+function mk(h,t){var a=document.createElement('a');a.href=h;a.textContent=t;a.style.cssText='min-height:56px;display:flex;align-items:center;justify-content:center;border-radius:28px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-size:19px;font-weight:700;text-align:center;box-sizing:border-box;padding:6px 10px';return a;}
+box.appendChild(mk('sms:?body='+encodeURIComponent('어르신께 꼭 필요한 용인 정보예요. '+url),'문자로 보내기'));
+if(/Android/i.test(navigator.userAgent)){box.appendChild(mk('intent://'+url.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end','크롬으로 열어서 카카오톡 보내기'));}
+m.parentNode.insertBefore(box,m.nextSibling);}
 b.addEventListener('click',function(){
 var url=location.href.split('#')[0];
 var d={title:'효자 용인',text:'어르신께 꼭 필요한 용인 정보예요. 눌러서 열어 보세요.',url:url};
