@@ -42,9 +42,12 @@ def fetch(path, label):
     return rows
 
 def main():
-    if not KEY:
-        print("DATA_GO_KR_KEY 가 비어 있습니다."); sys.exit(1)
     os.makedirs(OUT, exist_ok=True)
+    if not KEY:
+        print("DATA_GO_KR_KEY 가 비어 있습니다.")
+        with open(os.path.join(OUT, "status.json"), "w", encoding="utf-8") as f:
+            json.dump({"상태": "실패", "이유": "인증키(DATA_GO_KR_KEY)를 찾지 못함"}, f, ensure_ascii=False, indent=1)
+        sys.exit(1)
     now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
     status = {"확인한 때": now, "출처": "국립중앙의료원(공공데이터포털)"}
     ok = True
