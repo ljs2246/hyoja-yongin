@@ -21,6 +21,14 @@
     b.onclick=function(){size=l[0];try{localStorage.setItem('hyoja-size',size)}catch(e){}paint();};
     bar.appendChild(b);
   });
+
+  // 전화 버튼: 글자가 길어도 잘리지 않게 여백을 주고, 전화번호는 한 줄로 묶어요
+  var st=document.createElement('style');
+  st.textContent='a[href^="tel:"]{box-sizing:border-box;padding:12px 20px;text-align:center;line-height:1.4;flex-wrap:wrap;gap:0 .4em;border-radius:30px}a[href^="tel:"] .tn{white-space:nowrap}';
+  document.head.appendChild(st);
+  var tl=document.querySelectorAll('a[href^="tel:"]');
+  for(var j=0;j<tl.length;j++){var a=tl[j];if(a.children.length)continue;
+    a.innerHTML=a.textContent.replace(/([0-9][0-9\-~]{5,})/g,'<span class="tn">$1</span>');}
   wrap.insertBefore(bar,wrap.firstChild);
   paint();
 })();
