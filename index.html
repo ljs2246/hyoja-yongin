@@ -35,11 +35,39 @@ a:nth-of-type(3n) svg[role=img]{animation-delay:-1.6s}
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="효자 용인">
 </head>
-<body style="margin:0; background:#FFF6E8">
+<body style="margin:0; background:#FFF6E8"><svg width="0" height="0"><defs>
+<radialGradient id="pet" cx=".4" cy=".3" r=".9"><stop offset="0" stop-color="#FF9C92"/><stop offset=".55" stop-color="#E5493C"/><stop offset="1" stop-color="#A81F18"/></radialGradient>
+<radialGradient id="pet2" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="#F26A5E"/><stop offset="1" stop-color="#8E1812"/></radialGradient>
+<radialGradient id="pet3" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#FFC1B8"/><stop offset=".6" stop-color="#EF5A4D"/><stop offset="1" stop-color="#B3261E"/></radialGradient>
+<linearGradient id="stem" x1="0" x2="1"><stop offset="0" stop-color="#2E7A3A"/><stop offset=".5" stop-color="#63C26F"/><stop offset="1" stop-color="#2E7A3A"/></linearGradient>
+<linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8BE08F"/><stop offset="1" stop-color="#2E7A3A"/></linearGradient>
+<radialGradient id="hrt" cx=".35" cy=".25" r=".85"><stop offset="0" stop-color="#FF9A8F"/><stop offset=".5" stop-color="#E5493C"/><stop offset="1" stop-color="#9E1B15"/></radialGradient>
+<linearGradient id="hand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD9AE"/><stop offset=".6" stop-color="#F0A765"/><stop offset="1" stop-color="#C97A34"/></linearGradient>
+<linearGradient id="seal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0584B"/><stop offset=".5" stop-color="#D23A2F"/><stop offset="1" stop-color="#A81F18"/></linearGradient>
+</defs></svg>
 <div style="width: 100%; max-width: 480px; margin: 0 auto; min-height: 1500px; box-sizing: border-box; background: #FFF6E8; color: #3B2314; font-family: 'Noto Sans KR', system-ui, sans-serif; display: flex; flex-direction: column">
 <div id="zoomBox" style="display: flex; flex-direction: column; flex: 1">
 <div style="background: #FFE7B5; color: #5A3300; font-size: 17px; line-height: 1.4; padding: 10px 20px; text-align: center">복지·혜택, 일자리, 건강교실, 이동·교통은 용인시청 누리집에서 확인한 내용이에요.</div><div style="display: flex; flex-direction: column; gap: 18px; padding: 20px 20px 24px"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
-<div style="font-size: 32px; line-height: 1.1; font-weight: 900; color: #4A2610; letter-spacing: -1px; text-shadow: 0 3px 0 #F3C48E, 0 6px 8px rgba(120,60,10,.25)">효자 용인</div>
+<div style="display:flex;align-items:center;gap:10px"><svg role="img" aria-hidden="true" style="flex:none" width="64" height="58" viewBox="0 0 78 70" >
+<ellipse cx="34" cy="68" rx="26" ry="3.5" fill="#5A300F" opacity=".3"/>
+<g transform="translate(0 4)">
+<rect x="4" y="9" width="56" height="52" rx="12" fill="#6E120D"/>
+<rect x="4" y="3" width="56" height="52" rx="12" fill="url(#seal)"/>
+<rect x="4" y="3" width="56" height="52" rx="12" fill="none" stroke="#FF9A8F" stroke-opacity=".7" stroke-width="2"/>
+<rect x="10" y="9" width="44" height="40" rx="8" fill="none" stroke="#FFE0DA" stroke-width="2.5"/>
+<text x="32" y="41" font-size="32" font-weight="900" fill="#7A140E" text-anchor="middle" font-family="Noto Sans CJK KR" transform="translate(0 1.5)">효</text>
+<text x="32" y="41" font-size="32" font-weight="900" fill="#FFF6E8" text-anchor="middle" font-family="Noto Sans CJK KR">효</text>
+<path d="M10 14 q10-8 26-8" stroke="#fff" stroke-opacity=".45" stroke-width="3" fill="none" stroke-linecap="round"/>
+</g>
+<g transform="translate(40 -6) scale(.62)">
+<path d="M32 38 C33 52 31 62 28 71" stroke="url(#stem)" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M30 58 C18 56 12 48 12 42 C22 41 29 48 30 58Z" fill="url(#leaf)"/>
+<path d="M31 50 C42 48 48 40 48 34 C38 34 32 41 31 50Z" fill="url(#leaf)"/>
+<path d="M32 8 l5 5 7-2 2 7 7 3-4 6 4 6-7 3-2 7-7-2-5 5-5-5-7 2-2-7-7-3 4-6-4-6 7-3 2-7 7 2z" fill="url(#pet)" transform="translate(0 4) scale(.94) translate(2 0)"/>
+<path d="M32 18 l4 4 6-1 1 6 5 3-3 5 3 5-5 3-1 6-6-1-4 4-4-4-6 1-1-6-5-3 3-5-3-5 5-3 1-6 6 1z" fill="url(#pet3)" transform="translate(0 2) scale(.9) translate(3.5 0)"/>
+<circle cx="32" cy="29" r="8" fill="url(#pet3)"/>
+<ellipse cx="27" cy="21" rx="6" ry="3.2" fill="#fff" opacity=".5" transform="rotate(-25 27 21)"/>
+</g></svg><div style="font-size: 32px; line-height: 1.1; font-weight: 900; color: #4A2610; letter-spacing: -1px; text-shadow: 0 3px 0 #F3C48E, 0 6px 8px rgba(120,60,10,.25)">효자 용인</div></div>
 <button type="button" style="min-height: 48px; padding: 0 16px; border-radius: 24px; border: 2px solid #D9A066; background: #FFFFFF; color: #7A3510; font-family: inherit; font-size: 18px; font-weight: 700; box-shadow: 0 4px 0 #E8C79B">용인시 ▾</button>
 </div><a href="Emergency.html" style="background: linear-gradient(180deg,#E5493C,#B3261E); color: #FFFFFF; border-radius: 22px; padding: 12px 18px; min-height: 76px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 0 #8A1A14, 0 10px 18px rgba(138,26,20,.25)">
 <svg width="54" height="54" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g13a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9A8F"/><stop offset="1" stop-color="#D23A2F"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><path d="M22 56V38a18 18 0 0 1 36 0v18Z" fill="url(#g13a)"/><rect x="16" y="56" width="48" height="12" rx="5" fill="#8A4B1F"/><ellipse cx="32" cy="34" rx="5" ry="9" fill="#fff" opacity=".5" transform="rotate(20 32 34)"/><path d="M40 8v7M18 18l5 5M62 18l-5 5" stroke="#F2A81F" stroke-width="4" stroke-linecap="round"/></svg>
