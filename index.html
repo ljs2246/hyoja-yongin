@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>효자 용인 홈</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+a,button{transition:transform .18s ease, box-shadow .18s ease}
+a:hover{transform:perspective(700px) rotateX(5deg) translateY(-5px)}
+a:active,button:active{transform:perspective(700px) rotateX(-4deg) translateY(5px) scale(.985)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 6px 5px rgba(120,60,10,.28))}50%{filter:drop-shadow(0 12px 9px rgba(120,60,10,.18))}}
+svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out infinite}
+a:nth-of-type(2n) svg[role=img]{animation-delay:-.8s}
+a:nth-of-type(3n) svg[role=img]{animation-delay:-1.6s}
+@media (prefers-reduced-motion: reduce){svg[role=img]{animation:none}a:hover{transform:none}}
+</style>
+
+</head>
+<body style="margin:0; background:#FFF6E8">
+<div style="width: 100%; max-width: 480px; margin: 0 auto; min-height: 1500px; box-sizing: border-box; background: #FFF6E8; color: #3B2314; font-family: 'Noto Sans KR', system-ui, sans-serif; display: flex; flex-direction: column">
+<div id="zoomBox" style="display: flex; flex-direction: column; flex: 1">
+<div style="background: #FFE7B5; color: #5A3300; font-size: 17px; line-height: 1.4; padding: 10px 20px; text-align: center">복지·혜택, 일자리, 건강교실, 이동·교통은 용인시청 누리집에서 확인한 내용이에요.</div><div style="display: flex; flex-direction: column; gap: 18px; padding: 20px 20px 24px"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="font-size: 32px; line-height: 1.1; font-weight: 900; color: #B8501A; letter-spacing: -1px; text-shadow: 0 3px 0 #F3C48E, 0 6px 8px rgba(120,60,10,.25)">효자 용인</div>
+<button type="button" style="min-height: 48px; padding: 0 16px; border-radius: 24px; border: 2px solid #D9A066; background: #FFFFFF; color: #7A3510; font-family: inherit; font-size: 18px; font-weight: 700; box-shadow: 0 4px 0 #E8C79B">용인시 ▾</button>
+</div><a href="Emergency.html" style="background: linear-gradient(180deg,#E5493C,#B3261E); color: #FFFFFF; border-radius: 22px; padding: 12px 18px; min-height: 76px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 0 #8A1A14, 0 10px 18px rgba(138,26,20,.25)">
+<svg width="54" height="54" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g13a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9A8F"/><stop offset="1" stop-color="#D23A2F"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><path d="M22 56V38a18 18 0 0 1 36 0v18Z" fill="url(#g13a)"/><rect x="16" y="56" width="48" height="12" rx="5" fill="#8A4B1F"/><ellipse cx="32" cy="34" rx="5" ry="9" fill="#fff" opacity=".5" transform="rotate(20 32 34)"/><path d="M40 8v7M18 18l5 5M62 18l-5 5" stroke="#F2A81F" stroke-width="4" stroke-linecap="round"/></svg>
+<span style="display: flex; flex-direction: column; gap: 2px; flex: 1"><span style="font-size: 26px; font-weight: 900">급할 때</span><span style="font-size: 17px; font-weight: 500">119, 병원, 약국</span></span>
+<span style="font-size: 30px; font-weight: 700">›</span>
+</a><div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 28px; padding: 18px; display: flex; align-items: center; gap: 14px; box-shadow: 0 10px 0 #E8C79B, 0 20px 28px rgba(120,70,20,.2), inset 0 3px 0 rgba(255,255,255,.95)">
+<svg width="84" height="84" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><radialGradient id="g3a" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFF0A8"/><stop offset=".5" stop-color="#FFC94D"/><stop offset="1" stop-color="#F29A1F"/></radialGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><circle cx="40" cy="38" r="24" fill="url(#g3a)"/><ellipse cx="31" cy="28" rx="9" ry="6" fill="#fff" opacity=".55" transform="rotate(-25 31 28)"/><path d="M33 42q7 8 14 0" stroke="#B4531A" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="33" cy="35" r="2.4" fill="#7A3A12"/><circle cx="47" cy="35" r="2.4" fill="#7A3A12"/></svg>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 29px; font-weight: 900; color: #B8501A"><span id="greet"></span></div><div style="font-size: 20px; font-weight: 700"><span id="today"></span></div><div style="font-size: 19px; line-height: 1.5; color: #6A4A33"><span id="wxLine"></span></div><div style="font-size: 19px; font-weight: 700; line-height: 1.5"><span id="dustLine"></span></div><div style="font-size: 17px; line-height: 1.4; color: #6A4A33"><span id="wxSrc"></span></div></div></div><div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 17px; font-weight: 700; color: #6A4A33">글자 크기를 골라 보세요</div>
+<div style="display: flex; gap: 8px">
+<div id="sizeBtns" style="display: flex; gap: 8px; width: 100%"></div>
+</div>
+</div><div style="font-size: 24px; font-weight: 900; margin-top: 4px">무엇을 찾으세요?</div><div style="display: flex; flex-direction: column; gap: 14px"><a href="Culture.html" style="display: flex; align-items: center; gap: 14px; min-height: 96px; box-sizing: border-box; padding: 10px 16px 10px 12px; border-radius: 28px; background: linear-gradient(180deg,#FFFFFF,#FFE9B8); border: 2px solid #fff; box-shadow: 0 11px 0 #F59A4F, 0 22px 28px rgba(120,70,20,.25), inset 0 3px 0 rgba(255,255,255,.95)">
+<span style="background: radial-gradient(circle at 35% 30%,#fff,#FFE9B8); border-radius: 50%; width: 76px; height: 76px; display:flex; align-items:center; justify-content:center; box-shadow: inset 0 -4px 8px rgba(120,70,20,.15)"><svg width="60" height="60" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><radialGradient id="g14a" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FFF0A8"/><stop offset=".5" stop-color="#FFC94D"/><stop offset="1" stop-color="#F29A1F"/></radialGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><circle cx="40" cy="38" r="24" fill="url(#g14a)"/><ellipse cx="31" cy="28" rx="9" ry="6" fill="#fff" opacity=".55" transform="rotate(-25 31 28)"/><path d="M33 42q7 8 14 0" stroke="#B4531A" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="33" cy="35" r="2.4" fill="#7A3A12"/><circle cx="47" cy="35" r="2.4" fill="#7A3A12"/></svg></span>
+<span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size: 25px; font-weight: 900">문화·나들이</span><span style="font-size: 17px; color: #6A4A33">공연, 전시, 가볼 곳</span></span>
+<span style="font-size: 30px; font-weight: 900; color: #B8501A">›</span></a><a href="Health.html" style="display: flex; align-items: center; gap: 14px; min-height: 96px; box-sizing: border-box; padding: 10px 16px 10px 12px; border-radius: 28px; background: linear-gradient(180deg,#FFFFFF,#D7F0DE); border: 2px solid #fff; box-shadow: 0 11px 0 #7CC48F, 0 22px 28px rgba(120,70,20,.25), inset 0 3px 0 rgba(255,255,255,.95)">
+<span style="background: radial-gradient(circle at 35% 30%,#fff,#D7F0DE); border-radius: 50%; width: 76px; height: 76px; display:flex; align-items:center; justify-content:center; box-shadow: inset 0 -4px 8px rgba(120,70,20,.15)"><svg width="60" height="60" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g15a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD9A6"/><stop offset="1" stop-color="#3E9F62"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="14" y="14" width="52" height="54" rx="16" fill="url(#g15a)"/><rect x="34" y="26" width="12" height="30" rx="4" fill="#fff"/><rect x="25" y="35" width="30" height="12" rx="4" fill="#fff"/><ellipse cx="26" cy="21" rx="9" ry="4" fill="#fff" opacity=".5"/></svg></span>
+<span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size: 25px; font-weight: 900">건강교실</span><span style="font-size: 17px; color: #6A4A33">운동, 체조, 걷기</span></span>
+<span style="font-size: 30px; font-weight: 900; color: #2F7F4B">›</span></a><a href="Jobs.html" style="display: flex; align-items: center; gap: 14px; min-height: 96px; box-sizing: border-box; padding: 10px 16px 10px 12px; border-radius: 28px; background: linear-gradient(180deg,#FFFFFF,#FFE0C2); border: 2px solid #fff; box-shadow: 0 11px 0 #F2B84B, 0 22px 28px rgba(120,70,20,.25), inset 0 3px 0 rgba(255,255,255,.95)">
+<span style="background: radial-gradient(circle at 35% 30%,#fff,#FFE0C2); border-radius: 50%; width: 76px; height: 76px; display:flex; align-items:center; justify-content:center; box-shadow: inset 0 -4px 8px rgba(120,70,20,.15)"><svg width="60" height="60" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g16a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9A25F"/><stop offset="1" stop-color="#B8651F"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><path d="M30 30v-6a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v6" stroke="#8A4B1F" stroke-width="5" fill="none"/><rect x="12" y="28" width="56" height="40" rx="12" fill="url(#g16a)"/><rect x="12" y="44" width="56" height="5" fill="#8A4B1F" opacity=".25"/><rect x="35" y="41" width="10" height="11" rx="3" fill="#FFE2B8"/><ellipse cx="26" cy="35" rx="9" ry="3.5" fill="#fff" opacity=".45"/></svg></span>
+<span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size: 25px; font-weight: 900">일자리</span><span style="font-size: 17px; color: #6A4A33">일자리, 봉사</span></span>
+<span style="font-size: 30px; font-weight: 900; color: #B07A12">›</span></a><a href="Welfare.html" style="display: flex; align-items: center; gap: 14px; min-height: 96px; box-sizing: border-box; padding: 10px 16px 10px 12px; border-radius: 28px; background: linear-gradient(180deg,#FFFFFF,#EADBF7); border: 2px solid #fff; box-shadow: 0 11px 0 #B792DB, 0 22px 28px rgba(120,70,20,.25), inset 0 3px 0 rgba(255,255,255,.95)">
+<span style="background: radial-gradient(circle at 35% 30%,#fff,#EADBF7); border-radius: 50%; width: 76px; height: 76px; display:flex; align-items:center; justify-content:center; box-shadow: inset 0 -4px 8px rgba(120,70,20,.15)"><svg width="60" height="60" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g17a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A5E8"/><stop offset="1" stop-color="#8F62C4"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="14" y="32" width="52" height="36" rx="9" fill="url(#g17a)"/><rect x="10" y="24" width="60" height="14" rx="7" fill="#B287DB"/><rect x="35" y="24" width="10" height="44" fill="#FFD66B"/><path d="M40 24c-12-14-22-2-10 0M40 24c12-14 22-2 10 0" stroke="#F2A81F" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="30" rx="8" ry="3" fill="#fff" opacity=".45"/></svg></span>
+<span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size: 25px; font-weight: 900">복지·혜택</span><span style="font-size: 17px; color: #6A4A33">받을 수 있는 도움</span></span>
+<span style="font-size: 30px; font-weight: 900; color: #6B3FA0">›</span></a><a href="Transit.html" style="display: flex; align-items: center; gap: 14px; min-height: 96px; box-sizing: border-box; padding: 10px 16px 10px 12px; border-radius: 28px; background: linear-gradient(180deg,#FFFFFF,#D9ECFA); border: 2px solid #fff; box-shadow: 0 11px 0 #6AAEE0, 0 22px 28px rgba(120,70,20,.25), inset 0 3px 0 rgba(255,255,255,.95)">
+<span style="background: radial-gradient(circle at 35% 30%,#fff,#D9ECFA); border-radius: 50%; width: 76px; height: 76px; display:flex; align-items:center; justify-content:center; box-shadow: inset 0 -4px 8px rgba(120,70,20,.15)"><svg width="60" height="60" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g18a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8BC4EE"/><stop offset="1" stop-color="#3D86C7"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="10" y="18" width="60" height="42" rx="13" fill="url(#g18a)"/><rect x="17" y="26" width="18" height="14" rx="4" fill="#E9F5FF"/><rect x="38" y="26" width="25" height="14" rx="4" fill="#E9F5FF"/><circle cx="24" cy="62" r="7" fill="#4A3426"/><circle cx="56" cy="62" r="7" fill="#4A3426"/><circle cx="24" cy="62" r="3" fill="#ddd"/><circle cx="56" cy="62" r="3" fill="#ddd"/><rect x="58" y="46" width="7" height="5" rx="2" fill="#FFD66B"/><ellipse cx="22" cy="22" rx="9" ry="3" fill="#fff" opacity=".5"/></svg></span>
+<span style="display:flex;flex-direction:column;gap:2px;flex:1"><span style="font-size: 25px; font-weight: 900">이동·교통</span><span style="font-size: 17px; color: #6A4A33">버스, 택시, 병원 가는 길</span></span>
+<span style="font-size: 30px; font-weight: 900; color: #2D6FA8">›</span></a></div><div style="background: #FFFFFF; border: 2px solid #D9A066; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.18), inset 0 3px 0 rgba(255,255,255,.95)">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="background: #6A4A33; color: #FFFFFF; font-size: 17px; font-weight: 700; padding: 3px 12px; border-radius: 14px">광고</span><span style="font-size: 17px; color: #6A4A33">용인 처인구</span></div>
+<a href="Ad2.html" style="font-size: 24px; font-weight: 900; line-height: 1.3">(주)청백종합건설 ›</a>
+<div style="font-size: 19px; font-weight: 700; line-height: 1.5; color: #B8501A">최고의 품질을 목표로 짓는 용인의 종합건설사</div>
+<div style="font-size: 19px; line-height: 1.5; color: #6A4A33">토목·건축공사 전문. 용인웨딩홀 신축공사를 시공했어요.</div>
+<a href="tel:0313387100" style="min-height: 56px; border-radius: 28px; background: linear-gradient(180deg,#E9843A,#B8501A); color: #FFFFFF; font-size: 20px; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 0 #8A3A10">전화 문의 031-338-7100</a>
+<a href="Ad2.html" style="min-height: 52px; border-radius: 26px; background: #FFFFFF; border: 2px solid #D9A066; color: #7A3510; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 0 #E8C79B">회사 정보 보기</a>
+<div style="font-size: 17px; line-height: 1.5; color: #6A4A33">광고 · 업체에서 안내한 내용이에요(받은 날 2026년 10월 23일). 이용 전에 업체에 한 번 더 확인해 주세요.</div>
+</div><div style="background: #FFF0D2; border: 2px solid #E8B56A; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 5px 0 #F0CE95">
+<div style="font-size: 18px; font-weight: 700; color: #7A3510">오늘 사기 주의</div>
+<div style="font-size: 20px; line-height: 1.5; color: #4A2300">경찰·검찰·금융감독원이라며 돈을 요구하면 사기예요. 피해를 입었다면 바로 112예요.</div>
+</div><div style="font-size: 24px; font-weight: 900; margin-top: 4px">알아 두세요</div><a href="Welfare.html" style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.18), inset 0 3px 0 rgba(255,255,255,.95)">
+<svg width="64" height="64" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g19a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9A5E8"/><stop offset="1" stop-color="#8F62C4"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="14" y="32" width="52" height="36" rx="9" fill="url(#g19a)"/><rect x="10" y="24" width="60" height="14" rx="7" fill="#B287DB"/><rect x="35" y="24" width="10" height="44" fill="#FFD66B"/><path d="M40 24c-12-14-22-2-10 0M40 24c12-14 22-2 10 0" stroke="#F2A81F" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="30" rx="8" ry="3" fill="#fff" opacity=".45"/></svg>
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1"><span style="align-self: flex-start; background: #EADFF5; color: #3A1F57; font-size: 17px; font-weight: 700; padding: 3px 12px; border-radius: 16px">복지·혜택</span><span style="font-size: 22px; font-weight: 700; line-height: 1.3">월동난방비 지원</span><span style="font-size: 19px; line-height: 1.5; color: #6A4A33">수급자 어르신께 겨울 5개월, 매달 5만 원</span></div>
+</a><a href="Transit.html" style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.18), inset 0 3px 0 rgba(255,255,255,.95)">
+<svg width="64" height="64" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g20a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8BC4EE"/><stop offset="1" stop-color="#3D86C7"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="10" y="18" width="60" height="42" rx="13" fill="url(#g20a)"/><rect x="17" y="26" width="18" height="14" rx="4" fill="#E9F5FF"/><rect x="38" y="26" width="25" height="14" rx="4" fill="#E9F5FF"/><circle cx="24" cy="62" r="7" fill="#4A3426"/><circle cx="56" cy="62" r="7" fill="#4A3426"/><circle cx="24" cy="62" r="3" fill="#ddd"/><circle cx="56" cy="62" r="3" fill="#ddd"/><rect x="58" y="46" width="7" height="5" rx="2" fill="#FFD66B"/><ellipse cx="22" cy="22" rx="9" ry="3" fill="#fff" opacity=".5"/></svg>
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1"><span style="align-self: flex-start; background: #DCEBF7; color: #12344D; font-size: 17px; font-weight: 700; padding: 3px 12px; border-radius: 16px">이동·교통</span><span style="font-size: 22px; font-weight: 700; line-height: 1.3">병원 갈 때 함께 가 드려요</span><span style="font-size: 19px; line-height: 1.5; color: #6A4A33">70세 이상, 접수·수납·약 받기까지 도와 드려요</span></div>
+</a><a href="tel:129" style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; padding: 16px; display: flex; align-items: center; gap: 14px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.18)">
+<svg width="64" height="64" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="g21a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFC48A"/><stop offset="1" stop-color="#E8833A"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="22" y="10" width="36" height="60" rx="11" fill="url(#g21a)"/><rect x="27" y="19" width="26" height="36" rx="5" fill="#FFF6E8"/><circle cx="40" cy="62" r="3.5" fill="#fff"/><path d="M33 33q7-6 14 0" stroke="#E8833A" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M36 42q4-3 8 0" stroke="#E8833A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+<div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 19px; font-weight: 700">전화로 물어보고 싶으세요?</div><div style="font-size: 36px; font-weight: 900; color: #B8501A; letter-spacing: 1px">129 ☎</div><div style="font-size: 17px; color: #6A4A33">복지 상담 전화예요. 누르면 전화가 걸려요.</div></div>
+</a><button type="button" style="min-height: 60px; border-radius: 30px; border: 2px solid #D9A066; background: linear-gradient(180deg,#FFFFFF,#FFEBCC); color: #7A3510; font-family: inherit; font-size: 20px; font-weight: 700; box-shadow: 0 5px 0 #E8C79B">가족에게 이 화면 보내기</button><div style="font-size: 17px; line-height: 1.5; color: #6A4A33">용인시청 누리집에서 확인한 내용이에요. 확인한 날 2026년 10월 22~23일. 신청 전에 전화로 한 번 더 확인해 주세요.</div></div><div style="margin-top: auto; background: #FFFFFF; border-top: 2px solid #F0D6B5; padding: 8px 6px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; border-radius: 22px 22px 0 0; box-shadow: 0 -4px 14px rgba(120,70,20,.08)"><a href="index.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; background: linear-gradient(180deg,#E9843A,#B8501A); color: #FFFFFF; box-shadow: 0 3px 0 #8A3A10">홈</a><a href="Culture.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314">나들이</a><a href="Health.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314">건강</a><a href="Jobs.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314">일자리</a><a href="Welfare.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314">복지</a><a href="All.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314">전체</a></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var state={size:'normal',wx:'loading'};
+  var zooms={normal:1,large:1.12,xl:1.25};
+  var labels=[{key:'normal',label:'보통'},{key:'large',label:'크게'},{key:'xl',label:'아주 크게'}];
+  var $=function(id){return document.getElementById(id)};
+  function wxText(wx){
+    if(wx==='loading')return{line:'날씨를 불러오는 중이에요.',dust:'',src:''};
+    if(wx==='fail')return{line:'오늘 필요한 도움을 찾아 보세요.',dust:'',src:'날씨는 지금 불러오지 못했어요.'};
+    var c=wx.code,sky='흐려요';
+    if(c===0)sky='맑아요';else if(c<=2)sky='구름이 있어요';else if(c===45||c===48)sky='안개가 꼈어요';
+    else if((c>=51&&c<=67)||(c>=80&&c<=82))sky='비가 와요';
+    else if((c>=71&&c<=77)||c===85||c===86)sky='눈이 와요';else if(c>=95)sky='천둥·번개가 쳐요';
+    var f=wx.f,tip='';
+    if(f<=0)tip=' 매우 추워요. 따뜻하게 입고, 미끄러운 길을 조심하세요.';
+    else if(f<=10)tip=' 쌀쌀해요. 겉옷을 챙기세요.';
+    else if(f>=30)tip=' 무더워요. 물을 자주 드세요.';
+    if(/비|눈/.test(sky))tip+=' 우산을 챙기고 미끄럼을 조심하세요.';
+    var dust='';
+    if(wx.pm25!==null&&wx.pm25!==undefined){
+      var p=wx.pm25,g=p<=15?'좋음':(p<=35?'보통':(p<=75?'나쁨':'매우 나쁨'));
+      dust='초미세먼지 '+g+' ('+Math.round(p)+'㎍/㎥)';
+      if(g==='나쁨'||g==='매우 나쁨')dust+=' 마스크를 쓰세요.';
+    }
+    var hhmm=String(wx.at||'').slice(11,16);
+    return{line:'지금 '+wx.t+'도, '+sky+'.'+tip,dust:dust,src:'날씨·미세먼지: Open-Meteo(기상 예측 모델 자료), '+hhmm+' 기준'};
+  }
+  function render(){
+    var d=new Date(),days=['일','월','화','수','목','금','토'],hr=d.getHours(),wt=wxText(state.wx);
+    $('greet').textContent=hr<11?'좋은 아침이에요':(hr<18?'안녕하세요':'좋은 저녁이에요');
+    $('today').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+days[d.getDay()]+'요일';
+    $('wxLine').textContent=wt.line;$('dustLine').textContent=wt.dust;$('wxSrc').textContent=wt.src;
+    $('zoomBox').style.zoom=zooms[state.size];
+    var box=$('sizeBtns');box.innerHTML='';
+    labels.forEach(function(s){
+      var b=document.createElement('button');b.type='button';b.textContent=s.label;
+      var on=s.key===state.size;
+      b.style.cssText='flex:1;min-height:52px;border-radius:26px;border:2px solid #D9A066;box-shadow:0 4px 0 #E8C79B;font-family:inherit;font-size:18px;font-weight:700;background:'+(on?'#B8501A':'#FFFFFF')+';color:'+(on?'#FFFFFF':'#7A3510');
+      b.onclick=function(){state.size=s.key;try{localStorage.setItem('hyoja-size',s.key)}catch(e){}render();};
+      box.appendChild(b);
+    });
+  }
+  try{var sv=localStorage.getItem('hyoja-size');if(sv&&zooms[sv])state.size=sv;}catch(e){}
+  render();
+  var lat=37.2411,lon=127.1775;
+  var w='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,apparent_temperature,weather_code&timezone=Asia%2FSeoul';
+  var a='https://air-quality-api.open-meteo.com/v1/air-quality?latitude='+lat+'&longitude='+lon+'&current=pm2_5,pm10&timezone=Asia%2FSeoul';
+  Promise.all([fetch(w).then(function(r){return r.json()}),fetch(a).then(function(r){return r.json()})]).then(function(r){
+    var c=r[0].current,d=r[1].current;
+    if(!c||typeof c.temperature_2m!=='number')throw new Error('no weather');
+    state.wx={t:Math.round(c.temperature_2m),f:Math.round(c.apparent_temperature),code:c.weather_code,pm25:d?d.pm2_5:null,pm10:d?d.pm10:null,at:c.time};render();
+  }).catch(function(){state.wx='fail';render();});
+})();
+</script>
+
+</body>
+</html>

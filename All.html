@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전체 메뉴</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+body{margin:0}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+a,button{transition:transform .18s ease, box-shadow .18s ease}
+a:hover{transform:perspective(700px) rotateX(5deg) translateY(-4px)}
+a:active,button:active{transform:perspective(700px) rotateX(-4deg) translateY(5px) scale(.985)}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 6px 5px rgba(120,60,10,.28))}50%{filter:drop-shadow(0 12px 9px rgba(120,60,10,.18))}}
+svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){svg[role=img]{animation:none}a:hover{transform:none}}
+</style>
+
+</head>
+<body style="margin:0; background:#FFF6E8">
+<div style="width: 100%; max-width: 480px; margin: 0 auto; min-height: 1300px; box-sizing: border-box; background: #FFF6E8; color: #3B2314; font-family: 'Noto Sans KR', system-ui, sans-serif; display: flex; flex-direction: column">
+
+<div style="background: #FFE7B5; color: #5A3300; font-size: 17px; line-height: 1.4; padding: 10px 20px; text-align: center">샘플 화면이에요.</div>
+
+<div style="display: flex; flex-direction: column; gap: 18px; padding: 20px 20px 24px">
+
+<a href="index.html" style="min-height: 52px; display: flex; align-items: center; font-size: 20px; font-weight: 700; color: #B8501A">← 처음 화면으로</a>
+
+<div style="display: flex; align-items: center; gap: 12px"><svg width="56" height="56" viewBox="0 0 80 80" role="img" aria-hidden="true" style="flex:none"><defs><linearGradient id="tAlla" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF3E0"/><stop offset="1" stop-color="#FFD9B0"/></linearGradient><linearGradient id="tAllb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F59A5B"/><stop offset="1" stop-color="#D2641F"/></linearGradient></defs><ellipse cx="40" cy="72" rx="24" ry="5" fill="#8A4B1F" opacity=".22"/><rect x="18" y="36" width="44" height="34" rx="8" fill="url(#tAlla)"/><path d="M12 40 40 14 68 40Z" fill="url(#tAllb)" stroke="#D2641F" stroke-width="3" stroke-linejoin="round"/><path d="M26 34 40 22" stroke="#fff" stroke-width="3" opacity=".5" stroke-linecap="round"/><rect x="34" y="50" width="12" height="20" rx="5" fill="#9A5A2C"/><rect x="22" y="44" width="9" height="9" rx="3" fill="#8EC9E8"/><rect x="49" y="44" width="9" height="9" rx="3" fill="#8EC9E8"/></svg><div style="font-size: 32px; font-weight: 900; letter-spacing: -0.5px; text-shadow: 0 3px 0 #F3C48E">전체 메뉴</div></div>
+<div style="font-size: 20px; line-height: 1.5; color: #6A4A33">필요한 곳을 한눈에 찾아 보세요.</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 19px; font-weight: 700">우리 동네는 어디세요?</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button type="button" style="min-height: 52px; border-radius: 26px; border: 2px solid #D9A066; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; font-family: inherit; font-size: 18px; font-weight: 700">✓ 용인 전체</button>
+<button type="button" style="min-height: 52px; border-radius: 26px; border: 2px solid #D9A066; background: #FFFFFF; color: #B8501A; font-family: inherit; font-size: 18px; font-weight: 700">처인구</button>
+<button type="button" style="min-height: 52px; border-radius: 26px; border: 2px solid #D9A066; background: #FFFFFF; color: #B8501A; font-family: inherit; font-size: 18px; font-weight: 700">기흥구</button>
+<button type="button" style="min-height: 52px; border-radius: 26px; border: 2px solid #D9A066; background: #FFFFFF; color: #B8501A; font-family: inherit; font-size: 18px; font-weight: 700">수지구</button>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+
+<a href="Emergency.html" style="min-height: 84px; box-sizing: border-box; background: #B3261E; color: #FFFFFF; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">급할 때</span>
+<span style="font-size: 17px; font-weight: 500">119, 병원, 약국</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Centers.html" style="min-height: 84px; box-sizing: border-box; background: #FFFFFF; color: #12344D; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">우리 동네 센터</span>
+<span style="font-size: 17px; font-weight: 500">읍·면·동 행정복지센터 전화</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Guide.html" style="min-height: 84px; box-sizing: border-box; background: #FFFFFF; color: #12344D; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">이 앱 쓰는 법</span>
+<span style="font-size: 17px; font-weight: 500">처음 쓰시는 분을 위한 안내</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Transit.html" style="min-height: 84px; box-sizing: border-box; background: #DCEBF7; color: #12344D; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">이동·교통</span>
+<span style="font-size: 17px; font-weight: 500">버스, 택시, 병원 가는 길</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Culture.html" style="min-height: 84px; box-sizing: border-box; background: #DCEBF7; color: #12344D; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">문화·나들이</span>
+<span style="font-size: 17px; font-weight: 500">공연, 전시, 가볼 만한 곳</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Health.html" style="min-height: 84px; box-sizing: border-box; background: #DDF1E4; color: #0B4A2A; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">건강교실</span>
+<span style="font-size: 17px; font-weight: 500">운동, 체조, 걷기, 마음 건강</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Jobs.html" style="min-height: 84px; box-sizing: border-box; background: #FFEDC9; color: #5B3A00; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">일자리</span>
+<span style="font-size: 17px; font-weight: 500">일자리, 봉사 활동</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+<a href="Welfare.html" style="min-height: 84px; box-sizing: border-box; background: #EADFF5; color: #3A1F57; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 23px; font-weight: 900">복지·혜택</span>
+<span style="font-size: 17px; font-weight: 500">받을 수 있는 도움, 사기 예방</span>
+</span>
+<span style="font-size: 28px; font-weight: 700">›</span>
+</a>
+
+</div>
+
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 19px; font-weight: 700">글자가 작게 보이세요?</div>
+<div style="font-size: 18px; line-height: 1.6; color: #6A4A33">처음 화면 맨 위에서 글자 크기를 "크게", "아주 크게"로 바꿀 수 있어요.</div>
+<a href="index.html" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 18px; font-weight: 700">글자 크기 바꾸러 가기</a>
+</div>
+
+</div>
+
+<div style="margin-top: auto; background: #FFFFFF; border-top: 2px solid #F0D6B5; padding: 8px 6px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px">
+<a href="index.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; color: #3B2314; font-size: 17px; font-weight: 700">홈</a>
+<a href="Culture.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; color: #3B2314; font-size: 17px; font-weight: 700">나들이</a>
+<a href="Health.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; color: #3B2314; font-size: 17px; font-weight: 700">건강</a>
+<a href="Jobs.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; color: #3B2314; font-size: 17px; font-weight: 700">일자리</a>
+<a href="Welfare.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; color: #3B2314; font-size: 17px; font-weight: 700">복지</a>
+<a href="All.html" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 17px; font-weight: 700">전체</a>
+</div>
+
+</div>
+
+
+</body>
+</html>
