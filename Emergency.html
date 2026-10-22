@@ -110,6 +110,15 @@ svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out inf
 </div>
 <div style="font-size: 17px; line-height: 1.5; color: #6A4A33">응급의료기관은 나라에서 지정한 병원이라, 응급실을 하루 종일 열어 두어요. 가시기 전에 응급실로 전화해서 지금 진료가 되는지 물어보세요. 지정 구분이 같으면 순서를 매기지 않았어요.<br>출처: 경기도청 응급의료기관 현황, 용인일보 2026년 9월 22일(강남병원·다보스병원 재지정). 확인한 날 2026년 10월 22일.</div>
 <div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 22px; font-weight: 700">지도로 가까운 곳 찾기</div>
+<div style="font-size: 18px; line-height: 1.5; color: #6A4A33">누르면 지도가 열리고, 지금 계신 곳 근처가 보여요. (지도 앱에서 위치 허용이 필요해요.)</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<a href="https://map.naver.com/p/search/%EC%95%BD%EA%B5%AD" target="_blank" rel="noopener" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; background:#fff; color: #B8501A; font-size: 17px; font-weight: 700">네이버 약국</a><a href="https://map.kakao.com/link/search/%EC%95%BD%EA%B5%AD" target="_blank" rel="noopener" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; background:#fff; color: #B8501A; font-size: 17px; font-weight: 700">카카오 약국</a>
+<a href="https://map.naver.com/p/search/%EC%9D%91%EA%B8%89%EC%8B%A4" target="_blank" rel="noopener" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; background:#fff; color: #B8501A; font-size: 17px; font-weight: 700">네이버 응급실</a><a href="https://map.kakao.com/link/search/%EC%9D%91%EA%B8%89%EC%8B%A4" target="_blank" rel="noopener" style="min-height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; background:#fff; color: #B8501A; font-size: 17px; font-weight: 700">카카오 응급실</a>
+</div>
+<div style="font-size: 17px; line-height: 1.5; color: #6A4A33">지도 앱의 영업 정보는 바뀌었을 수 있어요. 가시기 전에 꼭 전화로 확인해 주세요.</div>
+</div>
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 22px; font-weight: 700">지금 문 연 약국</div>
 <div style="font-size: 18px; line-height: 1.5; color: #6A4A33">사시는 구를 눌러 주세요.</div>
 <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
@@ -161,6 +170,7 @@ function render(){
   var b=document.createElement('div');b.style.cssText='font-size:18px;line-height:1.5;color:#6A4A33';b.textContent=(p.dutyAddr||'').replace('경기도 ','')+' · 오늘 '+closeStr(p,kst())+'까지';
   box.appendChild(a);box.appendChild(b);
   if(p.dutyTel1){var t=document.createElement('a');t.href='tel:'+String(p.dutyTel1).replace(/[^0-9]/g,'');t.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:19px;font-weight:700';t.textContent='전화 '+p.dutyTel1;box.appendChild(t);}
+  if(window.hjMapRow)box.appendChild(window.hjMapRow(p.dutyName||'',(p.dutyAddr||''),p.wgs84Lat,p.wgs84Lon));
   ls.appendChild(box);}
  more.style.display=rows.length>shown?'block':'none';
 }
@@ -181,5 +191,23 @@ more.onclick=function(){shown+=10;render();};
 </script>
 <script src="site.js"></script>
 <script src="footer.js"></script>
+<script>
+(function(){
+  function mk(href,t){var a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener';a.textContent=t;
+    a.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-size:18px;font-weight:700';return a;}
+  function row(name,addr,lat,lng){
+    var d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px';
+    var q=encodeURIComponent((name+' '+addr).trim());
+    d.appendChild(mk('https://map.naver.com/p/search/'+q,'네이버 지도'));
+    var k=(lat&&lng)?('https://map.kakao.com/link/map/'+encodeURIComponent(name)+','+lat+','+lng):('https://map.kakao.com/link/search/'+q);
+    d.appendChild(mk(k,'카카오맵'));return d;}
+  // 병원 카드
+  var names=document.querySelectorAll('div[style*="font-size: 22px"][style*="line-height: 1.35"]');
+  for(var i=0;i<names.length;i++){var n=names[i],ad=n.nextElementSibling;if(!ad)continue;
+    var line=(ad.childNodes[0]&&ad.childNodes[0].textContent||'').trim();
+    var card=n.parentNode;card.appendChild(row(n.textContent.trim(),'용인시 '+line));}
+  window.hjMapRow=row;
+})();
+</script>
 </body>
 </html>
