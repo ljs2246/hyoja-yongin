@@ -7,7 +7,7 @@
   var a=document.createElement('div');a.textContent='「효자 용인」은 개인이 만든 안내 사이트예요. 용인시와 관계가 없어요.';
   var b=document.createElement('div');b.textContent='공식 자료의 출처와 확인한 날짜를 함께 적었어요. 가시기 전에 꼭 한 번 더 확인해 주세요.';
   var c=document.createElement('div');c.style.cssText='margin-top:6px;font-weight:700;color:#3B2314';
-  var u=['ljs2246','naver.com'].join('@');
+  var u=['ljs2329','yahoo.co.kr'].join('@');
   c.appendChild(document.createTextNode('운영: 효자 용인 운영팀 · 문의: '));
   var m=document.createElement('a');m.href='mailto:'+u;m.textContent=u;m.style.cssText='color:#B8501A;text-decoration:underline;overflow-wrap:anywhere';
   c.appendChild(m);
