@@ -108,7 +108,7 @@ a:nth-of-type(3n) svg[role=img]{animation-delay:-1.6s}
   }
   function render(){
     var d=new Date(),days=['일','월','화','수','목','금','토'],hr=d.getHours(),wt=wxText(state.wx);
-    $('greet').textContent=hr<11?'좋은 아침이에요':(hr<18?'안녕하세요':'좋은 저녁이에요');
+    $('greet').textContent=hr<5?'안녕하세요':(hr<11?'좋은 아침이에요':(hr<18?'안녕하세요':'좋은 저녁이에요'));
     $('today').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+days[d.getDay()]+'요일';
     $('wxLine').textContent=wt.line;$('dustLine').textContent=wt.dust;$('wxSrc').textContent=wt.src;
     $('zoomBox').style.zoom=zooms[state.size];
