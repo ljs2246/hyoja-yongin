@@ -211,6 +211,15 @@ more.onclick=function(){shown+=10;render();};
   for(var i=0;i<names.length;i++){var n=names[i],ad=n.nextElementSibling;if(!ad)continue;
     var line=(ad.childNodes[0]&&ad.childNodes[0].textContent||'').trim();
     var card=n.parentNode;card.appendChild(row(n.textContent.trim(),'용인시 '+line));}
+  // 병원 카드에도 길찾기: 응급의료기관 자료에서 이름이 맞는 곳의 좌표를 찾아 버튼을 바꿔요
+  fetch('data/emergency.json').then(function(r){return r.json();}).then(function(j){
+    var L=j['목록']||[];
+    for(var i=0;i<names.length;i++){var n=names[i],nm=n.textContent.trim();
+      var h=null;for(var k=0;k<L.length;k++){var dn=L[k].dutyName||'';if(dn.indexOf(nm)>-1||nm.indexOf(dn)>-1){h=L[k];break;}}
+      if(!h||!h.wgs84Lat)continue;
+      var card=n.parentNode,old=card.lastElementChild;
+      if(old&&old.style&&old.style.display==='grid'){card.replaceChild(row(nm,'',h.wgs84Lat,h.wgs84Lon),old);}}
+  }).catch(function(){});
   window.hjMapRow=row;
 })();
 </script>
