@@ -5,7 +5,7 @@
   if(!wrap)return;
   var size='normal';
   try{var sv=localStorage.getItem('hyoja-size');if(sv&&zooms[sv])size=sv;}catch(e){}
-  var bar=document.createElement('div');
+  var bar=document.createElement('div');bar.id='hj-sizebar';
   bar.style.cssText='display:flex;align-items:center;gap:6px;padding:8px 12px;background:#FFF0DA;border-bottom:2px solid #F0D6B5;font-family:inherit;box-sizing:border-box;width:100%';
   var t=document.createElement('span');t.textContent='글자 크기';t.style.cssText='font-size:16px;font-weight:700;color:#6A4A33;white-space:nowrap';
   bar.appendChild(t);
