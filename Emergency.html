@@ -201,7 +201,11 @@ more.onclick=function(){shown+=10;render();};
     var q=encodeURIComponent((name+' '+addr).trim());
     d.appendChild(mk('https://map.naver.com/p/search/'+q,'네이버 지도'));
     var k=(lat&&lng)?('https://map.kakao.com/link/map/'+encodeURIComponent(name)+','+lat+','+lng):('https://map.kakao.com/link/search/'+q);
-    d.appendChild(mk(k,'카카오맵'));return d;}
+    d.appendChild(mk(k,'카카오맵'));
+    if(lat&&lng){var nm=encodeURIComponent(name);
+      d.appendChild(mk('https://map.naver.com/p/directions/-/'+lng+','+lat+','+nm+'/-/transit','네이버 길찾기'));
+      d.appendChild(mk('https://map.kakao.com/link/to/'+nm+','+lat+','+lng,'카카오 길찾기'));}
+    return d;}
   // 병원 카드
   var names=document.querySelectorAll('div[style*="font-size: 22px"][style*="line-height: 1.35"]');
   for(var i=0;i<names.length;i++){var n=names[i],ad=n.nextElementSibling;if(!ad)continue;
