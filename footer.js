@@ -17,6 +17,16 @@
   var nav=wrap.querySelector('div[data-hjnav],div[style*="repeat(6"]');
   if(nav&&nav.parentNode)nav.parentNode.insertBefore(f,nav);else wrap.appendChild(f);
 
+
+  // 노란 「카톡으로 부모님께 보내기」 버튼: 기존 공유 버튼(hj-share)을 대신 눌러 줘요
+  try{var old=document.getElementById('hj-share');
+    if(old&&!document.getElementById('hj-kakao')){
+      var k=document.createElement('button');k.type='button';k.id='hj-kakao';
+      k.textContent='💬 카톡으로 부모님께 보내기';
+      k.style.cssText='min-height:64px;width:100%;border:0;border-radius:32px;background:#FEE500;color:#3A1D1D;box-shadow:0 5px 0 #D9C300;font-family:inherit;font-size:20px;font-weight:900;cursor:pointer';
+      k.onclick=function(){old.click();};
+      old.parentNode.insertBefore(k,old);old.style.display='none';
+    }}catch(e){}
   // 인터넷이 느리거나 끊겨도 저장된 화면을 보여 줘요
   try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');}catch(e){}
   // 방문 수만 세는 통계(개인정보·쿠키 없음). 아래에 GoatCounter 코드를 넣으면 켜져요.

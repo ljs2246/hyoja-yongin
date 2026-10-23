@@ -5,6 +5,7 @@
   function save(){try{localStorage.setItem('hyoja-snd',JSON.stringify({on:on,vol:vol}));}catch(e){}}
   function beep(){
     if(!on||vol<=0)return;
+    try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(e){}
     try{var AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
       if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume();
       var o=ctx.createOscillator(),g=ctx.createGain(),t=ctx.currentTime;
@@ -16,6 +17,11 @@
     var el=e.target&&e.target.closest?e.target.closest('a,button'):null;
     if(!el||el.closest('#hj-sndbar'))return;
     beep();
+    // 링크는 소리가 끝난 뒤에 이동해요 (바로 이동하면 소리가 잘려요)
+    var h=el.tagName==='A'?el.getAttribute('href'):null;
+    if(on&&vol>0&&h&&!/^(#|tel:|sms:|mailto:|intent:|javascript:)/i.test(h)&&el.target!=='_blank'&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&e.button===0){
+      e.preventDefault();var u=el.href;setTimeout(function(){location.href=u;},170);
+    }
   },true);
   var wrap=null,kids=document.body.children;
   for(var i=0;i<kids.length;i++){if(kids[i].tagName==='DIV'){wrap=kids[i];break;}}
