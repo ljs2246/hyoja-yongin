@@ -14,7 +14,11 @@
   var speaking=false,queue=[];
   function label(){btn.textContent=speaking?'멈추기':'소리로 읽어 주기';btn.setAttribute('aria-pressed',speaking?'true':'false');}
   function skip(n){var e=n.parentNode;while(e&&e!==wrap){
-    if(e.id==='hj-sizebar'||e.id==='hj-readbar'||e.hasAttribute&&(e.hasAttribute('data-hjnav')||e.hasAttribute('data-hjfoot')))return true;
+    if(e.id==='hj-sizebar'||e.id==='hj-readbar'||e.id==='hj-sndbar'||e.hasAttribute&&(e.hasAttribute('data-hjnav')||e.hasAttribute('data-hjfoot')))return true;
+    // A child can have display:block even when its ancestor is hidden.
+    if(e.hidden||e.getAttribute&&e.getAttribute('aria-hidden')==='true')return true;
+    var style=getComputedStyle(e);
+    if(style.display==='none'||style.visibility==='hidden'||style.visibility==='collapse')return true;
     var t=e.tagName;if(t==='SCRIPT'||t==='STYLE'||t==='SVG'||t==='svg'||t==='NOSCRIPT')return true;
     e=e.parentNode;}return false;}
   function collect(){
