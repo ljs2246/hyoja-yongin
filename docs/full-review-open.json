@@ -1,21 +1,106 @@
 {
- "checked_date":"2026-10-26",
- "source_commit":"1130512c602de8b71d0a6ce1575e91deeba48055",
- "overall_status":"전체 검토용 견본·필수 검증 미완료",
- "policy":"문제는 보류 목록에 유지. 근거와 결과 없이 완료로 변경 금지.",
- "items":[
-  {"id":"FULL-001","priority":"P1","status":"보류","subject":"일반 병원·의원 전체 자료 미제공","close_when":"공식 원천 범위 확보 후 기관 분류·지역·누락 검증"},
-  {"id":"MED-GROUP","priority":"P1","status":"보류·미확인","subject":"좌표·주소446건, 전화18건, 중복4묶음,2500규칙","detail":"verification-open.json 및 medical-audit-20261026.md","close_when":"개별 원천 근거 대조 및 필요한 회귀검사"},
-  {"id":"HEALTH-001","priority":"P1","status":"보류·적용 범위 미확인","subject":"치매치료관리비140% 전국공통 표기 및 건강사업 예외","close_when":"용인 현행 공식 대상·소득기준·서류·제외 조건 대조"},
-  {"id":"HEALTH-002","priority":"P1","status":"보류·설명 보충 필요","subject":"틀니 재적용 주기·제외 종류 설명 부족","evidence":"https://www.nhis.or.kr/static/html/wbma/c/wbmac0217_2.pdf","close_when":"현행 공식 조건 확인 후 본문 보충·검수"},
-  {"id":"CONTACT-001","priority":"P1","status":"보류·미확인","subject":"포곡·이동·성복 번호 차이 및14곳 직접 원문 재확인","detail":"centers-recheck-open.json","close_when":"현재 대표 또는 담당 번호의 용도·근거 확인"},
-  {"id":"WELFARE-001","priority":"P1","status":"보류·미확인","subject":"복지 사업별 예외·지역 대상·접수 및 예산","close_when":"카드별 현행 공식 근거·실제 접수 상태 구분"},
-  {"id":"TRANSIT-001","priority":"P2","status":"보류·미확인","subject":"동행예약환불·바우처횟수·최신운행시간","detail":"transit-audit-20261026.md","close_when":"기관 최신 일치 근거 확보"},
-  {"id":"CULTURE-001","priority":"P2","status":"보류·미확인","subject":"향후 공연전시 변경취소·좌석·민속촌 상시조건","close_when":"행사별 공식 최신 공지 및 운영 상태 대조"},
-  {"id":"DEVICE-001","priority":"P2","status":"보류·미확인","subject":"지도 앱 실행·실제 거리시간·권한거부·미설치","close_when":"Android/iPhone 기기·브라우저·앱 버전별 기록"},
-  {"id":"DEVICE-002","priority":"P2","status":"보류·미확인","subject":"음성·공유·오프라인·모바일 글자 확대","close_when":"실제 기기별 성공·실패 및 복구 확인"},
-  {"id":"UX-001","priority":"P3","status":"보류·명칭 검토","subject":"카카오톡 버튼과 일반 공유/복사 기능의 표현 차이","close_when":"실제 제공 기능에 맞춘 명칭·동작 검수"},
-  {"id":"A11Y-001","priority":"P3","status":"보류·확인된 구조 문제","subject":"광고 상세2개 화면 H1 누락","close_when":"대표 제목 의미구조 보충·화면 확인"},
-  {"id":"ADS-001","priority":"P3","status":"보류·업체 사실 미확인","subject":"업체 제공 광고 내용 및 연락처의 실제 현재성","close_when":"확보된 업체 근거와 제공일·검증 범위 기록"}
- ]
+  "checked_date": "2026-10-26",
+  "source_commit": "1130512c602de8b71d0a6ce1575e91deeba48055",
+  "overall_status": "전체 검토용 견본·필수 검증 미완료",
+  "policy": "문제는 보류 목록에 유지. 근거와 결과 없이 완료로 변경 금지.",
+  "items": [
+    {
+      "id": "FULL-001",
+      "priority": "P1",
+      "status": "보류",
+      "subject": "일반 병원·의원 전체 자료 미제공",
+      "close_when": "공식 원천 범위 확보 후 기관 분류·지역·누락 검증"
+    },
+    {
+      "id": "MED-GROUP",
+      "priority": "P1",
+      "status": "보류·미확인",
+      "subject": "좌표·주소446건, 전화18건, 중복4묶음,2500규칙",
+      "detail": "verification-open.json 및 medical-audit-20261026.md",
+      "close_when": "개별 원천 근거 대조 및 필요한 회귀검사"
+    },
+    {
+      "id": "HEALTH-001",
+      "priority": "P1",
+      "status": "부분 해결·나머지 건강사업 보류",
+      "subject": "치매치료관리비140% 전국공통 표기 및 건강사업 예외",
+      "close_when": "용인 현행 공식 대상·소득기준·서류·제외 조건 대조",
+      "finding": "치매치료관리비140% 용인 공식 원문 확인, 전국공통→용인기준 정정, 연령진단치료·비급여·중복지원 및 담당번호 보완. 예방접종·그 외 건강사업은 미완료.",
+      "evidence": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp"
+    },
+    {
+      "id": "HEALTH-002",
+      "priority": "P1",
+      "status": "해결·공식 조건 보충",
+      "subject": "틀니 재적용 주기·제외 종류 설명 부족",
+      "evidence": "https://www.nhis.or.kr/static/html/wbma/c/wbmac0217_2.pdf",
+      "close_when": "현행 공식 조건 확인 후 본문 보충·검수",
+      "finding": "원칙적 1악당7년, 예외·비급여·차상위의료급여·제외종류 보완"
+    },
+    {
+      "id": "CONTACT-001",
+      "priority": "P1",
+      "status": "보류·미확인",
+      "subject": "포곡·이동·성복 번호 차이 및14곳 직접 원문 재확인",
+      "detail": "centers-recheck-open.json",
+      "close_when": "현재 대표 또는 담당 번호의 용도·근거 확인"
+    },
+    {
+      "id": "WELFARE-001",
+      "priority": "P1",
+      "status": "보류·미확인",
+      "subject": "복지 사업별 예외·지역 대상·접수 및 예산",
+      "close_when": "카드별 현행 공식 근거·실제 접수 상태 구분"
+    },
+    {
+      "id": "TRANSIT-001",
+      "priority": "P2",
+      "status": "보류·미확인",
+      "subject": "동행예약환불·바우처횟수·최신운행시간",
+      "detail": "transit-audit-20261026.md",
+      "close_when": "기관 최신 일치 근거 확보"
+    },
+    {
+      "id": "CULTURE-001",
+      "priority": "P2",
+      "status": "보류·미확인",
+      "subject": "향후 공연전시 변경취소·좌석·민속촌 상시조건",
+      "close_when": "행사별 공식 최신 공지 및 운영 상태 대조"
+    },
+    {
+      "id": "DEVICE-001",
+      "priority": "P2",
+      "status": "보류·미확인",
+      "subject": "지도 앱 실행·실제 거리시간·권한거부·미설치",
+      "close_when": "Android/iPhone 기기·브라우저·앱 버전별 기록"
+    },
+    {
+      "id": "DEVICE-002",
+      "priority": "P2",
+      "status": "보류·미확인",
+      "subject": "음성·공유·오프라인·모바일 글자 확대",
+      "close_when": "실제 기기별 성공·실패 및 복구 확인"
+    },
+    {
+      "id": "UX-001",
+      "priority": "P3",
+      "status": "보류·명칭 검토",
+      "subject": "카카오톡 버튼과 일반 공유/복사 기능의 표현 차이",
+      "close_when": "실제 제공 기능에 맞춘 명칭·동작 검수"
+    },
+    {
+      "id": "A11Y-001",
+      "priority": "P3",
+      "status": "보류·확인된 구조 문제",
+      "subject": "광고 상세2개 화면 H1 누락",
+      "close_when": "대표 제목 의미구조 보충·화면 확인"
+    },
+    {
+      "id": "ADS-001",
+      "priority": "P3",
+      "status": "보류·업체 사실 미확인",
+      "subject": "업체 제공 광고 내용 및 연락처의 실제 현재성",
+      "close_when": "확보된 업체 근거와 제공일·검증 범위 기록"
+    }
+  ]
 }
