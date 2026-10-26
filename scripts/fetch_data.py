@@ -10,8 +10,8 @@ GU = ["처인구", "기흥구", "수지구"]
 KST = timezone(timedelta(hours=9))
 OUT = os.path.join(os.path.dirname(__file__), "..", "data")
 
-def call(path, params):
-    q = {"serviceKey": KEY, "pageNo": "1", "numOfRows": "200"}
+def call_page(path, params, page):
+    q = {"serviceKey": KEY, "pageNo": str(page), "numOfRows": "200"}
     q.update(params)
     url = f"{BASE}/{path}?" + urllib.parse.urlencode(q, safe=":/")
     last = None
@@ -23,11 +23,39 @@ def call(path, params):
             code = (root.findtext(".//resultCode") or "").strip()
             if code not in ("00", ""):
                 raise RuntimeError("API 결과 코드 " + code + " " + (root.findtext(".//resultMsg") or ""))
-            return [{c.tag: (c.text or "").strip() for c in it} for it in root.iter("item")]
+            items = [{c.tag: (c.text or "").strip() for c in it} for it in root.iter("item")]
+            total_text = root.findtext(".//totalCount")
+            total = int(total_text) if total_text is not None else None
+            if total is not None and total < 0:
+                raise ValueError("invalid totalCount")
+            return items, total
         except Exception as e:  # 키가 들어간 주소는 오류 문구에 넣지 않음
-            last = type(e).__name__ + ": " + str(e).replace(KEY, "***")
+            last = "공공데이터 요청 실패 (" + type(e).__name__ + ")"
             time.sleep(3)
     raise RuntimeError(last)
+
+def call(path, params):
+    rows = []
+    expected_total = None
+    previous_page = None
+    for page in range(1, 1001):
+        items, total = call_page(path, params, page)
+        if page == 1:
+            expected_total = total
+        elif total != expected_total:
+            raise RuntimeError("조회 중 자료 건수가 바뀌어 기존 자료를 유지합니다.")
+        if items and items == previous_page:
+            raise RuntimeError("같은 페이지가 반복되어 기존 자료를 유지합니다.")
+        rows.extend(items)
+        if expected_total is not None:
+            if len(rows) == expected_total:
+                return rows
+            if not items or len(rows) > expected_total:
+                raise RuntimeError("전체 건수와 수집 건수가 달라 기존 자료를 유지합니다.")
+        elif len(items) < 200:
+            return rows
+        previous_page = items
+    raise RuntimeError("페이지 한도를 초과하여 기존 자료를 유지합니다.")
 
 def fetch(path, label):
     rows = []
@@ -70,5 +98,5 @@ def main():
         json.dump(status, f, ensure_ascii=False, indent=1)
     sys.exit(0 if ok else 1)
 
-main()
-# 재실행 2026-10-23-0348
+if __name__ == "__main__":
+    main()
