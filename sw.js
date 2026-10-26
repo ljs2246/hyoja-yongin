@@ -1,5 +1,5 @@
-const V='hyoja-v5';
-const CORE=['./','index.html','Emergency.html','All.html','Centers.html','Culture.html','Guide.html','Health.html','Jobs.html','Transit.html','Welfare.html','Ad.html','Ad2.html','site.js','events.js','footer.js','read.js','places.js','sound.js','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','data/pharmacy.json','data/emergency.json'];
+const V='hyoja-v6';
+const CORE=['./','index.html','Emergency.html','All.html','Centers.html','Culture.html','Guide.html','Health.html','Jobs.html','Transit.html','Welfare.html','Ad.html','Ad2.html','site.js','events.js','assets/family-warm.webp','assets/hyoja-logo.png','footer.js','read.js','places.js','sound.js','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','data/pharmacy.json','data/emergency.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(CORE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});
 function nf(req){return new Promise(res=>{let done=false;
