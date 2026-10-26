@@ -189,7 +189,7 @@ function render(){
   var a=document.createElement('div');a.style.cssText='font-size:21px;font-weight:700';a.textContent=p.dutyName||'';
   var b=document.createElement('div');b.style.cssText='font-size:18px;line-height:1.5;color:#6A4A33';b.textContent=(p.dutyAddr||'').replace('경기도 ','')+' · 등록 종료시간 '+closeStr(p,kst());
   box.appendChild(a);box.appendChild(b);
-  if(p.dutyTel1){var t=document.createElement('a');t.href='tel:'+String(p.dutyTel1).replace(/[^0-9]/g,'');t.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:19px;font-weight:700';t.textContent='전화 '+p.dutyTel1;box.appendChild(t);}
+  if(window.hjMedicalMaps.phone(p.dutyTel1)){var t=document.createElement('a');t.href='tel:'+String(p.dutyTel1).replace(/[^0-9]/g,'');t.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:19px;font-weight:700';t.textContent='전화 '+p.dutyTel1;box.appendChild(t);}
   if(window.hjMapRow)box.appendChild(window.hjMapRow(p.dutyName||'',(p.dutyAddr||''),p.wgs84Lat,p.wgs84Lon));
   ls.appendChild(box);}
  more.style.display=rows.length>shown?'block':'none';

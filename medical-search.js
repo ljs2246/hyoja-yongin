@@ -15,7 +15,9 @@
      var card=document.createElement('article');card.style.cssText='padding:14px;border:1px solid #e5d2c3;border-radius:16px';
      var name=document.createElement('h3');name.textContent=p.dutyName;name.style.cssText='font-size:22px;margin:0 0 8px';card.appendChild(name);
      var addr=document.createElement('p');addr.textContent=p.dutyAddr;card.appendChild(addr);
-     if(p.dutyTel1){var a=document.createElement('a');a.href='tel:'+p.dutyTel1.replace(/[^0-9]/g,'');a.textContent='전화 '+p.dutyTel1;a.style.cssText='min-height:52px;display:flex;align-items:center;font-size:20px;font-weight:700;color:#96344a';card.appendChild(a);}
+     var phone=window.hjMedicalMaps.phone(p.dutyTel1);
+     if(phone){var a=document.createElement('a');a.href='tel:'+phone;a.textContent='전화 '+p.dutyTel1;a.style.cssText='min-height:52px;display:flex;align-items:center;font-size:20px;font-weight:700;color:#96344a';card.appendChild(a);}
+     else{var unknown=document.createElement('p');unknown.textContent='전화번호 확인 필요 · 지도나 공식 안내에서 확인해 주세요.';card.appendChild(unknown);}
      var note=document.createElement('p');note.textContent='등록 기관 검색 결과예요. 현재 운영·진료 가능 여부는 전화로 확인해 주세요.';note.style.fontSize='16px';card.appendChild(note);
      card.appendChild(window.hjMapRow(p.dutyName,p.dutyAddr,p.wgs84Lat,p.wgs84Lon));out.appendChild(card);
    });more.hidden=shown>=rows.length;

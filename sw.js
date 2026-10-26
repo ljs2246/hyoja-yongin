@@ -1,4 +1,4 @@
-const V='hyoja-v17';
+const V='hyoja-v18';
 const CORE=['./','index.html','Emergency.html','All.html','Centers.html','Culture.html','Guide.html','Health.html','Jobs.html','Transit.html','Welfare.html','Ad.html','Ad2.html','site.js','theme.css','events.js','medical-maps.js','medical-search.js','assets/family-final.webp','assets/hyoja-ruby-coral.png','footer.js','read.js','places.js','sound.js','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png','data/pharmacy.json','data/emergency.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(CORE.map(u=>c.add(u).catch(()=>{})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});

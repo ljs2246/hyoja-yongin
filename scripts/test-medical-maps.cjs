@@ -1,6 +1,9 @@
 const assert=require('node:assert/strict');
 const maps=require('../medical-maps.js');
 assert.equal(maps.coord('',127),null);
+assert.equal(maps.phone('031-000-0000'),null);
+assert.equal(maps.phone('031-300-0114'),'0313000114');
+assert.equal(maps.phone('1551-0077'),'15510077');
 assert.equal(maps.coord(null,127),null);
 assert.equal(maps.coord('NaN',127),null);
 assert.equal(maps.coord(127,37),null);

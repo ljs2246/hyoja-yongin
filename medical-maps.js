@@ -12,6 +12,7 @@
     return 'nmap://'+action;
   }
   function normalize(s){return String(s||'').replace(/\s+/g,'');}
+  function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');return /^\d{8,11}$/.test(n)&&!/0{7}$/.test(n)?n:null;}
   function hospitalMatch(list,id,address){
     var expected=normalize(address),matches=list.filter(function(p){var actual=normalize(p.dutyAddr),suffix=actual.slice(expected.length);return expected&&p.hpid===id&&actual.startsWith(expected)&&(!suffix||/^[,(]/.test(suffix))&&coord(p.wgs84Lat,p.wgs84Lon);});
     return matches.length===1?matches[0]:null;
@@ -39,7 +40,7 @@
     copy.onclick=function(){if(!navigator.clipboard){status.textContent='위 주소를 선택해 복사해 주세요.';return;}navigator.clipboard.writeText(addr).then(function(){status.textContent='주소를 복사했어요.';},function(){status.textContent='위 주소를 선택해 복사해 주세요.';});};details.appendChild(copy);details.appendChild(status);box.appendChild(details);
     return box;
   }
-  var api={coord:coord,route:route,hospitalMatch:hospitalMatch,row:row};
+  var api={coord:coord,route:route,phone:phone,hospitalMatch:hospitalMatch,row:row};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   if(root){root.hjMedicalMaps=api;root.hjMapRow=row;}
 })(typeof window==='undefined'?null:window);
