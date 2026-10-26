@@ -1,0 +1,264 @@
+{
+  "scope": "404px iframe, 389px layout with scrollbar; desktop cloud browser, not physical device",
+  "cases": [
+    {
+      "name": "01 홈",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "01 홈",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "01 홈",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "02 전체 메뉴",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "02 전체 메뉴",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "02 전체 메뉴",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "03 급할 때 · 병원·약국",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "03 급할 때 · 병원·약국",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "03 급할 때 · 병원·약국",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "04 우리 동네 행정복지센터",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "04 우리 동네 행정복지센터",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "04 우리 동네 행정복지센터",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "05 문화·나들이",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "05 문화·나들이",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "05 문화·나들이",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "06 건강교실",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "06 건강교실",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "06 건강교실",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "07 일자리",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "07 일자리",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "07 일자리",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "08 복지·혜택",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "08 복지·혜택",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "08 복지·혜택",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "09 이동·교통",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "09 이동·교통",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "09 이동·교통",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "10 내 지역·부모님 지역",
+      "overflow": [],
+      "scroll": 389,
+      "size": "자체 크기 버튼 없음",
+      "width": 389
+    },
+    {
+      "name": "11 이 앱 쓰는 법",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "11 이 앱 쓰는 법",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "11 이 앱 쓰는 법",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "12 광고 · 라그릴스",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "12 광고 · 라그릴스",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "12 광고 · 라그릴스",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    },
+    {
+      "name": "13 광고 · 청백종합건설",
+      "overflow": [],
+      "scroll": 389,
+      "size": "보통",
+      "width": 389
+    },
+    {
+      "name": "13 광고 · 청백종합건설",
+      "overflow": [],
+      "scroll": 389,
+      "size": "크게",
+      "width": 389
+    },
+    {
+      "name": "13 광고 · 청백종합건설",
+      "overflow": [],
+      "scroll": 389,
+      "size": "아주 크게",
+      "width": 389
+    }
+  ]
+}

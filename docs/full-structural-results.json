@@ -1,6 +1,6 @@
 {
-  "source_commit": "1130512c602de8b71d0a6ce1575e91deeba48055",
-  "scope": "13 root HTML pages; static reference, DOM IDs, JS syntax; no factual or device certification",
+  "source_commit": "e668414f35e220b06d4136fe4f3aebec8a621a66",
+  "scope": "13 app HTML pages plus Review; static reference, DOM IDs, JS syntax; no factual or device certification",
   "pages": [
     {
       "page": "Ad.html",
@@ -73,6 +73,13 @@
       "images_without_alt": []
     },
     {
+      "page": "Review.html",
+      "missing_files": [],
+      "duplicate_ids": [],
+      "new_tab_without_noopener": [],
+      "images_without_alt": []
+    },
+    {
       "page": "Transit.html",
       "missing_files": [],
       "duplicate_ids": [],
@@ -96,17 +103,57 @@
   ],
   "syntax": [
     {
-      "file": "read.js",
+      "file": "events.js",
       "pass_check": true,
       "error": ""
     },
     {
-      "file": "sound.js",
+      "file": "region-ui.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "footer.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "sw.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "site.js",
       "pass_check": true,
       "error": ""
     },
     {
       "file": "places.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "region-catalog.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "medical-search.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "read.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "region-core.js",
+      "pass_check": true,
+      "error": ""
+    },
+    {
+      "file": "sound.js",
       "pass_check": true,
       "error": ""
     },
@@ -121,42 +168,7 @@
       "error": ""
     },
     {
-      "file": "site.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "region-core.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "sw.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "medical-search.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "footer.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "region-catalog.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "events.js",
-      "pass_check": true,
-      "error": ""
-    },
-    {
-      "file": "region-ui.js",
+      "file": "scripts/test-region-core.cjs",
       "pass_check": true,
       "error": ""
     },
@@ -166,7 +178,7 @@
       "error": ""
     },
     {
-      "file": "scripts/test-region-core.cjs",
+      "file": "scripts/test-region-profiles.cjs",
       "pass_check": true,
       "error": ""
     },
@@ -174,21 +186,16 @@
       "file": "scripts/check-phone-links.cjs",
       "pass_check": true,
       "error": ""
-    },
-    {
-      "file": "scripts/test-region-profiles.cjs",
-      "pass_check": true,
-      "error": ""
     }
   ],
   "data": {
     "emergency": {
       "type": "dict",
-      "count": null
+      "count": 5
     },
     "pharmacy": {
       "type": "dict",
-      "count": null
+      "count": 441
     }
   }
 }

@@ -2,6 +2,7 @@
   var zooms={normal:1,large:1.12,xl:1.25},labels=[['normal','보통'],['large','크게'],['xl','아주 크게']];
   var wrap=null,kids=document.body.children;
   for(var i=0;i<kids.length;i++){if(kids[i].tagName==='DIV'){wrap=kids[i];break;}}
+  if(!wrap)wrap=document.querySelector('main');
   if(!wrap)return;
   var size='normal';
   try{var sv=localStorage.getItem('hyoja-size');if(sv&&zooms[sv])size=sv;}catch(e){}

@@ -18,11 +18,11 @@
   if(nav&&nav.parentNode)nav.parentNode.insertBefore(f,nav);else wrap.appendChild(f);
 
 
-  // 노란 「카톡으로 부모님께 보내기」 버튼: 기존 공유 버튼(hj-share)을 대신 눌러 줘요
+  // 실제 제공 기능인 일반 공유 또는 주소 복사를 안내해요.
   try{var old=document.getElementById('hj-share');
     if(old&&!document.getElementById('hj-kakao')){
       var k=document.createElement('button');k.type='button';k.id='hj-kakao';
-      k.textContent='💬 카톡으로 부모님께 보내기';
+      k.textContent='가족에게 공유·주소 복사';
       k.style.cssText='min-height:64px;width:100%;border:0;border-radius:32px;background:#FEE500;color:#3A1D1D;box-shadow:0 5px 0 #D9C300;font-family:inherit;font-size:20px;font-weight:900;cursor:pointer';
       k.onclick=function(){old.click();};
       old.parentNode.insertBefore(k,old);old.style.display='none';

@@ -30,7 +30,7 @@
     });}
     box.appendChild(grid);
     var note=document.createElement('p');note.style.cssText='font-size:16px;line-height:1.6;color:#6A4A33;margin:10px 0 0';
-    note.textContent=c?'길찾기는 네이버 지도 앱에서 열려요. 지도에서 출발지·이동수단을 확인하면 거리와 예상 시간을 볼 수 있어요. 앱이 없거나 열리지 않으면 아래 설치 안내나 지도 검색을 이용해 주세요.':'목적지 좌표를 확인하지 못해 길찾기를 제공하지 않아요. 지도 검색 결과에서 기관명과 주소를 확인해 주세요.';
+    note.textContent=c?'좌표는 수집 자료 기준이며 실제 건물 위치 일치는 미확인입니다. 지도에서 기관명·주소가 맞는지 먼저 확인해 주세요. 길찾기는 네이버 지도 앱에서 열려요. 지도에서 출발지·이동수단을 확인하면 거리와 예상 시간을 볼 수 있어요. 앱이 없거나 열리지 않으면 아래 설치 안내나 지도 검색을 이용해 주세요.':'목적지 좌표를 확인하지 못해 길찾기를 제공하지 않아요. 지도 검색 결과에서 기관명과 주소를 확인해 주세요.';
     box.appendChild(note);
     if(c){var stores=/Android/i.test(navigator.userAgent)?[['https://play.google.com/store/apps/details?id=com.nhn.android.nmap','네이버 지도 앱 설치 안내']]:/iPhone|iPad|iPod/i.test(navigator.userAgent)?[['https://apps.apple.com/kr/app/id311867728','네이버 지도 앱 설치 안내']]:[['https://play.google.com/store/apps/details?id=com.nhn.android.nmap','안드로이드 앱 설치 안내'],['https://apps.apple.com/kr/app/id311867728','아이폰 앱 설치 안내']];stores.forEach(function(s){var install=link(s[0],s[1]);install.target='_blank';install.rel='noopener';box.appendChild(install);});}
     var details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='주소 확인·복사';summary.style.cssText='padding:12px 0;font-size:17px;cursor:pointer';details.appendChild(summary);
