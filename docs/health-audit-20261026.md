@@ -30,3 +30,13 @@ HEALTH-001: 치매 항목 부분 해결. 예방접종·복지관 프로그램·�
 - 검진: https://www.nrc.go.kr/checkup/html/content.do?depth=nc&menu_cd=03_01
 - 운영시간: https://www.yongin.go.kr/health/index.do
 - 재확인 조건: 수지구 공식 재개 공지·지정기관 재고 확인, 폐렴구균 공식 세부기준과 연락처 용도 대조 후에만 완료로 변경.
+
+
+## 폐렴구균·전화 추가 확인
+- 질병관리청 2026년 국가사업: 1961-12-31 이전 출생, PPSV23 1회, 보건소·위탁기관 지원. 기존65세이상 접종 및 이전 접종 종류·간격 확인 안내 보완.
+- 용인 성인예방접종 안내의 담당3번호0067/0316/0805와 일치. 2025년 안내의 기흥0315와 차이는 현재 상시 안내0316을 따르며 실제 전화 연결은 하지 않음.
+- 일반3번호4911/6911/8940은 용인 공식 보건소안내 페이지 게재와 일치. 오래된 공지 및6193체계 혼재로 현재 연결은 미확인. 공식게재 확인과 실통화를 구분해 표시.
+- 근거 https://nip.kdca.go.kr/irhp/infm/goVcntInfo.do?menuCd=135&menuLv=1
+- 근거 https://www.yongin.go.kr/home/health/vacntnClnic/vacntn/vacntn02.jsp
+- 일반번호 https://www.yongin.go.kr/home/www/www03/www03_01/www03_01_01.jsp
+- 잔여: 일반전화 현재연결·수지백신재개·복지관건강프로그램. 전체HEALTH-001 부분해결 상태 유지.
