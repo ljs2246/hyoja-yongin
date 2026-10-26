@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "project": "효자 전국 확장",
+  "checked_date": "2026-10-26",
+  "source_snapshot": "2026-10-26 14:33 KST",
+  "scope": "용인 응급의료기관5건·약국441건",
+  "items": [
+    {
+      "id": "MED-001",
+      "status": "미확인",
+      "subject": "종료시간2500 규칙",
+      "records": [
+        "C2101704",
+        "C2109942"
+      ],
+      "last_check": "2026-10-26",
+      "finding": "경기도 일반 공공심야약국 안내는 개별 운영시간 확정 근거가 아님. API 필드 해석 규칙 미확보",
+      "next_condition": "원천 정의 또는 기관·보건소 최신 공식 시간표 확보",
+      "complete_when": "표기 의미·요일 이월·휴일 규칙 근거와 테스트 기록"
+    },
+    {
+      "id": "MED-002",
+      "status": "미확인",
+      "subject": "같은주소 기관명 차이",
+      "records": [
+        "C2109942"
+      ],
+      "source": "https://www.gg.go.kr/contents/contents.do?ciIdx=749&menuId=2530",
+      "source_period": "2026년6월",
+      "finding": "공식페이지 상현역중앙약국 / 수집본 상현중앙약국",
+      "next_condition": "최신 인허가·변경이력 대조",
+      "complete_when": "동일시설 여부와 현재 기관명 근거 기록"
+    },
+    {
+      "id": "MED-003",
+      "status": "미확인",
+      "subject": "임시전화번호18건",
+      "next_condition": "기관별 최신 공식 전화번호 확보",
+      "complete_when": "각기관 주소·번호·확인일·출처 대조",
+      "note": "전화버튼 차단을 번호 검증 완료로 해석하지 않음"
+    },
+    {
+      "id": "MED-004",
+      "status": "미확인",
+      "subject": "중복의심4개묶음",
+      "next_condition": "현재 인허가·폐업·변경이력 확보",
+      "complete_when": "원천 식별자별 유지·병합·숨김 근거 기록"
+    },
+    {
+      "id": "MED-005",
+      "status": "미확인",
+      "subject": "446건 주소·좌표 실제일치",
+      "next_condition": "공식 주소좌표 대조수단 확보",
+      "complete_when": "위치 오차 기준과 불일치 검토 결과 기록"
+    },
+    {
+      "id": "DEVICE-001",
+      "status": "미확인",
+      "subject": "Android·iPhone 지도앱 경로와 예외",
+      "next_condition": "검증 가능한 실기기 확보",
+      "complete_when": "기기·브라우저·앱버전·목적지·경로·권한·미설치 사례 결과 기록"
+    },
+    {
+      "id": "REGION-001",
+      "status": "미확인",
+      "subject": "전국 데이터·지역격리",
+      "next_condition": "전국 지역코드·수집자료·구현 확보",
+      "complete_when": "기관분류·지역혼입·중복·권역별 공개범위 검증"
+    }
+  ]
+}
