@@ -1,0 +1,23 @@
+/* Shared family brand for information pages. */
+.hj-subpage{background:#F8F2EB!important;color:#47342F}
+.hj-subpage .hj-page{background:#FBF7F1!important;color:#47342F!important;min-height:100vh!important}
+.hj-brand{padding:20px 20px 16px;border-bottom:1px solid #E9DDD1}
+.hj-brand>a{display:flex;align-items:center;gap:10px;min-height:56px;text-decoration:none;color:#65423B}
+.hj-brand img{width:44px;height:50px;object-fit:contain;flex:none}
+.hj-brand strong{display:block;font-size:26px;line-height:1.25;letter-spacing:-1px}
+.hj-brand strong>span{font-size:21px;font-weight:500}
+.hj-brand small{display:block;margin-top:4px;color:#80665D;font-size:16px;line-height:1.5}
+.hj-subpage .hj-notice{background:#F2E9DF!important;color:#735E54!important;font-size:17px!important;line-height:1.65!important;padding:12px 20px!important;text-align:left!important}
+.hj-subpage .hj-content{gap:22px!important}
+.hj-subpage .hj-heading{font-size:30px!important;line-height:1.35!important;margin:0;color:#65423B;text-shadow:none!important;overflow-wrap:anywhere}
+.hj-subpage .hj-card{border:1px solid #E6D8CB!important;border-radius:24px!important;box-shadow:0 4px 0 #E6D7C9,0 8px 18px #65423B0A!important;padding:18px!important}
+.hj-subpage .hj-warm-action{background:linear-gradient(180deg,#946653,#744B3E)!important;box-shadow:0 4px 0 #5C3A30!important;border-radius:24px!important;min-height:56px!important}
+.hj-subpage .hj-back{color:#795346!important;border:1px solid #DBC9B9;border-radius:24px;background:#FFFDF9;font-size:19px!important;justify-content:center}
+.hj-subpage svg[role=img]{animation:none!important;filter:none!important}
+.hj-subpage a:hover{transform:none}
+.hj-subpage a:focus-visible,.hj-subpage button:focus-visible{outline:3px solid #7E4A3D;outline-offset:4px}
+.hj-subpage #hj-sizebar{background:#F2E9DF!important;border-color:#E6D8CB!important;flex-wrap:wrap}
+.hj-subpage #hj-sizebar>span{font-size:17px!important}
+.hj-subpage #hj-sizebar button{min-height:52px!important;font-size:17px!important;border-color:#C8AA94!important}
+@media(max-width:360px){.hj-brand{padding:16px 14px}.hj-subpage .hj-content{padding:18px 14px 24px!important}.hj-subpage .hj-card{padding:16px!important}.hj-subpage .hj-heading{font-size:28px!important}}
+@media(prefers-reduced-motion:reduce){.hj-subpage *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}

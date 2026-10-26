@@ -18,7 +18,8 @@
       var na=nav.querySelectorAll('a');for(var k=0;k<na.length;k++){na[k].style.whiteSpace='nowrap';na[k].style.padding='0';}}
     var bs=bar.querySelectorAll('button');
     for(var i=0;i<bs.length;i++){var on=bs[i].getAttribute('data-k')===size;
-      bs[i].style.background=on?'#B8501A':'#FFFFFF';bs[i].style.color=on?'#FFFFFF':'#7A3510';}
+      bs[i].style.background=on?'#795346':'#FFFFFF';bs[i].style.color=on?'#FFFFFF':'#795346';
+      bs[i].setAttribute('aria-pressed',String(on));}
   }
   labels.forEach(function(l){
     var b=document.createElement('button');b.type='button';b.setAttribute('data-k',l[0]);b.textContent=l[1];
