@@ -3,7 +3,7 @@
 .hj-subpage .hj-page{background:#FBF7F1!important;color:#47342F!important;min-height:100vh!important}
 .hj-brand{padding:20px 20px 16px;border-bottom:1px solid #E9DDD1}
 .hj-brand>a{display:flex;align-items:center;gap:10px;min-height:56px;text-decoration:none;color:#65423B}
-.hj-brand img{width:44px;height:50px;object-fit:contain;flex:none}
+.hj-brand img{width:56px;height:56px;object-fit:contain;flex:none}
 .hj-brand strong{display:block;font-size:26px;line-height:1.25;letter-spacing:-1px}
 .hj-brand strong>span{font-size:21px;font-weight:500}
 .hj-brand small{display:block;margin-top:4px;color:#80665D;font-size:16px;line-height:1.5}
