@@ -1,0 +1,174 @@
+{
+  "checkedDate": "2026-10-26",
+  "scope": "처인구13·수지구11",
+  "records": [
+    {
+      "name": "포곡읍",
+      "displayPhone": "031-6193-5531",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=223",
+      "status": "공식 페이지 간 차이·최종 미확인",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "모현읍",
+      "displayPhone": "031-6193-5611",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=244",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "이동읍",
+      "displayPhone": "031-6193-5691",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=261",
+      "status": "공식 페이지 간 차이·최종 미확인",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "남사읍",
+      "displayPhone": "031-6193-5641",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=277",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "양지읍",
+      "displayPhone": "031-6193-5842",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=344",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "원삼면",
+      "displayPhone": "031-6193-5742",
+      "sourceUrl": "https://cheoingu.go.kr/home/townInfo.do?menu_no=293",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "백암면",
+      "displayPhone": "031-6193-5792",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=317",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "중앙동",
+      "displayPhone": "031-6193-5894",
+      "sourceUrl": "https://cheoingu.go.kr/home/townInfo.do?menu_no=369",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "역북동",
+      "displayPhone": "031-6193-5921",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=402",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "삼가동",
+      "displayPhone": "031-6193-5811",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?brd_mgrno=0&menu_no=1566",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "유림1동",
+      "displayPhone": "031-6193-5954",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=425",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "유림2동",
+      "displayPhone": "031-6193-5732",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?brd_mgrno=0&menu_no=1724",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "동부동",
+      "displayPhone": "031-6193-5992",
+      "sourceUrl": "https://www.cheoingu.go.kr/home/townInfo.do?menu_no=456",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "풍덕천1동",
+      "displayPhone": "031-6193-8602",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center010102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "풍덕천2동",
+      "displayPhone": "031-6193-8633",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center020102.asp",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "신봉동",
+      "displayPhone": "031-6193-8642",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center03.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "죽전1동",
+      "displayPhone": "031-6193-8662",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center040102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "죽전2동",
+      "displayPhone": "031-6193-8693",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center050102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "죽전3동",
+      "displayPhone": "031-6193-8871",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center100102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "동천동",
+      "displayPhone": "031-6193-8702",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center060102.asp",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "상현1동",
+      "displayPhone": "031-6193-8733",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center070102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "상현2동",
+      "displayPhone": "031-6193-8752",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center080102.asp",
+      "status": "공식 검색자료 대조·원문 재확인 필요",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "상현3동",
+      "displayPhone": "031-6193-8844",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center110102.asp",
+      "status": "공식 원문 번호 일치",
+      "actualCall": "미확인"
+    },
+    {
+      "name": "성복동",
+      "displayPhone": "031-6193-8777",
+      "sourceUrl": "https://www.sujigu.go.kr/lmth/06center09.asp",
+      "status": "공식 페이지 간 차이·최종 미확인",
+      "actualCall": "미확인"
+    }
+  ]
+}
