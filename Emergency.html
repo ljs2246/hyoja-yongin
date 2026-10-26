@@ -72,38 +72,49 @@ svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out inf
 <a href="tel:119" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">구급상황관리센터 119</a>
 <a href="https://www.e-gen.or.kr" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; color: #B8501A; font-size: 19px; font-weight: 700">응급의료포털 e-gen.or.kr</a>
 </div>
+<section class="hj-card" style="padding:16px;border:2px solid #F0D6B5;border-radius:22px;background:#fff" aria-labelledby="medical-search-title">
+<h2 id="medical-search-title" style="font-size:24px;margin:0 0 8px">병원·약국 검색</h2>
+<p style="font-size:17px">현재 검색 범위는 용인 응급의료기관과 등록 약국입니다. 일반 병원·의원 전체 목록은 아직 제공하지 않아요.</p>
+<form id="medicalSearchForm" style="display:grid;gap:10px">
+<label for="medicalKind">기관 종류</label><select id="medicalKind" style="min-height:52px;font:inherit;padding:8px"><option value="emergency">응급의료기관</option><option value="pharmacy">약국</option></select>
+<label for="medicalGu">지역</label><select id="medicalGu" style="min-height:52px;font:inherit;padding:8px"><option value="">용인시 전체</option><option>처인구</option><option>기흥구</option><option>수지구</option></select>
+<label for="medicalQuery">기관 이름 또는 주소</label><input id="medicalQuery" type="search" maxlength="100" placeholder="이름이나 도로명을 입력하세요" style="min-height:52px;font:inherit;padding:8px;border:1px solid #bda38d;border-radius:12px">
+<button type="submit" style="min-height:52px;font:inherit;font-weight:700;background:#a92e47;color:#fff;border:0;border-radius:16px">검색하기</button>
+</form><p id="medicalSearchStatus" role="status" style="font-size:17px"></p><div id="medicalSearchResults" style="display:grid;gap:16px"></div>
+<button id="medicalSearchMore" type="button" hidden style="min-height:52px;font:inherit">검색 결과 더 보기</button>
+</section>
 <div style="font-size: 24px; font-weight: 900; margin-top: 4px">응급실이 있는 용인 병원</div>
-<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card">
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card" data-hospital-id="A2100020" data-hospital-address="경기도 용인시 기흥구 동백죽전대로 363">
 <div style="display: flex; align-items: center; gap: 8px"><span style="background: #DDF1E4; color: #0B4A2A; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 16px">지역응급의료센터</span></div>
-<div style="font-size: 22px; font-weight: 700; line-height: 1.35">용인세브란스병원</div>
+<div data-hospital-name style="font-size: 22px; font-weight: 700; line-height: 1.35">용인세브란스병원</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">기흥구 동백죽전대로 363</div>
 <a href="tel:03151899001" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">응급실 031-5189-9001</a>
 <a href="tel:03151898511" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">대표 031-5189-8511</a>
 </div>
-<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card">
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card" data-hospital-id="A2100029" data-hospital-address="경기도 용인시 기흥구 중부대로 411">
 <div style="display: flex; align-items: center; gap: 8px"><span style="background: #DDF1E4; color: #0B4A2A; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 16px">지역응급의료센터</span></div>
-<div style="font-size: 22px; font-weight: 700; line-height: 1.35">강남병원</div>
+<div data-hospital-name style="font-size: 22px; font-weight: 700; line-height: 1.35">강남병원</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">기흥구 중부대로 411 (신갈동)<br>2026년 지역응급의료센터로 다시 지정됐어요.</div>
 <a href="tel:0313000119" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">응급실 031-300-0119</a>
 <a href="tel:0313000114" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">대표 031-300-0114</a>
 </div>
-<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card">
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card" data-hospital-id="A2100019" data-hospital-address="경기도 용인시 처인구 백옥대로1082번길 18">
 <div style="display: flex; align-items: center; gap: 8px"><span style="background: #DDF1E4; color: #0B4A2A; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 16px">지역응급의료센터</span></div>
-<div style="font-size: 22px; font-weight: 700; line-height: 1.35">다보스병원</div>
+<div data-hospital-name style="font-size: 22px; font-weight: 700; line-height: 1.35">다보스병원</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">처인구 백옥대로1082번길 18 (김량장동)<br>2026년 지역응급의료센터로 다시 지정됐어요.</div>
 <a href="tel:03180212130" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">응급실 031-8021-2130</a>
 <a href="tel:03180212114" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">대표 031-8021-2114</a>
 </div>
-<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card">
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card" data-hospital-id="A2100122" data-hospital-address="경기도 용인시 처인구 고림로 81">
 <div style="display: flex; align-items: center; gap: 8px"><span style="background: #DDF1E4; color: #0B4A2A; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 16px">지역응급의료기관</span></div>
-<div style="font-size: 22px; font-weight: 700; line-height: 1.35">용인서울병원</div>
+<div data-hospital-name style="font-size: 22px; font-weight: 700; line-height: 1.35">용인서울병원</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">처인구 고림로 81 (고림동)</div>
 <a href="tel:0313220001" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">응급실 031-322-0001</a>
 <a href="tel:0313370114" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">대표 031-337-0114</a>
 </div>
-<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card">
+<div style="background: #FFFFFF; border: 2px solid #F0D6B5; border-radius: 22px; box-shadow: 0 8px 0 #E8C79B, 0 16px 22px rgba(120,70,20,.16), inset 0 3px 0 rgba(255,255,255,.95); padding: 16px; display: flex; flex-direction: column; gap: 10px" class="hj-card" data-hospital-id="A2121142" data-hospital-address="경기도 용인시 처인구 금령로39번길 8-6">
 <div style="display: flex; align-items: center; gap: 8px"><span style="background: #DDF1E4; color: #0B4A2A; font-size: 17px; font-weight: 700; padding: 4px 12px; border-radius: 16px">지역응급의료기관</span></div>
-<div style="font-size: 22px; font-weight: 700; line-height: 1.35">메디필드한강병원</div>
+<div data-hospital-name style="font-size: 22px; font-weight: 700; line-height: 1.35">메디필드한강병원</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">처인구 금령로39번길 8-6</div>
 <a href="tel:0313321119" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">응급실 031-332-1119</a>
 <a href="tel:15510077" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">대표 1551-0077</a>
@@ -153,6 +164,7 @@ svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out inf
 </div>
 
 
+<script src="medical-maps.js"></script>
 <script>
 (function(){
 var DATA=null,cur=null,shown=0,rows=[];
@@ -205,34 +217,22 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden&&DAT
 <script src="sound.js"></script>
 <script>
 (function(){
-  function mk(href,t){var a=document.createElement('a');a.href=href;a.target='_blank';a.rel='noopener';a.textContent=t;
-    a.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-size:18px;font-weight:700';return a;}
-  function row(name,addr,lat,lng){
-    var d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px';
-    var q=encodeURIComponent((name+' '+addr).trim());
-    d.appendChild(mk('https://map.naver.com/p/search/'+q,'네이버 지도'));
-    var k=(lat&&lng)?('https://map.kakao.com/link/map/'+encodeURIComponent(name)+','+lat+','+lng):('https://map.kakao.com/link/search/'+q);
-    d.appendChild(mk(k,'카카오맵'));
-    if(lat&&lng){var nm=encodeURIComponent(name);
-      d.appendChild(mk('https://map.naver.com/p/directions/-/'+lng+','+lat+','+nm+'/-/transit','네이버 길찾기'));
-      d.appendChild(mk('https://map.kakao.com/link/to/'+nm+','+lat+','+lng,'카카오 길찾기'));}
-    return d;}
-  // 병원 카드
-  var names=document.querySelectorAll('div[style*="font-size: 22px"][style*="line-height: 1.35"]');
-  for(var i=0;i<names.length;i++){var n=names[i],ad=n.nextElementSibling;if(!ad)continue;
-    var line=(ad.childNodes[0]&&ad.childNodes[0].textContent||'').trim();
-    var card=n.parentNode;card.appendChild(row(n.textContent.trim(),'용인시 '+line));}
-  // 병원 카드에도 길찾기: 응급의료기관 자료에서 이름이 맞는 곳의 좌표를 찾아 버튼을 바꿔요
-  fetch('data/emergency.json').then(function(r){return r.json();}).then(function(j){
-    var L=j['목록']||[];
-    for(var i=0;i<names.length;i++){var n=names[i],nm=n.textContent.trim();
-      var h=null;for(var k=0;k<L.length;k++){var dn=L[k].dutyName||'';if(dn.indexOf(nm)>-1||nm.indexOf(dn)>-1){h=L[k];break;}}
-      if(!h||!h.wgs84Lat)continue;
-      var card=n.parentNode,old=card.lastElementChild;
-      if(old&&old.style&&old.style.display==='grid'){card.replaceChild(row(nm,'',h.wgs84Lat,h.wgs84Lon),old);}}
-  }).catch(function(){});
-  window.hjMapRow=row;
+ var nodes=document.querySelectorAll('[data-hospital-id]');
+ nodes.forEach(function(card){
+   var name=card.querySelector('[data-hospital-name]').textContent.trim();
+   var addr=card.getAttribute('data-hospital-address');
+   card.appendChild(window.hjMapRow(name,addr));
+ });
+ fetch('data/emergency.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error();return r.json();}).then(function(j){
+   nodes.forEach(function(card){
+     var addr=card.getAttribute('data-hospital-address'),h=window.hjMedicalMaps.hospitalMatch(j.목록||[],card.getAttribute('data-hospital-id'),addr);
+     if(!h)return;
+     var old=card.querySelector('.hj-medical-maps');
+     card.replaceChild(window.hjMapRow(h.dutyName,h.dutyAddr,h.wgs84Lat,h.wgs84Lon),old);
+   });
+ }).catch(function(){});
 })();
 </script>
+<script src="medical-search.js"></script>
 </body>
 </html>
