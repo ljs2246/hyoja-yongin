@@ -73,7 +73,7 @@ svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out inf
 <a href="https://www.e-gen.or.kr" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; color: #B8501A; font-size: 19px; font-weight: 700">응급의료포털 e-gen.or.kr</a>
 </div>
 <section class="hj-card" style="padding:16px;border:2px solid #F0D6B5;border-radius:22px;background:#fff" aria-labelledby="medical-search-title">
-<h2 id="medical-search-title" style="font-size:24px;margin:0 0 8px">병원·약국 검색</h2>
+<a href="Regions.html" style="display:block;min-height:48px;color:#96344a">내 지역·부모님 지역 변경 ›</a><h2 id="medical-search-title" style="font-size:24px;margin:0 0 8px">병원·약국 검색</h2>
 <p style="font-size:17px">현재 검색 범위는 용인 응급의료기관과 등록 약국입니다. 일반 병원·의원 전체 목록은 아직 제공하지 않아요.</p>
 <form id="medicalSearchForm" style="display:grid;gap:10px">
 <label for="medicalKind">기관 종류</label><select id="medicalKind" style="min-height:52px;font:inherit;padding:8px"><option value="emergency">응급의료기관</option><option value="pharmacy">약국</option></select>
@@ -233,6 +233,6 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden&&DAT
  }).catch(function(){});
 })();
 </script>
-<script src="medical-search.js?v=19"></script>
+<script src="region-core.js?v=1"></script><script src="region-profiles.js?v=1"></script><script src="region-catalog.js?v=1"></script><script src="region-ui.js?v=1"></script><script src="medical-search.js?v=19"></script>
 </body>
 </html>
