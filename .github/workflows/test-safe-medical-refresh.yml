@@ -1,0 +1,22 @@
+name: 의료정보 안전장치 테스트
+on:
+  push:
+    branches:
+      - review/safe-medical-refresh-20261028
+    paths:
+      - "scripts/fetch_data.py"
+      - "tests/test_safe_refresh.py"
+      - ".github/workflows/test-safe-medical-refresh.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Offline regression tests (no live API calls)
+        run: python3 -m unittest discover -s tests -p 'test_safe_refresh.py' -v
