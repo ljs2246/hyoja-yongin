@@ -83,7 +83,7 @@ def validate(name, rows):
         if identifier in seen:
             raise ValueError(name + ": repeated institution identifier")
         seen.add(identifier)
-        if not re.match(r"^경기도\\s+용인시\\s+(처인구|기흥구|수지구)(?:\\s|$)", address):
+        if not re.match(r"^경기도\s+용인시\s+(처인구|기흥구|수지구)(?:\s|$)", address):
             raise ValueError(name + ": out-of-region address")
     return len(rows)
 
