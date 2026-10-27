@@ -1,6 +1,6 @@
 # 용인 응급의료기관·약국 자료를 공공데이터포털에서 받아 data/ 폴더에 저장합니다.
 # 인증키는 환경변수 DATA_GO_KR_KEY 로만 읽고, 화면·기록에 절대 출력하지 않습니다.
-import json, os, sys, time, urllib.parse, urllib.request
+import json, os, sys, time, urllib.parse, urllib.request, tempfile, shutil, re
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 
@@ -69,34 +69,59 @@ def fetch(path, label):
         rows += got
     return rows
 
+def validate(name, rows):
+    """Reject malformed or suspicious datasets before touching published files."""
+    if not rows:
+        raise ValueError(name + ": empty result")
+    seen = set()
+    for row in rows:
+        identifier = str(row.get("hpid", "")).strip()
+        address = str(row.get("dutyAddr", "")).strip()
+        title = str(row.get("dutyName", "")).strip()
+        if not identifier or not title or not address:
+            raise ValueError(name + ": missing required field")
+        if identifier in seen:
+            raise ValueError(name + ": repeated institution identifier")
+        seen.add(identifier)
+        if not re.match(r"^경기도\\s+용인시\\s+(처인구|기흥구|수지구)(?:\\s|$)", address):
+            raise ValueError(name + ": out-of-region address")
+    return len(rows)
+
+
 def main():
-    os.makedirs(OUT, exist_ok=True)
     if not KEY:
-        print("DATA_GO_KR_KEY 가 비어 있습니다.")
-        with open(os.path.join(OUT, "status.json"), "w", encoding="utf-8") as f:
-            json.dump({"상태": "실패", "이유": "인증키(DATA_GO_KR_KEY)를 찾지 못함"}, f, ensure_ascii=False, indent=1)
-        sys.exit(1)
+        raise RuntimeError("DATA_GO_KR_KEY missing; published data unchanged")
     now = datetime.now(KST).strftime("%Y-%m-%d %H:%M")
-    status = {"확인한 때": now, "출처": "국립중앙의료원(공공데이터포털)"}
-    ok = True
+    pending = {}
     for name, path, label in [
         ("emergency", "ErmctInfoInqireService/getEgytListInfoInqire", "응급의료기관"),
         ("pharmacy", "ErmctInsttInfoInqireService/getParmacyListInfoInqire", "약국"),
     ]:
-        try:
-            rows = fetch(path, label)
-            if not rows:
-                raise RuntimeError("0건")
-            with open(os.path.join(OUT, name + ".json"), "w", encoding="utf-8") as f:
-                json.dump({"확인한 때": now, "건수": len(rows), "목록": rows}, f, ensure_ascii=False, indent=1)
-            status[name] = {"상태": "성공", "건수": len(rows)}
-        except Exception as e:
-            ok = False
-            status[name] = {"상태": "실패", "이유": str(e)[:200]}
-            print(label, "실패:", str(e)[:200])
-    with open(os.path.join(OUT, "status.json"), "w", encoding="utf-8") as f:
-        json.dump(status, f, ensure_ascii=False, indent=1)
-    sys.exit(0 if ok else 1)
+        rows = fetch(path, label)
+        validate(name, rows)
+        pending[name] = {"확인한 때": now, "건수": len(rows), "목록": rows}
+
+    # One validated snapshot is committed by the workflow. No partial writes
+    # occur before all required API calls and validation finish.
+    os.makedirs(OUT, exist_ok=True)
+    status = {"확인한 때": now, "출처": "국립중앙의료원(공공데이터포털)",
+              "emergency": {"상태": "성공", "건수": len(pending["emergency"]["목록"])},
+              "pharmacy": {"상태": "성공", "건수": len(pending["pharmacy"]["목록"])}}
+    stage = tempfile.mkdtemp(prefix=".medical-stage-", dir=OUT)
+    try:
+        for name, payload in [("emergency", pending["emergency"]),
+                              ("pharmacy", pending["pharmacy"]), ("status", status)]:
+            with open(os.path.join(stage, name + ".json"), "w", encoding="utf-8") as out:
+                json.dump(payload, out, ensure_ascii=False, indent=1)
+        for name in ("emergency", "pharmacy", "status"):
+            os.replace(os.path.join(stage, name + ".json"), os.path.join(OUT, name + ".json"))
+    finally:
+        shutil.rmtree(stage, ignore_errors=True)
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:
+        print("자료 갱신 중단: " + type(exc).__name__ + "; 기존 공개 자료 유지")
+        sys.exit(1)
