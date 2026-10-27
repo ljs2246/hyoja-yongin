@@ -11,7 +11,7 @@ permissions:
   contents: write
 jobs:
   update:
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: 자료 가져오기
@@ -19,7 +19,7 @@ jobs:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python3 scripts/fetch_data.py
       - name: 바뀐 자료 저장
-        if: always()
+        if: success()
         run: |
           git config user.name "자동 갱신"
           git config user.email "actions@users.noreply.github.com"
