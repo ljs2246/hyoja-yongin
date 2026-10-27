@@ -11,7 +11,8 @@ permissions:
   contents: write
 jobs:
   update:
-    if: github.ref == 'refs/heads/main'\n    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: 자료 가져오기
