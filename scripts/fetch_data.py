@@ -66,6 +66,8 @@ def fetch(path, label):
             if got:
                 break
         print(f"{label} {gu}: {len(got)}건")
+        if len(got) == 0:
+            raise RuntimeError("district data missing")
         rows += got
     return rows
 
