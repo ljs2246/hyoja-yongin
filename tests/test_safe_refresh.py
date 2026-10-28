@@ -47,6 +47,11 @@ class SafeRefreshTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 mod.fetch("sample/path", "sample")
 
+    def test_mismatched_district_blocks_refresh(self):
+        with patch.object(mod, "call", return_value=[row(gu="기흥구")]):
+            with self.assertRaises(RuntimeError):
+                mod.fetch("sample/path", "sample")
+
     def test_api_second_dataset_failure_preserves_files(self):
         with tempfile.TemporaryDirectory() as directory:
             original = {"기존": True}
