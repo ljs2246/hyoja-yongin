@@ -68,6 +68,10 @@ def fetch(path, label):
         print(f"{label} {gu}: {len(got)}건")
         if len(got) == 0:
             raise RuntimeError("district data missing")
+        for item in got:
+            address = str(item.get("dutyAddr", ""))
+            if not re.match(r"^경기도\s+용인시\s+" + re.escape(gu) + r"(?:\s|$)", address):
+                raise RuntimeError("district response mismatch")
         rows += got
     return rows
 
