@@ -42,6 +42,11 @@ class SafeRefreshTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             mod.validate("pharmacy", [row(gu="성남시")])
 
+    def test_empty_district_blocks_refresh(self):
+        with patch.object(mod, "call", side_effect=[[], []]):
+            with self.assertRaises(RuntimeError):
+                mod.fetch("sample/path", "sample")
+
     def test_api_second_dataset_failure_preserves_files(self):
         with tempfile.TemporaryDirectory() as directory:
             original = {"기존": True}
