@@ -107,6 +107,17 @@ def main():
         validate(name, rows)
         pending[name] = {"확인한 때": now, "건수": len(rows), "목록": rows}
 
+    # Large drops require human review; do not overwrite a previously usable snapshot.
+    for name in ("emergency", "pharmacy"):
+        previous_file = os.path.join(OUT, name + ".json")
+        if os.path.isfile(previous_file):
+            with open(previous_file, encoding="utf-8") as source:
+                previous = json.load(source)
+            old_count = len(previous.get("목록", []))
+            new_count = len(pending[name]["목록"])
+            if old_count >= 2 and new_count < old_count * 0.8:
+                raise RuntimeError("suspicious dataset shrink; manual review required")
+
     # One validated snapshot is committed by the workflow. No partial writes
     # occur before all required API calls and validation finish.
     os.makedirs(OUT, exist_ok=True)
