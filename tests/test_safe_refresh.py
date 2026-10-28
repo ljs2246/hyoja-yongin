@@ -75,6 +75,20 @@ class SafeRefreshTests(unittest.TestCase):
                     mod.main()
             self.assertEqual(os.listdir(directory), [])
 
+    def test_large_drop_preserves_previous_snapshot(self):
+        with tempfile.TemporaryDirectory() as directory:
+            old = {"목록": [row(str(i)) for i in range(10)], "건수": 10}
+            (Path(directory) / "emergency.json").write_text(
+                json.dumps(old, ensure_ascii=False), encoding="utf-8")
+            with patch.object(mod, "KEY", "test-only"), patch.object(mod, "OUT", directory), patch.object(
+                mod, "fetch", side_effect=[[row("E")], [row("P")]]
+            ):
+                with self.assertRaises(RuntimeError):
+                    mod.main()
+            self.assertEqual(json.loads((Path(directory) / "emergency.json").read_text(
+                encoding="utf-8")), old)
+            self.assertFalse((Path(directory) / "pharmacy.json").exists())
+
     def test_success_writes_consistent_snapshot(self):
         with tempfile.TemporaryDirectory() as directory:
             with patch.object(mod, "KEY", "test-only"), patch.object(mod, "OUT", directory), patch.object(mod, "fetch", side_effect=[[row("E")], [row("P")]]):
