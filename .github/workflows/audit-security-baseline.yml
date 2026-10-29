@@ -1,0 +1,15 @@
+name: Security baseline review
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 1"
+permissions:
+  contents: read
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read-only security baseline audit
+        run: python3 scripts/audit_security_baseline.py
