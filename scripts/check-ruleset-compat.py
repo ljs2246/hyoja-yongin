@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """main 보호 규칙 준비본이 기존 자동 갱신 흐름과 충돌하지 않는지 사전 점검(적용 전 정적 검사).
 검사: ① main 에 직접 push 하는 워크플로우 단계 없음 ② 규칙이 요구하는 필수 검사 이름이 실제 작업 이름과 일치 ③ 그 작업이 PR 사용자 실행과 수동 실행 둘 다 가능 ④ 갱신 흐름이 qa 를 직접 요청 ⑤ 우회 허용 주체 없음 ⑥ push 하는 쪽에 contents 쓰기 권한 외 불필요한 권한 없음. 사용법: check-ruleset-compat.py [워크플로우폴더] [규칙 JSON]"""
-import sys,glob,json,re,yaml,os
+import sys,glob,json,re,os
+try:import yaml
+except ImportError:print("점검 불가: PyYAML 이 없음 → pip install pyyaml (점검 못 한 상태를 통과로 보지 않음)");sys.exit(2)
 wf=sys.argv[1] if len(sys.argv)>1 else '.github/workflows';rs=sys.argv[2] if len(sys.argv)>2 else 'docs/security/main-ruleset-proposal.json'
 bad=[];info=[]
 R=json.load(open(rs));req=[c['context'] for x in R['rules'] if x['type']=='required_status_checks' for c in x['parameters']['required_status_checks']]
