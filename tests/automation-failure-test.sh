@@ -11,4 +11,8 @@ python3 scripts/auto-run.py --out $TMP/runs >/tmp/drill2.log 2>&1; R2=$?
 [ $R2 -eq 0 ] && [ $(ls $TMP/runs/ALERT-*.md 2>/dev/null | wc -l) -eq 0 ] && echo "통과 원인 제거 후 재실행하면 전체 통과로 복구(알림 없음)" || { echo "실패 복구 시나리오"; OK=1; }
 git checkout -q main 2>/dev/null || git checkout -qb main; python3 scripts/auto-run.py --out $TMP/runs2 >/tmp/drill3.log 2>&1; R3=$?
 [ $R3 -ne 0 ] && grep -q "운영 main" /tmp/drill3.log && echo "통과 운영 main 브랜치에서는 자동 실행 거부" || { echo "실패 main 보호"; OK=1; }
+# 동시 실행 차단(잠금) 시험: 다른 실행이 잠금을 쥔 동안 새 실행은 종료코드 2로 차단되어야 함
+python3 -c "import fcntl,tempfile,os,time;l=open(os.path.join(tempfile.gettempdir(),'hyoja-auto-run.lock'),'w');fcntl.flock(l,fcntl.LOCK_EX);time.sleep(8)" & HOLD=$!; sleep 1
+cd $TMP; git checkout -q test/failure-drill; python3 scripts/auto-run.py --out $TMP/runs3 >/tmp/drill4.log 2>&1; R4=$?; wait $HOLD
+[ $R4 -eq 2 ] && echo "통과 동시 실행 차단(중복 실행 방지 잠금)" || { echo "실패 동시 실행 차단"; OK=1; }
 rm -rf $TMP; exit $OK
