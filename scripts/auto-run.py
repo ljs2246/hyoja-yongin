@@ -12,9 +12,9 @@ STEP_TIMEOUT=600;RETRY={'python3 tests/e2e-mobile.py':1}  # 단계별 제한시�
 # 동일 작업 번호(taskId): 커밋+수정내용+단계 목록이 같으면 같은 작업. 이미 통과한 작업은 다시 만들지 않는다.
 def task_id():
     ex=[os.path.relpath(a.out).rstrip('/'),'docs/runs']  # 실행 기록 폴더 자체는 작업 내용에 포함하지 않음
-    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|incident-drills-results'
+    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|incident-drills-results|docs/changes-latest.json|docs/automation/work-board.md'
     d=sh("git diff HEAD --name-only | grep -Ev '"+pat+"'; git ls-files -o --exclude-standard | grep -Ev '"+pat+"'").stdout
-    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json'").stdout
+    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json' ':!docs/changes-latest.json' ':!docs/automation/work-board.md'").stdout
     return hashlib.sha1((sh('git rev-parse HEAD').stdout+d+'|'.join(s[1] for s in STEPS)).encode()).hexdigest()[:12]
 commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
@@ -32,7 +32,7 @@ STEPS=[
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),
 ]
 TID=task_id()
-DIRTY=bool(sh("git status --porcelain | grep -v ' docs/runs/' | grep -v e2e-mobile-results").stdout.strip())  # 커밋되지 않은 수정이 있으면 복구 후보로 인정하지 않음
+DIRTY=bool(sh("git status --porcelain | grep -v ' docs/runs/' | grep -v e2e-mobile-results | grep -v changes-latest | grep -v work-board.md").stdout.strip())  # 커밋되지 않은 수정이 있으면 복구 후보로 인정하지 않음
 run={'dirty':DIRTY,'taskId':TID,'runId':now.strftime('%Y%m%d-%H%M%S')+'-'+uuid.uuid4().hex[:6],'startedKST':now.isoformat(timespec='seconds'),'branch':branch,'commit':commit,'approver':None,'deployed':False,'published':False,'steps':[],'status':'진행'}
 lock=open(os.path.join(tempfile.gettempdir(),'hyoja-auto-run.lock'),'w')
 try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
