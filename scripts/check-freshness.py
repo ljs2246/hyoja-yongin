@@ -5,7 +5,7 @@ import json,sys,datetime,re
 today=datetime.date.today();bad=[]
 log=json.load(open('docs/phone-policy-log.json'))
 for x in log:
-    if x['action']=='숨김':continue
+    if str(x.get('action','')).startswith('숨김'):continue  # 보류 사유가 붙은 '숨김(...)'도 공개 제외
     k=f"{x['page']} {x['number']}"
     if not x.get('agency'):bad.append((k,'기관명 없음'))
     if not (x.get('sourceUrl') or '').startswith(('http','data/')):bad.append((k,'공식 URL(또는 공공데이터 파일) 없음'))
