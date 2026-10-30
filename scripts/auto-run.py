@@ -22,6 +22,8 @@ STEPS=[
  ('02 정보 검증·격리 담당','전화 링크 공식근거 검사','python3 scripts/check-phones.py','화면 HTML 전체 tel 링크'),
  ('05 구글 드라이브 문서관리 담당','드라이브 업로더 안전장치 시험(가짜 서버)','python3 tests/drive-upload.test.py','scripts/drive-upload.py'),
  ('02 정보 검증·격리 담당','공식 자료 갱신 관문 검사','python3 scripts/check-data.py','data/emergency.json·pharmacy.json'),
+ ('02 정보 검증·격리 담당','공식 자료 변경 탐지 보고(읽기 전용)','python3 scripts/detect-changes.py','data/*.json 직전 저장본과 비교'),
+ ('09 일정·회계·경영 보고 담당','작업 현황 통합 관리표 검사','python3 scripts/work-board.py','docs/automation/work-board.json'),
  ('02 정보 검증·격리 담당','공식정보 근거·확인일 신선도 검사','python3 scripts/check-freshness.py','docs/phone-policy-log.json'),
  ('06 운영·보안 담당','보안 검사(비밀정보·외부 스크립트·권한)','python3 scripts/check-security.py','저장소 전체 파일'),
  ('03 앱 개발·테스트 담당','접근성·고령친화 정적 검사','python3 scripts/check-a11y.py','화면 HTML 전체'),
