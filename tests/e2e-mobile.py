@@ -86,6 +86,14 @@ try:
         pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250)
         if '000-0000' in pg.inner_text('#phList'):bad+=1
     rec('노출 차단','약국 목록에 임시번호(000-0000) 없음',bad==0)
+    names=set()
+    for gu in ['처인구','기흥구','수지구']:
+        pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250);names.add(pg.inner_text('#phList'))
+    txt=' '.join(names)
+    rec('노출 차단','중복 의심·시간 미확인 약국이 운영 약국 목록에 없음',all(n not in txt for n in ['건강약국','나무약국','메디박스약국','365 열린큰약국','365열린큰약국','대학당약국','상현중앙약국']))
+    rec('노출 차단','제외 안내 문구',('공식 확인이 끝나지 않은' in pg.inner_text('#phStatus')))
+    pg.goto(U+'Welfare.html');pg.wait_for_timeout(500)
+    rec('노출 차단','근거 없는 복지 카드(장기요양) 숨김',pg.locator('[data-hj-blocked=노인장기요양보험]').count()==1 and pg.locator('text=65세 이상, 또는 노인성 질환').count()==0)
     ctx.close();b.close()
 finally:srv.terminate()
 ok=sum(1 for r in R if r['결과']=='통과');print(f'\n통과 {ok} / 전체 {len(R)}')

@@ -33,8 +33,10 @@
    fetch('data/'+(kind==='pharmacy'?'pharmacy':'emergency')+'.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error();return r.json();}).then(function(data){
      if(request!==sequence)return;
      var counts=new Map();(data.목록||[]).forEach(function(p){var k=recordKey(p);counts.set(k,(counts.get(k)||0)+1);});duplicateKeys=new Set(Array.from(counts).filter(function(x){return x[1]>1;}).map(function(x){return x[0];}));
-     rows=(data.목록||[]).filter(function(p){return validRegion(p,gu)&&p.dutyName&&(!q||(p.dutyName+' '+p.dutyAddr).toLowerCase().includes(q));});
-     shown=10;status.textContent=rows.length?'검색 결과 '+rows.length+'건 · 자료 확인: '+(data['확인한 때']||'확인일 미제공'):'등록 자료에서 일치하는 기관을 찾지 못했어요. 기관이 없다는 뜻은 아니에요. 검색어나 공식 의료 안내를 확인해 주세요.';render();
+     function held(p){return duplicateKeys.has(recordKey(p))||Object.keys(p).some(function(k){return /^dutyTime/.test(k)&&String(p[k])==='2500';});}
+     var all=(data.목록||[]).filter(function(p){return validRegion(p,gu)&&p.dutyName&&(!q||(p.dutyName+' '+p.dutyAddr).toLowerCase().includes(q));});
+     var heldN=all.filter(held).length;rows=all.filter(function(p){return !held(p);});
+     shown=10;status.textContent=rows.length?'검색 결과 '+rows.length+'건 · 자료 확인: '+(data['확인한 때']||'확인일 미제공')+(heldN?' · 공식 확인이 끝나지 않은 '+heldN+'곳은 목록에서 뺐어요':''):'등록 자료에서 일치하는 기관을 찾지 못했어요. 기관이 없다는 뜻은 아니에요. 검색어나 공식 의료 안내를 확인해 주세요.';render();
    }).catch(function(){if(request!==sequence)return;status.textContent='자료를 불러오지 못했어요. 다시 검색하거나 응급의료포털에서 확인해 주세요.';});
  });
  more.onclick=function(){shown+=10;render();};

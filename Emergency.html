@@ -194,12 +194,15 @@ function render(){
   ls.appendChild(box);}
  more.style.display=rows.length>shown?'block':'none';
 }
+var DUP=null;function pk(p){return String(p.dutyName||'').replace(/\s+/g,'')+'|'+String(p.dutyAddr||'').replace(/\s+/g,'');}
+function held(p){if(!DUP){var c={};DATA.목록.forEach(function(x){var k=pk(x);c[k]=(c[k]||0)+1;});DUP=c;}
+ return DUP[pk(p)]>1||Object.keys(p).some(function(k){return /^dutyTime/.test(k)&&String(p[k])==='2500';});}
 function pick(gu){
  cur=gu;var n=kst();
- rows=DATA.목록.filter(function(p){return (p.dutyAddr||'').indexOf(gu)>-1&&isOpen(p,n)===true;});
+ rows=DATA.목록.filter(function(p){return (p.dutyAddr||'').indexOf(gu)>-1&&!held(p)&&isOpen(p,n)===true;});
  rows.sort(function(x,y){return activeWindow(y,n).end-activeWindow(x,n).end;});
  shown=10;
- st.textContent=rows.length?('등록 시간표상 운영 예정인 '+gu+' 약국 '+rows.length+'곳이에요. 실제 운영 여부는 전화로 확인해 주세요.'):('등록 시간표에서 운영 예정인 '+gu+' 약국을 찾지 못했어요. 응급의료포털에서 확인해 주세요. 응급상황이면 119로 전화해 주세요.');
+ st.textContent=rows.length?('등록 시간표상 운영 예정인 '+gu+' 약국 '+rows.length+'곳이에요. 실제 운영 여부는 전화로 확인해 주세요. 공식 확인이 끝나지 않은 약국은 목록에서 뺐어요.'):('등록 시간표에서 운영 예정인 '+gu+' 약국을 찾지 못했어요. 응급의료포털에서 확인해 주세요. 응급상황이면 119로 전화해 주세요.');
  render();
 }
 fetch('data/pharmacy.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
@@ -233,6 +236,6 @@ document.addEventListener('visibilitychange',function(){if(!document.hidden&&DAT
  }).catch(function(){});
 })();
 </script>
-<script src="region-core.js?v=1"></script><script src="region-profiles.js?v=1"></script><script src="region-catalog.js?v=1"></script><script src="region-ui.js?v=1"></script><script src="medical-search.js?v=20261026b37"></script>
+<script src="region-core.js?v=1"></script><script src="region-profiles.js?v=1"></script><script src="region-catalog.js?v=1"></script><script src="region-ui.js?v=1"></script><script src="medical-search.js?v=20261030b40"></script>
 </body>
 </html>
