@@ -29,13 +29,13 @@
     // 오늘의 안부
     var c1=el('div',card);c1.appendChild(el('div','font-size:24px;font-weight:900','오늘의 안부'));
     var chk=st?getCheck(st):null;
-    if(chk){c1.appendChild(el('div','font-size:20px;line-height:1.5;color:#2E6B2E;font-weight:700','✔ 오늘 안부를 남겼어요 ('+chk.at+')'));}
-    else{c1.appendChild(el('div','font-size:19px;line-height:1.5;color:#6A4A33','오늘 하루도 잘 지내고 계신가요? 아래 버튼을 눌러 주세요.'));}
+    if(chk){c1.appendChild(el('div','font-size:20px;line-height:1.5;color:#2E6B2E;font-weight:700','✔ 이 휴대폰에 오늘 안부를 기록했어요 ('+chk.at+')'));}
+    else{c1.appendChild(el('div','font-size:19px;line-height:1.5;color:#6A4A33','오늘 하루도 잘 지내고 계신가요? 아래 버튼을 누르면 이 휴대폰에 기록돼요. 가족에게 자동으로 전달되지는 않아요.'));}
     var b=el('button',btn+'background:'+(chk?'#fff':'linear-gradient(180deg,#D2691E,#A8470F)')+';color:'+(chk?'#B8501A':'#fff'),chk?'안부 한 번 더 남기기':'오늘도 잘 지내요');b.type='button';
     b.onclick=function(){if(st)setCheck(st);render(false);};c1.appendChild(b);
     if(chk&&fam.length){var t='[효자 용인] 오늘도 잘 지내고 있어요. 걱정하지 마세요.';
-      fam.forEach(function(f){var a=el('a',btn+'background:#fff;color:#B8501A','문자로 '+f.name+'에게 알리기');a.href=smsHref(f.phone,t);c1.appendChild(a);});}
-    c1.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','안부 기록은 이 휴대폰에만 저장돼요. 가족에게는 어르신이 직접 문자를 보낼 때만 전달돼요.'));
+      fam.forEach(function(f){var a=el('a',btn+'background:#fff;color:#B8501A','문자 보내기: '+f.name+'에게 알리기');a.href=smsHref(f.phone,t);c1.appendChild(a);});}
+    c1.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','※ 가족에게 자동으로 알려 주는 기능은 아직 없어요. 가족이 알려면 아래 「문자로 알리기」를 직접 눌러 보내셔야 해요. 기록은 이 휴대폰에만 저장돼요.'));
     host.appendChild(c1);
     // 가족 전화
     var c2=el('div',card+';margin-top:14px');c2.appendChild(el('div','font-size:24px;font-weight:900','가족에게 전화'));
