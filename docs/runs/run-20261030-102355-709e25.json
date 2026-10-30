@@ -1,0 +1,95 @@
+{
+ "dirty": false,
+ "taskId": "2890096ca393",
+ "runId": "20261030-102355-709e25",
+ "startedKST": "2026-10-30T10:23:55+09:00",
+ "branch": "test/yongin-pilot-prep-v2",
+ "commit": "d242fd3",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "05 구글 드라이브 문서관리 담당",
+   "task": "드라이브 업로더 안전장치 시험(가짜 서버)",
+   "input": "scripts/drive-upload.py",
+   "command": "python3 tests/drive-upload.test.py",
+   "attempts": 1,
+   "seconds": 0.8,
+   "result": "통과",
+   "tail": "통과 8 / 전체 8"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식정보 근거·확인일 신선도 검사",
+   "input": "docs/phone-policy-log.json",
+   "command": "python3 scripts/check-freshness.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "신선도 검사 통과"
+  },
+  {
+   "department": "06 운영·보안 담당",
+   "task": "보안 검사(비밀정보·외부 스크립트·권한)",
+   "input": "저장소 전체 파일",
+   "command": "python3 scripts/check-security.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "보안 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "접근성·고령친화 정적 검사",
+   "input": "화면 HTML 전체",
+   "command": "python3 scripts/check-a11y.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "접근성 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "가족 기능 단위검사",
+   "input": "family.js",
+   "command": "node tests/family.test.cjs",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "통과 13 실패 0"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "의료·지역 검사",
+   "input": "medical-maps/region 스크립트",
+   "command": "node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "12개 내 지역·부모님 지역 저장·복원·오류 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "휴대폰 화면 모의검사",
+   "input": "Chromium 모의 기기 3종",
+   "command": "python3 tests/e2e-mobile.py",
+   "attempts": 1,
+   "seconds": 33.7,
+   "result": "통과",
+   "tail": "통과 91 / 전체 91"
+  }
+ ],
+ "status": "전체 통과",
+ "endedKST": "2026-10-30T10:24:30+09:00"
+}
