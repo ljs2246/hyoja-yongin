@@ -21,9 +21,9 @@ try:
         page.on('pageerror',lambda e:errors.append(str(e)))
         for mode in MODES:
             page.goto(URL+'index.html',wait_until='domcontentloaded')
-            page.locator('#sizeBtns button',has_text=mode).click()
+            page.locator('#sizeBtns').get_by_role('button',name=mode,exact=True).click()
             page.wait_for_timeout(90)
-            selected=page.locator('#sizeBtns button',has_text=mode).get_attribute('aria-pressed')
+            selected=page.locator('#sizeBtns').get_by_role('button',name=mode,exact=True).get_attribute('aria-pressed')
             checks.append(('글자 버튼 '+mode,selected=='true'))
             for name in PAGES:
                 page.goto(URL+name+'.html',wait_until='domcontentloaded')
