@@ -8,13 +8,13 @@ now=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
 def sh(c,timeout=None):
     try:return subprocess.run(c,shell=True,capture_output=True,text=True,timeout=timeout)
     except subprocess.TimeoutExpired:return subprocess.CompletedProcess(c,124,'','시간 초과(무한 반복 방지로 강제 종료)')
-STEP_TIMEOUT=600;RETRY={'python3 tests/e2e-mobile.py':1}  # 단계별 제한시간 10분, 브라우저 시험만 1회 재시도(최대 2회)
+STEP_TIMEOUT=600;RETRY={'python3 tests/e2e-mobile.py':1,'python3 tests/hyomaeum-e2e.py':1}  # 단계별 제한시간 10분, 브라우저 시험만 1회 재시도(최대 2회)
 # 동일 작업 번호(taskId): 커밋+수정내용+단계 목록이 같으면 같은 작업. 이미 통과한 작업은 다시 만들지 않는다.
 def task_id():
     ex=[os.path.relpath(a.out).rstrip('/'),'docs/runs']  # 실행 기록 폴더 자체는 작업 내용에 포함하지 않음
-    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|incident-drills-results|docs/changes-latest.json|docs/automation/work-board.md'
+    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|hyomaeum-e2e-results|incident-drills-results|docs/changes-latest.json|docs/automation/work-board.md'
     d=sh("git diff HEAD --name-only | grep -Ev '"+pat+"'; git ls-files -o --exclude-standard | grep -Ev '"+pat+"'").stdout
-    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json' ':!docs/changes-latest.json' ':!docs/automation/work-board.md'").stdout
+    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json' ':!tests/hyomaeum-e2e-results.json' ':!docs/changes-latest.json' ':!docs/automation/work-board.md'").stdout
     return hashlib.sha1((sh('git rev-parse HEAD').stdout+d+'|'.join(s[1] for s in STEPS)).encode()).hexdigest()[:12]
 commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
@@ -27,8 +27,10 @@ STEPS=[
  ('02 정보 검증·격리 담당','공식정보 근거·확인일 신선도 검사','python3 scripts/check-freshness.py','docs/phone-policy-log.json'),
  ('06 운영·보안 담당','보안 검사(비밀정보·외부 스크립트·권한)','python3 scripts/check-security.py','저장소 전체 파일'),
  ('03 앱 개발·테스트 담당','접근성·고령친화 정적 검사','python3 scripts/check-a11y.py','화면 HTML 전체'),
+ ('03 앱 개발·테스트 담당','효마음 데모 단위검사(격리 기능)','node tests/hyomaeum.test.cjs','lab/hyomaeum/hyomaeum-core.js'),
  ('03 앱 개발·테스트 담당','가족 기능 단위검사','node tests/family.test.cjs','family.js'),
  ('03 앱 개발·테스트 담당','의료·지역 검사','node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs','medical-maps/region 스크립트'),
+ ('03 앱 개발·테스트 담당','효마음 데모 화면 모의검사','python3 tests/hyomaeum-e2e.py','Chromium 모의 기기'),
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),
 ]
 TID=task_id()

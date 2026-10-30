@@ -2,7 +2,7 @@
 """고령친화·접근성 정적 검사(자동 가능한 최소 기준): lang, viewport, title, img alt, 입력 라벨, 글자 크기 확대 허용(user-scalable=no 금지), 전화 링크 이름."""
 import re,glob,sys
 bad=[]
-for f in sorted(glob.glob('*.html')):
+for f in sorted(glob.glob('*.html')+glob.glob('lab/**/*.html',recursive=True)):
     s=open(f).read()
     if f in('Guide.html',) and '<html' not in s: continue
     if '<html' not in s: continue
