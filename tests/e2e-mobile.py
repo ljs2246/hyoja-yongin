@@ -35,11 +35,9 @@ try:
         pg.click('text=저장한 가족 지우기');rec(g,'가족 전체 삭제',pg.locator('a[href^="tel:010"]').count()==0)
         rec(g,'삭제 후 사진·전화 카드 모두 사라짐',pg.locator('#hjFamily img').count()==0)
         # 사진 저장 (회색 사각형 JPEG 생성)
-        import io
-        from PIL import Image
-        bio=io.BytesIO();Image.new('RGB',(900,600),(200,120,60)).save(bio,'JPEG');open('/tmp/claude-0/fam_photo.jpg','wb').write(bio.getvalue())
+        # 사진 시험용 JPEG는 저장소 안 고정 파일 사용(CI에 PIL 없음)
         pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]','큰딸');pg.fill('input[aria-label=전화번호]','010-1234-5678')
-        pg.set_input_files('input[type=file]','/tmp/claude-0/fam_photo.jpg');pg.wait_for_selector('#hjFamily img',timeout=5000)
+        pg.set_input_files('input[type=file]','tests/fixtures/family-photo.jpg');pg.wait_for_selector('#hjFamily img',timeout=5000)
         rec(g,'사진 고르면 미리보기 표시',pg.locator('#hjFamily img').count()==1)
         pg.click('button:has-text("저장하기")')
         rec(g,'사진+전화 카드 표시',pg.locator('#hjFamily img').count()==1 and pg.locator('a[href="tel:01012345678"]').count()==1)
