@@ -32,6 +32,7 @@ with sync_playwright() as p:
     data=page.evaluate("JSON.parse(localStorage.getItem('hj_visit_v1'))")
     check("새 방문: 접수번호·사진 삭제",not any(k in data for k in ("ticket","photo","ticketAt")))
     check("새 방문: 시간 알림·예약 메모 삭제",not any(k in data for k in ("dueAt","visitDate","visitTime")))
+    check("새 방문: 집 주소 삭제·병원 메모 유지","home" not in data and data.get("hosp")=="가상 의원")
     check("새 방문: 병원 이름·연락처 유지",data.get("hosp")=="가상 의원" and data.get("hospTel")=="0310000000")
     check("새 방문: 사용자에게 결과 안내","지웠어요" in page.locator("#privacyMsg").inner_text())
     page.locator("#clearVisit").click()
