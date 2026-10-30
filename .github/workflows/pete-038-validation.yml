@@ -1,0 +1,43 @@
+name: 효자 038 후속 검수 (시험 전용)
+on:
+  push:
+    branches:
+      - 'test/pete-038-followup-20261030'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 모의 브라우저 도구
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: v2 엔진·QR·직원 권한 모의시험
+        run: node --test experiments/hospital-queue/*.test.cjs
+      - name: 병원 방문 도우미 화면 모의시험
+        run: python experiments/visit-helper/tests-visit.py
+      - name: 방문 개인정보 정리·집주소 삭제 모의시험
+        run: python experiments/visit-helper/tests-privacy.py
+      - name: 12시간 자동 정리 모의시험
+        run: python experiments/visit-helper/tests-expiry.py
+      - name: 직원·환자 대기판 화면 모의시험
+        run: python experiments/hospital-queue/tests-demo.py
+      - name: 공식정보 보류 정책·검증기록 일치 시험
+        run: |
+          python scripts/audit-verified-evidence.py
+          python scripts/check-freshness.py
+          python scripts/check-staging.py
+      - name: 13화면 × 글자 크기 3단계
+        run: python tests/font-size-13pages.py
