@@ -101,8 +101,14 @@ try:
     # 전화번호 정책 (총괄 작업지시 005)
     import re as _re,glob as _g
     pol=json.load(open('docs/phone-policy-log.json'))
-    hidden={x['number'] for x in pol if x['action']=='숨김'}
-    keep=[x for x in pol if x['action']!='숨김']
+    # 보류 이유를 붙인 상태('숨김(지시013...)')도 공개 차단 대상이다.
+    # 기존의 정확 일치 비교는 보류 5건을 잘못 '유지'로 분류할 수 있었다.
+    hidden={''.join(ch for ch in str(x['number']) if ch.isdigit()) for x in pol
+            if str(x.get('action','')).startswith('숨김')}
+    keep=[x for x in pol if str(x.get('action','')).startswith('유지')]
+    held_expected={'0312018571','0313360040','03161935114','03161932114','03180212130'}
+    rec('번호 정책','보류 5건 모두 숨김(사유 포함)으로 분류',held_expected.issubset(hidden))
+    rec('번호 정책','모든 전화 정책에 유지/숨김 상태 명시',len(hidden)+len(keep)==len(pol))
     for page in ['Ad','Ad2','Culture','Emergency','Health','Jobs','Transit','Welfare','index','Centers']:
         pg.goto(U+page+'.html');pg.wait_for_timeout(500)
         links=pg.eval_on_selector_all('a[href^="tel:"]','e=>e.map(a=>[a.getAttribute("href").slice(4).replace(/\\D/g,""),a.hasAttribute("data-hj-src"),a.getAttribute("data-hj-checked")])')
