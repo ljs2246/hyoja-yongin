@@ -15,6 +15,7 @@ jobs:
     timeout-minutes: 15   # 멈춤 방지(초과 시 자동 중단)
     steps:
       - uses: actions/checkout@v4
+        with: { persist-credentials: false }
       - uses: actions/setup-node@v4
         with: { node-version: '20' }
       - uses: actions/setup-python@v5
@@ -28,6 +29,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: run-records
+          retention-days: 90
           path: |
             docs/runs/
             tests/e2e-mobile-results.json

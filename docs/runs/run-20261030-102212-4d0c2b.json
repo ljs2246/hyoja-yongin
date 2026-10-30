@@ -1,0 +1,45 @@
+{
+ "taskId": "f9c984907f35",
+ "runId": "20261030-102212-4d0c2b",
+ "startedKST": "2026-10-30T10:22:12+09:00",
+ "branch": "test/yongin-pilot-prep-v2",
+ "commit": "df85673",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "05 구글 드라이브 문서관리 담당",
+   "task": "드라이브 업로더 안전장치 시험(가짜 서버)",
+   "input": "scripts/drive-upload.py",
+   "command": "python3 tests/drive-upload.test.py",
+   "attempts": 1,
+   "seconds": 0.8,
+   "result": "통과",
+   "tail": "통과 8 / 전체 8"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식정보 근거·확인일 신선도 검사",
+   "input": "docs/phone-policy-log.json",
+   "command": "python3 scripts/check-freshness.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "실패",
+   "tail": "신선도 검사 실패 1건",
+   "error": "신선도 검사 실패: Emergency.html 03180212114 공식 URL 없음\n신선도 검사 실패 1건"
+  }
+ ],
+ "status": "자동 중단(실패)",
+ "endedKST": "2026-10-30T10:22:13+09:00"
+}
