@@ -59,13 +59,14 @@ try:
         ctx.close()
     # 오프라인
     ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily button')
-    pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]','큰딸');pg.fill('input[aria-label=전화번호]','010-1234-5678');pg.click('button:has-text("저장하기")')
+    pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]','큰딸');pg.fill('input[aria-label=전화번호]','010-1234-5678');pg.set_input_files('input[type=file]','tests/fixtures/family-photo.jpg');pg.wait_for_selector('#hjFamily img');pg.click('button:has-text("저장하기")')
     pg.evaluate('navigator.serviceWorker.ready.then(()=>1)');pg.wait_for_timeout(2500);pg.reload();pg.wait_for_timeout(1500)
     ctx.set_offline(True)
     try:
         pg.reload();pg.wait_for_selector('#hjFamily button',timeout=8000)
         rec('오프라인','인터넷 끊고 새로고침해도 화면 열림',True)
         rec('오프라인','오프라인에서 저장한 가족 전화 유지',pg.locator('a[href="tel:01012345678"]').count()==1)
+        rec('오프라인','오프라인에서 가족 사진 유지',pg.locator('#hjFamily img').count()==1)
     except Exception as e:rec('오프라인','인터넷 끊고 새로고침해도 화면 열림',False,str(e)[:60])
     ctx.close()
     # 저장소 사용 불가(사생활 보호 모드 비슷)

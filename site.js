@@ -15,7 +15,7 @@
     wrap.classList.toggle('hj-narrow',document.documentElement.clientWidth/zooms[size]<340);
     var nav=wrap.querySelector('div[style*="repeat(6"]');
     if(nav){nav.setAttribute('data-hjnav','1');var inner=document.documentElement.clientWidth/zooms[size];
-      nav.style.setProperty('grid-template-columns',inner<430?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))','important');
+      nav.style.setProperty('grid-template-columns',inner<300?'repeat(2,minmax(0,1fr))':(inner<560?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))'),'important');
       var na=nav.querySelectorAll('a');for(var k=0;k<na.length;k++){na[k].style.whiteSpace='nowrap';na[k].style.padding='0';}}
     var bs=bar.querySelectorAll('button');
     for(var i=0;i<bs.length;i++){var on=bs[i].getAttribute('data-k')===size;

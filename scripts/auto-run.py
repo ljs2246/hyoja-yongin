@@ -34,6 +34,7 @@ STEPS=[
  ('03 앱 개발·테스트 담당','의료·지역 검사','node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs','medical-maps/region 스크립트'),
  ('03 앱 개발·테스트 담당','효마음 데모 화면 모의검사','python3 tests/hyomaeum-e2e.py','Chromium 모의 기기'),
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),
+ ('03 앱 개발·테스트 담당','13개 화면 메뉴 통일·첫 화면 핵심 4개 점검','python3 tests/menu-e2e.py','Chromium 모의 기기'),
 ]
 TID=task_id()
 DIRTY=bool(sh("git status --porcelain | grep -v ' docs/runs/' | grep -v e2e-mobile-results | grep -v changes-latest | grep -v work-board.md").stdout.strip())  # 커밋되지 않은 수정이 있으면 복구 후보로 인정하지 않음
