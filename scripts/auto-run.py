@@ -26,7 +26,8 @@ STEPS=[
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),
 ]
 TID=task_id()
-run={'taskId':TID,'runId':now.strftime('%Y%m%d-%H%M%S')+'-'+uuid.uuid4().hex[:6],'startedKST':now.isoformat(timespec='seconds'),'branch':branch,'commit':commit,'approver':None,'deployed':False,'published':False,'steps':[],'status':'진행'}
+DIRTY=bool(sh("git status --porcelain | grep -v ' docs/runs/' | grep -v e2e-mobile-results").stdout.strip())  # 커밋되지 않은 수정이 있으면 복구 후보로 인정하지 않음
+run={'dirty':DIRTY,'taskId':TID,'runId':now.strftime('%Y%m%d-%H%M%S')+'-'+uuid.uuid4().hex[:6],'startedKST':now.isoformat(timespec='seconds'),'branch':branch,'commit':commit,'approver':None,'deployed':False,'published':False,'steps':[],'status':'진행'}
 lock=open(os.path.join(tempfile.gettempdir(),'hyoja-auto-run.lock'),'w')
 try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
 except OSError:print('다른 자동 실행이 진행 중입니다. 중복 실행을 차단했습니다.');sys.exit(2)

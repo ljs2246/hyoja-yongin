@@ -6,7 +6,7 @@ set -u; RUNS=${1:-docs/runs}
 SHA=$(python3 - "$RUNS" <<'P'
 import json,glob,sys
 ok=[json.load(open(f)) for f in sorted(glob.glob(sys.argv[1]+'/run-*.json'))]
-ok=[j for j in ok if j.get('status')=='전체 통과' and j.get('commit') not in(None,'unknown')]
+ok=[j for j in ok if j.get('status')=='전체 통과' and j.get('dirty') is False and j.get('commit') not in(None,'unknown')]
 print(ok[-1]['commit'] if ok else '')
 P
 )
