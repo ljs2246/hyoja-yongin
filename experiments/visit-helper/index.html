@@ -57,15 +57,15 @@ function home(){
  '<a class="card step" href="#/wait"><span class="n">3</span><span><span class="t">기다리는 동안</span><br><span class="d">내가 정한 확인 알림 · 가족 연락 · 도움 요청</span></span></a>'+
  '<a class="card step" href="#/pharmacy"><span class="n">4</span><span><span class="t">진료 후</span><br><span class="d">약국 찾기 · 집에 가는 길 · 가족 연락</span></span></a>'+
  '<div class="notice">이 앱은 병원의 접수·호출 시스템과 연결되어 있지 않아요. 내 앞에 몇 명인지, 언제 호출되는지는 알지 못하고, 병원 안내와 직원 호출이 항상 먼저예요.</div>'+
- '<div class="card"><h2>내 정보 관리</h2><p class="mut">접수번호·번호표 사진·방문 메모는 브라우저에 남을 수 있어요. 공용 휴대폰에서는 사용하지 마세요. 접수번호와 사진은 저장 12시간 뒤 자동으로 지워져요. 그 전에 지우려면 아래 버튼을 누르세요.</p>'+ '<button type="button" class="btn sec" id="newVisit">새 방문 시작 · 접수번호와 사진 지우기</button>'+ '<button type="button" class="btn dng" id="clearVisit">방문 기록 모두 지우기</button><div id="privacyMsg" class="mut" role="status"></div></div>'+
+ '<div class="card"><h2>내 정보 관리</h2><p class="mut">접수번호·번호표 사진·방문 메모는 브라우저에 남을 수 있어요. 공용 휴대폰에서는 사용하지 마세요. 접수번호와 사진은 저장 후 12시간이 지나면 이 화면이 열려 있는 동안 자동 정리돼요. 화면을 닫은 동안은 다음에 열 때 정리돼요. 그 전에 지우려면 아래 버튼을 누르세요.</p>'+ '<button type="button" class="btn sec" id="newVisit">새 방문 시작 · 접수번호와 사진 지우기</button>'+ '<button type="button" class="btn dng" id="clearVisit">방문 기록 모두 지우기</button><div id="privacyMsg" class="mut" role="status"></div></div>'+
  '<div class="card"><h2>병원과 연결된 화면 (가상 시험)</h2><p class="mut">아래는 가상 병원·가상 접수번호로 만든 견본이에요. 실제 병원 데이터가 아니에요.</p>'+
  '<a class="btn sec" href="../hospital-queue/demo.html#staff">병원 직원용 가상 대기판</a>'+
  '<a class="btn sec" href="../hospital-queue/demo.html#patient">QR로 여는 환자용 가상 대기 카드</a></div>';
  document.getElementById("newVisit").addEventListener("click",function(){
-  if(!window.confirm("새 방문을 시작할까요? 접수번호·사진·알림과 이전 예약 메모가 지워져요."))return;
-  var o=get();["ticket","photo","ticketAt","photoAt","dueAt","visitDate","visitTime"].forEach(function(k){delete o[k];});
+  if(!window.confirm("새 방문을 시작할까요? 접수번호·사진·알림·예약 메모·집 주소가 지워져요."))return;
+  var o=get();["ticket","photo","ticketAt","photoAt","dueAt","visitDate","visitTime","home"].forEach(function(k){delete o[k];});
   var saved=put(o);home();
-  document.getElementById("privacyMsg").textContent=saved||!st?"이전 접수번호·사진·알림을 지웠어요.":"정보를 지우지 못했어요. 다시 시도해 주세요.";
+  document.getElementById("privacyMsg").textContent=saved||!st?"이전 접수번호·사진·알림·집 주소를 지웠어요.":"정보를 지우지 못했어요. 다시 시도해 주세요.";
  });
  document.getElementById("clearVisit").addEventListener("click",function(){
   if(!window.confirm("이 기기에 저장된 효자 병원 방문 기록을 모두 지울까요? 가족 연락처는 유지돼요."))return;
@@ -174,9 +174,14 @@ function pharmacy(){
 
 var routes={"/home":home,"/prep":prep,"/ticket":ticket,"/wait":wait,"/pharmacy":pharmacy};
 var EXPIRE_MS=12*3600000;
-function expire(){var o=get(),t=Date.now(),old=function(k){return o[k]&&t-o[k]>EXPIRE_MS;};
- if(old("ticketAt")||old("photoAt")){["ticket","ticketAt","photo","photoAt","dueAt"].forEach(function(k){delete o[k];});put(o);}}
+function expire(){var o=get(),t=Date.now(),old=function(k){return Number.isFinite(Number(o[k]))&&Number(o[k])>0&&t-Number(o[k])>=EXPIRE_MS;};
+ if(old("ticketAt")||old("photoAt")){["ticket","ticketAt","photo","photoAt","dueAt"].forEach(function(k){delete o[k];});put(o);return true;}return false;}
 function route(){expire();if(timer){clearInterval(timer);timer=null;}var r=(location.hash||"#/home").slice(1);(routes[r]||home)();window.scrollTo(0,0);}
 window.addEventListener("hashchange",route);route();
+// 열린 화면은 1분마다 만료 여부 확인. 화면 복귀 시에도 정리.
+function expireAndRefresh(){if(expire()){route();}}
+window.addEventListener("focus",expireAndRefresh);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)expireAndRefresh();});
+setInterval(expireAndRefresh,60000);
 })();
 </script></body></html>
