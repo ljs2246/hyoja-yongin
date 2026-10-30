@@ -13,7 +13,7 @@ P
 [ -z "$SHA" ] && { echo "복구 후보 없음: 통과 기록이 없습니다"; exit 1; }
 echo "복구 후보(마지막 정상 커밋): $SHA"
 WT=$(mktemp -d); git worktree add -q --detach "$WT" "$SHA" || { echo "후보 커밋을 내려받지 못했습니다"; exit 1; }
-( cd "$WT" && python3 scripts/auto-run.py --force --out "$WT/.rollback-runs" ) ; RC=$?
+( cd "$WT" && python3 scripts/auto-run.py --out "$WT/.rollback-runs" ) ; RC=$?
 git worktree remove --force "$WT"
 [ $RC -eq 0 ] && echo "복구 후보 검증 통과 → 되돌리기는 승인 후 수동 수행(자동 실행 안 함)" || echo "복구 후보 검증 실패 → 더 이전 기록 확인 필요"
 exit $RC
