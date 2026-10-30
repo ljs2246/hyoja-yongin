@@ -23,5 +23,5 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: 기존 병원 방문 도우미 모의시험
         run: python experiments/visit-helper/tests-visit.py
-      - name: 방문기록·사진·알림 삭제 모의시험
+      - name: 방문기록·사진·알림 삭제 모의시험 15건
         run: python experiments/visit-helper/tests-privacy.py
