@@ -35,6 +35,8 @@ STEPS=[
  ('03 앱 개발·테스트 담당','효마음 데모 화면 모의검사','python3 tests/hyomaeum-e2e.py','Chromium 모의 기기'),
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),
  ('03 앱 개발·테스트 담당','13개 화면 메뉴 통일·첫 화면 핵심 4개 점검','python3 tests/menu-e2e.py','Chromium 모의 기기'),
+ ('03 앱 개발·테스트 담당','접근성 동적 검사(광고·전체 메뉴 포함 13개 화면)','python3 tests/a11y-dynamic.py','Chromium 모의 기기'),
+ ('03 앱 개발·테스트 담당','메뉴 이동 중복 누름·오류 점검','python3 tests/nav-robustness.py','Chromium 모의 기기'),
 ]
 TID=task_id()
 DIRTY=bool(sh("git status --porcelain | grep -v ' docs/runs/' | grep -v e2e-mobile-results | grep -v changes-latest | grep -v work-board.md").stdout.strip())  # 커밋되지 않은 수정이 있으면 복구 후보로 인정하지 않음

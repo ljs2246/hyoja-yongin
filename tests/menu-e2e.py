@@ -39,9 +39,14 @@ try:
       menu:[...m.querySelectorAll('a')].map(a=>a.getAttribute('href')), all:document.querySelector('a.hj-all-menu')&&document.querySelector('a.hj-all-menu').getAttribute('href'),
       mainLinks:[...document.querySelectorAll('main a')].map(a=>a.getAttribute('href')).filter(h=>/^(Culture|Health|Jobs|Centers|Guide)\\.html/.test(h||''))}}""")
     rec('첫 화면','큰 제목 「꼭 필요한 4가지」',core['title']=='꼭 필요한 4가지')
-    rec('첫 화면','핵심 4개 = 가족 전화(카드)·급할 때·복지·혜택·이동·교통',core['menu']==['Welfare.html','Transit.html'] and core['famTop']<core['emTop'])
+    rec('첫 화면','핵심 4개 = 급할 때·가족 전화(카드)·복지·혜택·이동·교통',core['menu']==['Welfare.html','Transit.html'] and core['emTop']<core['famTop'])
     rec('첫 화면','나머지 메뉴는 「전체 메뉴」 한 곳으로(나들이·건강교실·일자리 바로가기 없음 — 새소식 영역 제외)',core['all']=='All.html' and pg.evaluate("document.querySelectorAll('.primary-menu a').length")==2)
     rec('첫 화면','핵심 4개가 모두 3화면 분량(2400px) 안',core['emTop']<2400)
+    # 급할 때: 큰 119·112·129 카드가 실제로 눌러지는 전화 링크이고 첫 2화면 안에 있음 (어르신 관점 점검에서 발견한 결함 수정)
+    pg.goto(U+'Emergency.html');pg.wait_for_timeout(300)
+    big=pg.evaluate("['119','112','129'].map(n=>{const a=document.querySelector('a[href=\"tel:'+n+'\"][data-hj-src][data-hj-checked]');if(!a)return null;const r=a.getBoundingClientRect();return {top:Math.round(r.top+scrollY),h:Math.round(r.height),big:parseFloat(getComputedStyle(a).fontSize),txt:a.innerText.includes(n)}})")
+    rec('급할 때','큰 119·112·129 카드가 모두 전화 링크(출처·확인일 포함), 눌러서 전화 걸기 안내',all(big) and all(x['txt'] and x['h']>=100 for x in big),str(big))
+    rec('급할 때','119 카드가 화면 맨 위 1000px 안(스크롤 거의 없이 도달)',bool(big[0]) and big[0]['top']<1000,str(big[0]))
     # 이동 흐름
     for lab,href,h in [('급할 때','Emergency.html','급할 때'),('복지·혜택','Welfare.html','복지·혜택'),('이동·교통','Transit.html','이동·교통'),('전체 메뉴','All.html','전체 메뉴')]:
         pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily');

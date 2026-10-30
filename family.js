@@ -47,6 +47,7 @@
       s.onclick=function(){var nm=n.value.trim();if(!nm){m.textContent='이름을 적어 주세요.';return;}
         if(!validPhone(p.value)){m.textContent='전화번호를 다시 확인해 주세요.';return;}
         if(fam.length>=3){m.textContent='3명까지 저장할 수 있어요.';return;}
+        if(fam.some(function(x){return x.phone===digits(p.value);})){m.textContent='이미 저장된 번호예요.';return;}
         var o={name:nm,phone:digits(p.value)};if(photo)o.photo=photo;fam.push(o);
         if(!(st&&save(st,fam))){fam.pop();if(o.photo){delete o.photo;fam.push(o);if(st&&save(st,fam)){m.textContent='';render(false);return;}fam.pop();}m.textContent='이 휴대폰에서는 저장되지 않아요.';return;}render(false);};
       var x=el('button',btn+'background:#fff;color:#B8501A','닫기');x.type='button';x.onclick=function(){render(false);};

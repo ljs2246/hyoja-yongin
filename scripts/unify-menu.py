@@ -2,7 +2,7 @@
 """지시(2026-10-30): 첫 화면 핵심 4개 + 13개 화면 메뉴 이름·이동 통일. 테스트 브랜치 견본용. 여러 번 실행해도 같은 결과(멱등)."""
 import re,sys
 NAV_STYLE='margin-top: auto; background: #FFFFFF; border-top: 2px solid #F0D6B5; padding: 8px 6px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; border-radius: 22px 22px 0 0; box-shadow: 0 -4px 14px rgba(120,70,20,.08)'
-A_ON='min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; background: linear-gradient(180deg,#E9843A,#B8501A); color: #FFFFFF; box-shadow: 0 3px 0 #8A3A10'
+A_ON='min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; background: linear-gradient(180deg,#BA531B,#9A3F10); color: #FFFFFF; box-shadow: 0 3px 0 #6E2A08'
 A_OFF='min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 16px; font-size: 17px; font-weight: 700; color: #3B2314'
 ITEMS=[('홈','index.html','home'),('가족 전화','index.html#hjFamily','family'),('급할 때','Emergency.html','em'),('복지·혜택','Welfare.html','wel'),('이동·교통','Transit.html','tr'),('전체 메뉴','All.html','all')]
 CUR={'index.html':'home','Emergency.html':'em','Welfare.html':'wel','Transit.html':'tr','All.html':'all'}
@@ -28,7 +28,7 @@ def fix_page(page):
         s=s.replace('</main><script',nav_html(page,st)+'</main><script',1)
     # 뒤로 가기 통일
     s=re.sub(r'<a href="(?:Culture|index)\.html" style="min-height:48px;display:flex;align-items:center;font-size:19px;font-weight:700;color:#7A3510">(?:‹ 문화·나들이로|‹ 홈으로)</a>','<a href="index.html" style="%s" class="hj-back">← 처음 화면으로</a>'%BACK_STYLE,s)
-    s=s.replace('<a href="index.html">← 처음 화면</a>','<a href="index.html">← 처음 화면으로</a>')
+    s=s.replace('<a href="index.html">← 처음 화면</a>','<a href="index.html" style="display:flex;align-items:center;min-height:48px;font-weight:700">← 처음 화면으로</a>')
     if page=='Regions.html':s=re.sub(r'<title>[^<]*</title>','<title>내 지역·부모님 지역 · 효자 용인</title>',s,count=1)
     if s!=o:open(page,'w',encoding='utf-8').write(s)
     return s!=o
@@ -55,7 +55,7 @@ def fix_home():
     menu_div='<div style="display: flex; flex-direction: column; gap: 14px" class="primary-menu" role="navigation" aria-labelledby="core4-title">'+''.join(keep)+'</div>'
     allbtn=('<a href="All.html" class="hj-all-menu" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:84px;box-sizing:border-box;padding:12px 18px;border-radius:28px;background:#FFFFFF;border:2px solid #D9A066;box-shadow:0 6px 0 #E8C79B;color:#3B2314">'
             '<span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:24px;font-weight:900">전체 메뉴</span><span style="font-size:17px;color:#6A4A33">나들이·건강교실·일자리 등 더 보기</span></span><span style="font-size:30px;font-weight:900;color:#B8501A">›</span></a>')
-    core=h2+blocks['fam']+blocks['em']+menu_div+allbtn+blocks['region']+blocks['hero']
+    core=h2+blocks['em']+blocks['fam']+menu_div+allbtn+blocks['region']+blocks['hero']
     s=s.replace('@@CORE@@',core)
     open('index.html','w',encoding='utf-8').write(s);return True
 def fix_all():
@@ -74,3 +74,22 @@ def fix_all():
     s=s[:a]+'<div style="display: flex; flex-direction: column; gap: 10px">'+new+s[b:]
     open('All.html','w',encoding='utf-8').write(s);return True
 print('home','수정' if fix_home() else '변경 없음');print('All 구성','수정' if fix_all() else '변경 없음')
+
+def fix_main():
+    n=0
+    for p in ['All','Centers','Culture','Emergency','Guide','Health','Jobs','Transit','Welfare']:
+        f=p+'.html';t=open(f,encoding='utf-8').read();o=t
+        if 'role="main"' not in t:
+            t=t.replace('class="hj-content">','class="hj-content" role="main" id="main-content">',1)
+        if 'class="home-skip"' not in t:
+            t=t.replace('<body style="margin:0; background:#FFF6E8" class="hj-subpage">','<body style="margin:0; background:#FFF6E8" class="hj-subpage"><a class="home-skip" href="#main-content">본문 바로가기</a>',1)
+        if t!=o:open(f,'w',encoding='utf-8').write(t);n+=1
+    for f,mid in (('Ad.html',None),('Ad2.html',None)):
+        t=open(f,encoding='utf-8').read();o=t
+        if 'role="main"' not in t:
+            t=t.replace('<div style="display:flex;flex-direction:column;gap:18px;padding:20px 20px 24px">','<div style="display:flex;flex-direction:column;gap:18px;padding:20px 20px 24px" role="main" id="main-content">',1)
+        if 'class="home-skip"' not in t:
+            t=t.replace('<body style="margin:0; background:#FFF6E8" class="hj-subpage">','<body style="margin:0; background:#FFF6E8" class="hj-subpage"><a class="home-skip" href="#main-content">본문 바로가기</a>',1)
+        if t!=o:open(f,'w',encoding='utf-8').write(t);n+=1
+    return n
+print('main 역할',fix_main())

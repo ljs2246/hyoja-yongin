@@ -5,12 +5,46 @@
   "name": "main-protection",
   "target": "branch",
   "enforcement": "active",
-  "conditions": { "ref_name": { "include": ["refs/heads/main"], "exclude": [] } },
+  "conditions": {
+    "ref_name": {
+      "include": [
+        "refs/heads/main"
+      ],
+      "exclude": []
+    }
+  },
   "bypass_actors": [],
   "rules": [
-    { "type": "pull_request", "parameters": { "required_approving_review_count": 1, "dismiss_stale_reviews_on_push": true, "require_code_owner_review": false, "require_last_push_approval": false, "required_review_thread_resolution": false } },
-    { "type": "required_status_checks", "parameters": { "strict_required_status_checks_policy": true, "required_status_checks": [ { "context": "qa" } ] } },
-    { "type": "non_fast_forward" },
-    { "type": "deletion" }
-  ]
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": true,
+        "allowed_merge_methods": [
+          "squash"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": true,
+        "required_status_checks": [
+          {
+            "context": "qa"
+          }
+        ]
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    },
+    {
+      "type": "deletion"
+    }
+  ],
+  "_보완(2026-10-30)": "승인 절차 문서 08-main-merge-approval-procedure.md 와 함께 읽을 것. 변경: ① 대화(검토 의견) 해결 필수 ② 병합 방식 squash 만 허용(되돌리기 쉬움) ③ 나머지 그대로. 아직 적용하지 않음."
 }
