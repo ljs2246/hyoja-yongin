@@ -3,12 +3,13 @@ on:
   schedule:
     - cron: "30 21 * * *"   # 매일 한국시간 오전 6시 30분
   workflow_dispatch:
-  push:
-    paths:
-      - "scripts/fetch_data.py"
-      - ".github/workflows/update-data.yml"
+    inputs:
+      dry_run:
+        description: '1이면 갱신 브랜치만 올리고 PR은 만들지 않음(시험용)'
+        default: '1'
 permissions:
-  contents: write
+  contents: write        # 갱신 브랜치(auto/data-*)에만 push. main 직접 push는 사용하지 않음
+  pull-requests: write   # 검수용 PR 생성(병합은 사람이 승인)
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -18,13 +19,8 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python3 scripts/fetch_data.py
-      - name: 자료 검사 관문(이상하면 이전 승인본으로 되돌리고 저장하지 않음)
-        if: always()
-        run: python3 scripts/check-data.py --restore
-      - name: 바뀐 자료 저장
-        if: always()
-        run: |
-          git config user.name "자동 갱신"
-          git config user.email "actions@users.noreply.github.com"
-          git add data
-          git diff --cached --quiet || (git commit -m "자동 갱신: 병원·약국 자료" && git pull --rebase -q && git push)
+      - name: 검증 후 PR 생성 (이상하면 이전 승인본으로 되돌리고 저장 안 함, main 직접 push 없음)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && '0' || (inputs.dry_run || '1') }}
+        run: bash scripts/auto-data-pr.sh

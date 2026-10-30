@@ -15,4 +15,7 @@ git checkout -q main 2>/dev/null || git checkout -qb main; python3 scripts/auto-
 python3 -c "import fcntl,tempfile,os,time;l=open(os.path.join(tempfile.gettempdir(),'hyoja-auto-run.lock'),'w');fcntl.flock(l,fcntl.LOCK_EX);time.sleep(8)" & HOLD=$!; sleep 1
 cd $TMP; git checkout -q test/failure-drill; python3 scripts/auto-run.py --out $TMP/runs3 >/tmp/drill4.log 2>&1; R4=$?; wait $HOLD
 [ $R4 -eq 2 ] && echo "통과 동시 실행 차단(중복 실행 방지 잠금)" || { echo "실패 동시 실행 차단"; OK=1; }
+# 예약 점검 전용 예외: HJ_ALLOW_MAIN_READONLY=1 일 때만 main을 읽기 전용으로 검사(기본값은 거부 유지)
+git checkout -q main 2>/dev/null; HJ_ALLOW_MAIN_READONLY=1 timeout 15 python3 scripts/auto-run.py --out $TMP/runs4 >/tmp/drill5.log 2>&1
+grep -q "통과 전화 링크" /tmp/drill5.log && ! grep -q "운영 main에서는" /tmp/drill5.log && echo "통과 예약 점검 예외는 환경값이 있을 때만 main을 읽기 전용 검사" || { echo "실패 예약 점검 예외"; OK=1; }
 rm -rf $TMP; exit $OK

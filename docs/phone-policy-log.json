@@ -126,7 +126,7 @@
   "agency": "백남준아트센터 관람문의",
   "sourceUrl": "https://njp.ggcf.kr/",
   "checked": "2026-10-30",
-  "action": "유지",
+  "action": "숨김(지시013: 공개 보류, 병원·기관 추가 확인 전)",
   "category": "기관"
  },
  {
@@ -136,7 +136,7 @@
   "agency": "용인자연휴양림",
   "sourceUrl": "https://www.foresttrip.go.kr/rep/or/fcfsRsrvtMain.do?hmpgId=ID02030031&menuId=001001",
   "checked": "2026-10-30",
-  "action": "유지",
+  "action": "숨김(지시013: 공개 보류, 병원·기관 추가 확인 전)",
   "category": "기관"
  },
  {
@@ -146,7 +146,7 @@
   "agency": "처인구청 대표",
   "sourceUrl": "https://www.cheoingu.go.kr/",
   "checked": "2026-10-30",
-  "action": "유지",
+  "action": "숨김(지시013: 공개 보류, 병원·기관 추가 확인 전)",
   "category": "기관"
  },
  {
@@ -306,7 +306,7 @@
   "agency": "다보스병원 응급실",
   "sourceUrl": "https://www.davoshospital.co.kr/guide/page05.html",
   "checked": "2026-10-30",
-  "action": "교체유지(031-8021-2119로 교체: 병원 자체 사이트 3개 페이지 일치. 경기도청 목록의 2130과 상충 → 피트 확인 요청)",
+  "action": "숨김(지시013: 2130 공개 보류. 다보스 공식 홈페이지 2119 기준 대조)",
   "category": "의료"
  },
  {
@@ -376,7 +376,7 @@
   "agency": "용인시청 대표",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260331143713710",
   "checked": "2026-10-30",
-  "action": "유지",
+  "action": "숨김(지시013: 공개 보류, 병원·기관 추가 확인 전)",
   "category": "기관"
  },
  {

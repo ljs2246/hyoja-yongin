@@ -1,0 +1,16 @@
+{
+  "_설명": "운영 main 보호 규칙 '준비본'. 아직 GitHub에 적용하지 않음(사용자 최종 승인 전). 적용 방법: 저장소 설정 > 규칙 > 새 브랜치 규칙 세트에서 가져오기, 또는 gh api -X POST repos/ljs2246/hyoja-yongin/rulesets --input 이 파일(_로 시작하는 항목 제거 후).",
+  "_주의1": "required_approving_review_count=1 은 PR 작성자와 다른 사람(두 번째 GitHub 계정)이 있어야 병합 가능. 계정이 준식님 1개뿐이면 0으로 두고 '필수 검사 통과 + 준식님 직접 병합 승인'을 승인 기록으로 삼는 안을 결정해야 함.",
+  "_주의2": "GITHUB_TOKEN이 만든 PR에서는 다른 워크플로우가 자동 실행되지 않는 GitHub 제한이 있어, 자동 갱신 PR의 필수 검사 'qa'는 수동 실행(workflow_dispatch) 또는 별도 토큰이 필요 → 적용 전 시험 필요.",
+  "name": "main-protection",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": { "ref_name": { "include": ["refs/heads/main"], "exclude": [] } },
+  "bypass_actors": [],
+  "rules": [
+    { "type": "pull_request", "parameters": { "required_approving_review_count": 1, "dismiss_stale_reviews_on_push": true, "require_code_owner_review": false, "require_last_push_approval": false, "required_review_thread_resolution": false } },
+    { "type": "required_status_checks", "parameters": { "strict_required_status_checks_policy": true, "required_status_checks": [ { "context": "qa" } ] } },
+    { "type": "non_fast_forward" },
+    { "type": "deletion" }
+  ]
+}

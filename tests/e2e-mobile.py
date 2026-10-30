@@ -109,6 +109,11 @@ try:
     pg.goto(U+'Emergency.html');pg.wait_for_timeout(500)
     rec('번호 정책','119 구급상황관리센터 연결 유지',pg.locator('a[href="tel:119"]').count()>=1)
     rec('번호 정책','병원 응급실 직통: 공식 근거 확인분만 표시(세브란스 9001·다보스 2119·용인서울 322-0001·강남 0119·메디필드 1119)',all(pg.locator(f'a[href="tel:{n}"][data-hj-src]').count()==1 for n in ['03151899001','03180212119','0313220001','0313000119','0313321119']) and pg.locator('a[href="tel:03180212130"]').count()==0)
+    held=['0312018571','0313360040','03161935114','03161932114','03180212130']
+    for pgn in ['Culture','Emergency','index','Welfare','Health','Centers']:
+        pg.goto(U+pgn+'.html');pg.wait_for_timeout(300)
+        rec('번호 정책',f'{pgn}: 공개 보류 번호(지시013) 링크·글자 없음',not any(pg.locator(f'a[href="tel:{h}"]').count() for h in held) and not any(x in pg.content() for x in ['031-201-8571','031-336-0040','031-6193-5114','031-6193-2114','031-8021-2130']))
+    pg.goto(U+'Emergency.html');pg.wait_for_timeout(300)
     rec('번호 정책','민원콜센터 1577-1122 공식 확인 후 표시',pg.locator('a[href="tel:15771122"]').count()==1)
     # 서비스워커: 예전 캐시의 옛 번호가 되살아나지 않음
     ctx2=b.new_context(**p.devices['Pixel 5']);pg2=ctx2.new_page();pg2.goto(U+'manifest.webmanifest');pg2.wait_for_timeout(300)
