@@ -272,3 +272,19 @@ test("등록 전 안내: 숫자 없음·현장 호출 우선 문구", () => {
   const s = mk();
   assert.equal(snap(s).ahead, null); assert.match(snap(s).alert, /현장 호출이 우선/);
 });
+
+// ── 현재 호출 번호(참고 표시)
+test("현재 호출 번호는 표시만 되고 대기 인원을 바꾸지 않음", () => {
+  const s = mk();
+  ev(s, "queue_changed", { peopleAhead: 4 });
+  assert.equal(Q.setCurrentCall(s, H, QU, "A-020", T).ok, true);
+  const v = snap(s);
+  assert.equal(v.currentCall.label, "A-020"); assert.equal(v.ahead, 4);
+});
+test("현재 호출 번호: 잘못된 값·없는 대기열 거부, 오래되면 숨김", () => {
+  const s = mk();
+  assert.equal(Q.setCurrentCall(s, H, QU, "홍길동", T).reason, "invalid_label");
+  assert.equal(Q.setCurrentCall(s, H, "nope", "A-1", T).reason, "unknown_queue");
+  Q.setCurrentCall(s, H, QU, "A-020", T);
+  assert.equal(snap(s, T + 700000).currentCall, null);
+});

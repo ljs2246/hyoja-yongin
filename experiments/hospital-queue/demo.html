@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>효자 병원 대기판 시험 견본</title>
+<style>
+:root{--bg:#fffdf8;--fg:#1d1d1d;--mut:#555;--ok:#0b6b3a;--warn:#8a4b00;--bd:#c9c2b4;--btn:#1f4f8f}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.5 system-ui,sans-serif}
+.wrap{max-width:520px;margin:0 auto;padding:12px 16px 40px}
+.banner{background:#fff1cc;border:2px solid #d9a400;padding:8px 12px;font-size:16px;border-radius:8px}
+nav{display:flex;gap:8px;margin:12px 0}
+nav button{flex:1;min-height:52px;font-size:20px;border:2px solid var(--btn);background:#fff;color:var(--btn);border-radius:10px}
+nav button[aria-pressed=true]{background:var(--btn);color:#fff}
+h1{font-size:22px;margin:8px 0}
+.card{border:2px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0;background:#fff}
+.big{font-size:88px;font-weight:800;line-height:1.1;text-align:center}
+.unit{font-size:28px;text-align:center}
+.mut{color:var(--mut);font-size:17px}
+.alert{font-size:19px;padding:10px;border-radius:8px;background:#eef5ff;margin-top:10px}
+.alert.warn{background:#fff1e0;color:var(--warn)}
+label{display:block;margin:10px 0 4px;font-weight:700}
+select,input{width:100%;min-height:52px;font-size:20px;padding:6px 10px;box-sizing:border-box;border:2px solid var(--bd);border-radius:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.row button,.act{min-height:52px;min-width:48px;font-size:19px;padding:6px 14px;border:2px solid var(--btn);background:var(--btn);color:#fff;border-radius:10px}
+.row button.sec{background:#fff;color:var(--btn)}
+.row button.dng{background:#a31515;border-color:#a31515}
+table{width:100%;border-collapse:collapse;font-size:18px}td,th{border-bottom:1px solid var(--bd);padding:6px 4px;text-align:left}
+.hint{font-size:16px;color:var(--warn)}
+#log{font-size:15px;color:var(--mut);white-space:pre-wrap}
+[hidden]{display:none!important}
+</style></head><body><div class="wrap">
+<div class="banner" role="note">시험 견본 · 가상 병원/가상 접수번호 · 실제 병원 연결·문자 발송·개인정보 없음 · 직원 로그인은 모의(미구현)</div>
+<nav aria-label="화면 선택"><button id="tabS" aria-pressed="true">직원 화면</button><button id="tabP" aria-pressed="false">환자 화면</button></nav>
+
+<section id="staff">
+ <h1>직원 대기판</h1>
+ <div class="card">
+  <label for="hosp">병원</label><select id="hosp"></select>
+  <label for="room">진료실</label><select id="room"></select>
+  <label for="cc">현재 호출 번호 <span class="mut">(환자 화면에 참고로만 표시)</span></label>
+  <div class="row"><input id="cc" value="A-020" aria-describedby="cch" style="flex:1"><button class="act" id="ccBtn">저장</button></div>
+  <p class="hint" id="cch">이 번호는 대기 인원 계산에 쓰이지 않아요. 우선진료·예약·취소·진료실 변경이 있으면 순서가 달라질 수 있어요.</p>
+  <p class="mut" id="ccAt"></p>
+ </div>
+ <div class="card"><table aria-label="접수 목록"><thead><tr><th>접수번호</th><th>상태</th><th>앞 인원</th><th>수정</th></tr></thead><tbody id="rows"></tbody></table></div>
+ <div class="card" id="editor" hidden>
+  <h1 id="edTitle"></h1>
+  <p class="hint" id="sugg"></p>
+  <label for="ahead">실제 대기 인원 (직원이 확인한 값)</label><input id="ahead" type="number" min="0" max="500" inputmode="numeric">
+  <div class="row"><button id="apply">인원 확정</button><button class="sec" id="callB">호출</button><button class="sec" id="delayB">지연</button><button class="sec" id="resumeB">재개</button><button class="dng" id="cancelB">취소</button></div>
+  <p class="mut" id="edMsg" role="status"></p>
+ </div>
+ <p class="mut">마지막 갱신: <span id="stAt">-</span></p>
+</section>
+
+<section id="patient" hidden>
+ <h1>내 대기 현황</h1>
+ <div class="card"><label for="mine">접수번호 선택 <span class="mut">(실제로는 QR로 접속, 주소에 접수 토큰 포함 — QR 이미지는 미구현)</span></label><select id="mine"></select></div>
+ <div class="card" aria-live="polite">
+  <div id="pAheadBox"><div class="unit">내 앞에</div><div class="big" id="pAhead">-</div><div class="unit">명 남았어요</div></div>
+  <div class="alert" id="pAlert"></div>
+  <p id="pEta" class="mut" hidden></p>
+  <p class="mut" id="pCall"></p>
+  <p class="mut" id="pAge"></p>
+  <p class="mut" id="pText"></p>
+ </div>
+ <p class="mut">광고 없음 · 병원 현장 호출이 우선이에요.</p>
+</section>
+<div class="card"><div class="mut">시험 기록</div><div id="log"></div></div>
+</div>
+<script src="queue-core.js"></script>
+<script>
+(function(){
+"use strict";
+var C=window.HyojaQueueCore, now=function(){return Date.now();};
+var store=C.createStore();
+var HOSP={"hospDemo":"가상 의원"}, ROOMS={"q1":"진료실 1","q2":"진료실 2"};
+var seq=0;
+var tickets=[["A-021","q1"],["A-022","q1"],["A-023","q1"],["A-024","q1"],["A-025","q1"],["A-026","q1"],["B-011","q2"],["B-012","q2"]];
+tickets.forEach(function(t,i){C.register(store,{hospitalId:"hospDemo",queueId:t[1],ticketToken:"tok"+i,label:t[0],consent:false},now());});
+function $(id){return document.getElementById(id);}
+function logm(m){var l=$("log");l.textContent=new Date().toLocaleTimeString("ko-KR")+" "+m+"\n"+l.textContent.split("\n").slice(0,6).join("\n");}
+function opt(sel,pairs){sel.innerHTML="";pairs.forEach(function(p){var o=document.createElement("option");o.value=p[0];o.textContent=p[1];sel.appendChild(o);});}
+opt($("hosp"),Object.keys(HOSP).map(function(k){return [k,HOSP[k]];}));
+opt($("room"),Object.keys(ROOMS).map(function(k){return [k,ROOMS[k]];}));
+function list(){var q=$("room").value;return tickets.map(function(t,i){return {label:t[0],q:t[1],tok:"tok"+i};}).filter(function(x){return x.q===q;});}
+function snap(h,q,tok){return C.snapshot(store,h,q,tok,now());}
+var cur=null, last=null;
+function emit(type,extra){
+ var h=$("hosp").value,q=$("room").value, Q=store.queues[h+"|"+q];
+ var e=Object.assign({eventId:"s"+(++seq)+"-"+now(),sequence:Q.lastSeq+1,hospitalId:h,queueId:q,ticketToken:cur.tok,type:type,observedAt:now()},extra||{});
+ var r=C.ingest(store,e,{now:now(),authenticated:true}); // 모의 직원 로그인
+ last=now(); logm(cur.label+" "+type+" → "+(r.accepted?"수락":"거부("+r.reason+")")); $("edMsg").textContent=r.accepted?"처리했어요.":"처리하지 않았어요: "+r.reason; render(); return r;
+}
+function renderStaff(){
+ var h=$("hosp").value,q=$("room").value, tb=$("rows"); tb.innerHTML="";
+ list().forEach(function(x){
+  var s=snap(h,q,x.tok), tr=document.createElement("tr");
+  var stateKo={waiting:"대기",paused:"멈춤",delayed:"지연",called:"호출",cancelled:"취소",completed:"완료",expired:"만료"}[s.status]||s.status;
+  tr.innerHTML="<td>"+x.label+"</td><td>"+stateKo+"</td><td>"+(s.ahead===null?"-":s.ahead)+"</td><td></td>";
+  var b=document.createElement("button");b.className="act";b.textContent="수정";b.setAttribute("aria-label",x.label+" 수정");
+  b.onclick=function(){cur=x;openEditor();};tr.lastChild.appendChild(b);tb.appendChild(tr);
+ });
+ var Q=store.queues[h+"|"+q]; $("ccAt").textContent=Q.currentCall?("현재 호출 "+Q.currentCall.label+" · "+new Date(Q.currentCall.at).toLocaleTimeString("ko-KR")+" 저장"):"현재 호출 번호가 아직 없어요.";
+ $("stAt").textContent=last?new Date(last).toLocaleTimeString("ko-KR"):"아직 없음";
+}
+function openEditor(){
+ $("editor").hidden=false;$("edTitle").textContent=cur.label+" 접수";
+ var Q=store.queues[$("hosp").value+"|"+cur.q], n=function(l){return parseInt(l.split("-")[1],10);};
+ var sg=Q.currentCall&&Q.currentCall.label.split("-")[0]===cur.label.split("-")[0]?n(cur.label)-n(Q.currentCall.label)-1:null;
+ $("sugg").textContent=sg!==null&&sg>=0?"참고값(확정 아님): 번호 차이로 "+sg+"명. 우선진료·예약·취소를 직접 확인하고 아래에 실제 인원을 입력하세요.":"번호 차이 참고값이 없어요. 실제 대기 인원을 직접 입력하세요.";
+ $("ahead").value="";$("edMsg").textContent="";
+}
+$("ccBtn").onclick=function(){var r=C.setCurrentCall(store,$("hosp").value,$("room").value,$("cc").value.trim(),now());last=now();logm("현재 호출 번호 → "+(r.ok?"저장":"거부("+r.reason+")"));render();};
+$("apply").onclick=function(){var v=$("ahead").value; if(v===""||!/^\d+$/.test(v)){$("edMsg").textContent="0 이상의 숫자를 입력하세요.";return;} emit("queue_changed",{peopleAhead:parseInt(v,10)});};
+$("callB").onclick=function(){emit("called");};$("delayB").onclick=function(){emit("delayed");};$("resumeB").onclick=function(){emit("resumed");};
+$("cancelB").onclick=function(){if(confirm(cur.label+" 접수를 취소할까요?"))emit("cancelled");};
+$("hosp").onchange=$("room").onchange=function(){cur=null;$("editor").hidden=true;render();};
+(function initMine(){opt($("mine"),tickets.map(function(t,i){return ["tok"+i+"|"+t[1],t[0]];}));})();
+function renderPatient2(){
+ var v=$("mine").value.split("|"), s=snap("hospDemo",v[1],v[0]);
+ $("pAhead").textContent=s.ahead===null?"-":s.ahead;
+ $("pAheadBox").style.opacity=s.ahead===null?".35":"1";
+ var a=$("pAlert");a.textContent=s.alert;a.className="alert"+((s.ahead===null)?" warn":"");
+ var eta=$("pEta");if(s.estimate){eta.hidden=false;eta.textContent="예상 "+s.estimate.min+"~"+s.estimate.max+"분 (병원 제공 정보 기준, 달라질 수 있어요)";}else eta.hidden=true;
+ $("pCall").textContent=s.currentCall?"현재 호출 번호(참고): "+s.currentCall.label:"";
+ $("pAge").textContent=s.ageSec===null?"아직 정보를 받지 못했어요.":"마지막 갱신: "+(s.ageSec<60?s.ageSec+"초 전":Math.floor(s.ageSec/60)+"분 전");
+ $("pText").textContent="문자 안내: "+({off:"사용 안 함",none:"없음",pending:"대기",delivered:"도착",problem:"문제 있음"}[s.textStatus]);
+}
+function render(){renderStaff();renderPatient2();}
+function tab(p){$("staff").hidden=p;$("patient").hidden=!p;$("tabS").setAttribute("aria-pressed",String(!p));$("tabP").setAttribute("aria-pressed",String(p));render();}
+$("tabS").onclick=function(){tab(false);};$("tabP").onclick=function(){tab(true);};$("mine").onchange=render;
+render();setInterval(render,1000);
+window.__demo={store:store,Core:C};
+})();
+</script></body></html>

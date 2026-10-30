@@ -157,6 +157,15 @@
     Q.lastSeq = seq; Q.blocked = false; Q.gapSeq = seq; return true;
   }
 
+  // 직원이 입력한 '현재 호출 번호'는 참고 표시일 뿐, 대기 인원 계산에 쓰지 않는다(우선진료·예약·진료실 변경 가능)
+  function setCurrentCall(store, h, q, label, now) {
+    var Q = store.queues[qkey(h, q)];
+    if (!Q) return { ok: false, reason: "unknown_queue" };
+    if (typeof label !== "string" || !LABEL_RE.test(label)) return { ok: false, reason: "invalid_label" };
+    Q.currentCall = { label: label, at: now };
+    return { ok: true };
+  }
+
   function sweep(store, now) {
     var n = 0;
     Object.keys(store.tickets).forEach(function (k) {
@@ -195,6 +204,8 @@
     else if (!fresh) out.alert = "정보 갱신이 지연되고 있어요. 병원 안내를 확인해 주세요." + onsite;
     else if (t.ahead === null) out.alert = "아직 순서 정보를 받지 못했어요." + onsite;
     else out.alert = t.movedBack ? "순서가 바뀌었어요. 병원 안내를 확인해 주세요." + onsite : "마지막 갱신 기준 정보예요." + onsite;
+    var cc = Q.currentCall;
+    out.currentCall = cc && now - cc.at <= cfg.MAX_AGE_MS * 5 ? { label: cc.label, ageSec: Math.floor(Math.max(0, now - cc.at) / 1000) } : null;
     if (live) {
       out.ahead = t.ahead;
       var e = t.estimate;
@@ -237,6 +248,6 @@
     return true;
   }
 
-  return { createStore: createStore, register: register, ingest: ingest, snapshot: snapshot, sweep: sweep, resync: resync,
+  return { createStore: createStore, register: register, ingest: ingest, snapshot: snapshot, sweep: sweep, resync: resync, setCurrentCall: setCurrentCall,
     deliverable: deliverable, markResult: markResult, DEFAULTS: DEFAULTS, TYPES: TYPES, tkey: tkey };
 });
