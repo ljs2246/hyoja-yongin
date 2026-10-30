@@ -25,7 +25,7 @@ with sync_playwright() as p:
     ok("11시간 54분 지난 정보는 유지(경계)", pg.evaluate("JSON.parse(localStorage.getItem('hj_visit_v1')).ticket")=="A-023")
     seed(12.1)
     ok("12시간 6분 지난 정보는 삭제(경계)", pg.evaluate("!JSON.parse(localStorage.getItem('hj_visit_v1')).ticket"))
-    ok("홈에 12시간 자동 삭제 안내", "12시간 뒤 자동으로 지워져요" in pg.inner_text("#app"))
+    ok("홈에 12시간 자동 삭제 안내", "12시간이 지나면" in pg.inner_text("#app"))
     pg.goto(URL+"#/ticket"); pg.fill("#tn","B-7")
     ok("접수 화면에 저장 시각·자동 삭제 안내", "저장한 시각" in pg.inner_text("#show") and "12시간 뒤 자동 삭제" in pg.inner_text("#show"))
     # 사진 없이 번호만 있어도 만료
