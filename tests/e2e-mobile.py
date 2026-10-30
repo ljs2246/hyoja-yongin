@@ -1,4 +1,4 @@
-# 가족 전화·오늘의 안부 + 약국/행정복지센터 노출 차단 모바일 화면 점검 (Chromium 기기 에뮬레이션)
+# 가족 전화·가족 사진(안부·위치 기능 제외, 지시 022) + 약국/행정복지센터 노출 차단 모바일 화면 점검 (Chromium 기기 에뮬레이션)
 # 실행: python3 tests/e2e-mobile.py   (저장소 루트에서)
 import subprocess,time,json,sys,datetime
 from playwright.sync_api import sync_playwright
@@ -16,10 +16,9 @@ try:
         ctx=b.new_context(**dv);pg=ctx.new_page();errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily button')
         g=dn
-        rec(g,'첫 화면 열림·안부 카드 보임',pg.locator('text=오늘의 안부').count()>=1)
-        rec(g,'자동 알림 없음 문구 표시',pg.locator('text=자동으로 전달되지는 않아요').count()==1)
-        pg.click('text=오늘도 잘 지내요');rec(g,'안부 기록 + 「이 휴대폰에」 표시',pg.locator('text=이 휴대폰에 오늘 안부를 기록했어요').count()==1)
-        rec(g,'안부 후 「자동 알림 없음」 안내 유지',pg.locator('text=자동으로 알려 주는 기능은 아직 없어요').count()==1)
+        rec(g,'첫 화면 열림·가족 전화 카드 보임',pg.locator('text=가족에게 전화').count()>=1)
+        rec(g,'오늘의 안부 기록 기능 없음(제외)',pg.locator('text=오늘의 안부').count()==0 and pg.locator('text=오늘도 잘 지내요').count()==0)
+        rec(g,'위치 공유·추적 기능 없음(제외)',pg.evaluate("typeof navigator.geolocation==='undefined' || !document.body.innerText.includes('위치 공유')") and pg.locator('text=위치 공유').count()==0 and pg.locator('text=위치 추적').count()==0)
         pg.click('text=＋ 가족 저장하기')
         pg.fill('input[aria-label=이름]','');pg.fill('input[aria-label=전화번호]','010-1234-5678');pg.click('button:has-text("저장하기")')
         rec(g,'이름 없으면 저장 거부',pg.locator('text=이름을 적어 주세요').count()==1)
@@ -27,13 +26,27 @@ try:
         rec(g,'잘못된 번호 거부',pg.locator('text=전화번호를 다시 확인해 주세요').count()==1)
         pg.fill('input[aria-label=전화번호]','010-1234-5678');pg.click('button:has-text("저장하기")')
         rec(g,'전화 링크 tel:01012345678',pg.locator('a[href="tel:01012345678"]').count()==1)
-        sms=pg.locator('a[href^="sms:01012345678"]');rec(g,'문자 링크 sms:번호?&body=',sms.count()==1,sms.first.get_attribute('href')[:60] if sms.count() else '')
+        rec(g,'자동 문자 알리기 버튼 없음(가족 연결은 전화 중심)',pg.locator('a[href^="sms:"]').count()==0)
+        rec(g,'사진 없을 때 이름 첫 글자 표시',pg.locator('#hjFamily >> text=큰').count()>=1)
         for n,ph in [('둘째','010-2222-3333'),('막내','010-4444-5555')]:
             pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]',n);pg.fill('input[aria-label=전화번호]',ph);pg.click('button:has-text("저장하기")')
         rec(g,'3명까지 저장',pg.locator('a[href^="tel:010"]').count()==3 and pg.locator('text=＋ 가족 저장하기').count()==0)
         pg.reload();pg.wait_for_selector('#hjFamily button');rec(g,'새로고침 후 유지',pg.locator('a[href^="tel:010"]').count()==3)
         pg.click('text=저장한 가족 지우기');rec(g,'가족 전체 삭제',pg.locator('a[href^="tel:010"]').count()==0)
-        rec(g,'삭제 후 안부 문자 버튼 사라짐',pg.locator('a[href^="sms:"]').count()==0)
+        rec(g,'삭제 후 사진·전화 카드 모두 사라짐',pg.locator('#hjFamily img').count()==0)
+        # 사진 저장 (회색 사각형 JPEG 생성)
+        import io
+        from PIL import Image
+        bio=io.BytesIO();Image.new('RGB',(900,600),(200,120,60)).save(bio,'JPEG');open('/tmp/claude-0/fam_photo.jpg','wb').write(bio.getvalue())
+        pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]','큰딸');pg.fill('input[aria-label=전화번호]','010-1234-5678')
+        pg.set_input_files('input[type=file]','/tmp/claude-0/fam_photo.jpg');pg.wait_for_selector('#hjFamily img',timeout=5000)
+        rec(g,'사진 고르면 미리보기 표시',pg.locator('#hjFamily img').count()==1)
+        pg.click('button:has-text("저장하기")')
+        rec(g,'사진+전화 카드 표시',pg.locator('#hjFamily img').count()==1 and pg.locator('a[href="tel:01012345678"]').count()==1)
+        sz=pg.evaluate("JSON.parse(localStorage.getItem('hyoja-family'))[0].photo.length")
+        rec(g,'사진은 작게 줄여 이 휴대폰에만 저장(<60KB)',0<sz<60000,str(sz))
+        pg.reload();pg.wait_for_selector('#hjFamily button');rec(g,'새로고침 후 사진 유지',pg.locator('#hjFamily img').count()==1)
+        pg.click('text=저장한 가족 지우기')
         # 글씨 크기
         for lab in ['크게','아주 크게']:
             pg.click(f'#sizeBtns button:has-text("{lab}")');pg.wait_for_timeout(200)
@@ -46,15 +59,6 @@ try:
         pg.click('#sizeBtns button:has-text("보통")')
         rec(g,'자바스크립트 오류 없음',not errs,';'.join(errs)[:80])
         ctx.close()
-    # 날짜 변경 (한국시간 자정 경계)
-    ctx=b.new_context(**p.devices['Pixel 5'],timezone_id='Asia/Seoul');pg=ctx.new_page()
-    pg.clock.install(time=datetime.datetime(2026,11,5,14,59,0,tzinfo=datetime.timezone.utc))   # 한국시간 23:59
-    pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily button');pg.click('text=오늘도 잘 지내요')
-    rec('날짜','23:59(한국시간) 안부 기록',pg.locator('text=이 휴대폰에 오늘 안부를 기록했어요 (23:59)').count()==1)
-    pg.clock.set_fixed_time(datetime.datetime(2026,11,5,15,1,0,tzinfo=datetime.timezone.utc))   # 한국시간 다음날 00:01
-    pg.reload();pg.wait_for_selector('#hjFamily button')
-    rec('날짜','자정 지나면 기록 초기화',pg.locator('text=이 휴대폰에 오늘 안부를 기록했어요').count()==0 and pg.locator('text=오늘도 잘 지내요').count()>=1)
-    ctx.close()
     # 오프라인
     ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily button')
     pg.click('text=＋ 가족 저장하기');pg.fill('input[aria-label=이름]','큰딸');pg.fill('input[aria-label=전화번호]','010-1234-5678');pg.click('button:has-text("저장하기")')
@@ -64,7 +68,6 @@ try:
         pg.reload();pg.wait_for_selector('#hjFamily button',timeout=8000)
         rec('오프라인','인터넷 끊고 새로고침해도 화면 열림',True)
         rec('오프라인','오프라인에서 저장한 가족 전화 유지',pg.locator('a[href="tel:01012345678"]').count()==1)
-        pg.click('text=오늘도 잘 지내요');rec('오프라인','오프라인에서 안부 기록',pg.locator('text=이 휴대폰에 오늘 안부를 기록했어요').count()==1)
     except Exception as e:rec('오프라인','인터넷 끊고 새로고침해도 화면 열림',False,str(e)[:60])
     ctx.close()
     # 저장소 사용 불가(사생활 보호 모드 비슷)
