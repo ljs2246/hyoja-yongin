@@ -78,7 +78,7 @@ try:
     rec('노출 차단','미확인 센터 32곳 「공식 확인 중」 표시',pg.locator('[data-hj-blocked]').count()==32)
     rec('노출 차단','포곡읍·이동읍·성복동·모현읍 번호 링크 없음',all(pg.locator(f'a[href="tel:{n}"]').count()==0 for n in ['03161935531','03161935691','03161938777','03161935611']))
     rec('노출 차단','안내 문구 표시',pg.locator('[data-hj-note=centers]').count()==1)
-    rec('노출 차단','1577-1122 미표시(센터 화면)',pg.locator('text=1577-1122').count()==0)
+    rec('노출 차단','센터 화면 1577-1122 안내는 공식 확인(yongin.go.kr) 후에만 표시',pg.locator('text=1577-1122').count()>=1)
     ctx.close()
     ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.wait_for_timeout(500)
     bad=0
@@ -94,6 +94,28 @@ try:
     rec('노출 차단','제외 안내 문구',('공식 확인이 끝나지 않은' in pg.inner_text('#phStatus')))
     pg.goto(U+'Welfare.html');pg.wait_for_timeout(500)
     rec('노출 차단','근거 없는 복지 카드(장기요양) 숨김',pg.locator('[data-hj-blocked=노인장기요양보험]').count()==1 and pg.locator('text=65세 이상, 또는 노인성 질환').count()==0)
+    # 전화번호 정책 (총괄 작업지시 005)
+    import re as _re,glob as _g
+    pol=json.load(open('docs/phone-policy-log.json'))
+    hidden={x['number'] for x in pol if x['action']=='숨김'}
+    keep=[x for x in pol if x['action']!='숨김']
+    for page in ['Ad','Ad2','Culture','Emergency','Health','Jobs','Transit','Welfare','index','Centers']:
+        pg.goto(U+page+'.html');pg.wait_for_timeout(500)
+        links=pg.eval_on_selector_all('a[href^="tel:"]','e=>e.map(a=>[a.getAttribute("href").slice(4).replace(/\\D/g,""),a.hasAttribute("data-hj-src"),a.getAttribute("data-hj-checked")])')
+        rec('번호 정책',f'{page}: 숨김 번호 링크 0개',not any(n in hidden for n,_,_ in links))
+        rec('번호 정책',f'{page}: 남은 모든 전화 링크에 출처·확인일 기록(긴급 3자리 포함)',all(h and c for n,h,c in links))
+    pg.goto(U+'Emergency.html');pg.wait_for_timeout(500)
+    rec('번호 정책','119 구급상황관리센터 연결 유지',pg.locator('a[href="tel:119"]').count()>=1)
+    rec('번호 정책','세브란스 번호 공식값으로 정정(1899-1004)',pg.locator('a[href="tel:18991004"]').count()==1 and pg.locator('a[href="tel:03151898511"]').count()==0)
+    rec('번호 정책','민원콜센터 1577-1122 공식 확인 후 표시',pg.locator('a[href="tel:15771122"]').count()==1)
+    # 서비스워커: 예전 캐시의 옛 번호가 되살아나지 않음
+    ctx2=b.new_context(**p.devices['Pixel 5']);pg2=ctx2.new_page();pg2.goto(U+'manifest.webmanifest');pg2.wait_for_timeout(300)
+    pg2.evaluate("caches.open('hyoja-v41').then(c=>c.put('/Centers.html',new Response('OLD tel:03161935611')))")
+    pg2.goto(U+'Centers.html');pg2.wait_for_timeout(3000);pg2.reload();pg2.wait_for_timeout(1500)
+    keys=pg2.evaluate("caches.keys()")
+    rec('번호 정책','서비스워커 갱신 후 예전 캐시 삭제',keys==['hyoja-v42'] or keys==[] or all(k=='hyoja-v42' for k in keys),str(keys))
+    rec('번호 정책','갱신 후 숨긴 번호 모현읍 링크 없음',pg2.locator('a[href="tel:03161935611"]').count()==0)
+    ctx2.close()
     ctx.close();b.close()
 finally:srv.terminate()
 ok=sum(1 for r in R if r['결과']=='통과');print(f'\n통과 {ok} / 전체 {len(R)}')

@@ -1,0 +1,713 @@
+[
+ {
+  "page": "Ad.html",
+  "number": "0313213636",
+  "label": "전화 문의 031-321-3636",
+  "agency": "전화 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Ad.html",
+  "number": "0313213636",
+  "label": "031-321-3636",
+  "agency": "기관",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Ad2.html",
+  "number": "0313387100",
+  "label": "전화 문의 031-338-7100",
+  "agency": "전화 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Ad2.html",
+  "number": "0313387100",
+  "label": "031-338-7100",
+  "agency": "기관",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938602",
+  "label": "풍덕천1동031-6193-8602",
+  "agency": "풍덕천1동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center010102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938642",
+  "label": "신봉동031-6193-8642",
+  "agency": "신봉동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center03.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938662",
+  "label": "죽전1동031-6193-8662",
+  "agency": "죽전1동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center040102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938693",
+  "label": "죽전2동031-6193-8693",
+  "agency": "죽전2동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center050102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938871",
+  "label": "죽전3동031-6193-8871",
+  "agency": "죽전3동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center100102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938733",
+  "label": "상현1동031-6193-8733",
+  "agency": "상현1동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center070102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Centers.html",
+  "number": "03161938844",
+  "label": "상현3동031-6193-8844",
+  "agency": "상현3동 행정복지센터",
+  "sourceUrl": "https://www.sujigu.go.kr/lmth/06center110102.asp",
+  "checked": "2026-10-26",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161934796",
+  "label": "전화 031-6193-4796",
+  "agency": "전화",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Culture.html",
+  "number": "0312018571",
+  "label": "백남준아트센터 031-201-8571",
+  "agency": "백남준아트센터 관람문의",
+  "sourceUrl": "https://njp.ggcf.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "0313360040",
+  "label": "용인자연휴양림 031-336-0040",
+  "agency": "용인자연휴양림",
+  "sourceUrl": "https://www.foresttrip.go.kr/rep/or/fcfsRsrvtMain.do?hmpgId=ID02030031&menuId=001001",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161935114",
+  "label": "처인구청 031-6193-5114",
+  "agency": "처인구청 대표",
+  "sourceUrl": "https://www.cheoingu.go.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "0313205000",
+  "label": "에버랜드 고객센터 031-320-5000",
+  "agency": "에버랜드 고객센터",
+  "sourceUrl": "https://www.everland.com/cscenter/faq-list",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161932067",
+  "label": "용인시청 관광과 031-6193-2067",
+  "agency": "용인시 관광과",
+  "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260327153357010",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "16444000",
+  "label": "NH농협카드 1644-4000",
+  "agency": "NH농협카드",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Culture.html",
+  "number": "15882588",
+  "label": "IBK기업은행 1588-2588",
+  "agency": "IBK기업은행",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161932165",
+  "label": "용인시 문화예술과 031-6193-2165",
+  "agency": "용인시 문화예술과",
+  "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161932165",
+  "label": "용인시 문화예술과 031-6193-2165",
+  "agency": "용인시 문화예술과",
+  "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161932165",
+  "label": "용인시 문화예술과 031-6193-2165",
+  "agency": "용인시 문화예술과",
+  "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "03161932165",
+  "label": "용인시 문화예술과 031-6193-2165",
+  "agency": "용인시 문화예술과",
+  "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Culture.html",
+  "number": "0313213636",
+  "label": "전화하기 031-321-3636",
+  "agency": "전화하기",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "129",
+  "label": "복지상담 129",
+  "agency": "보건복지상담센터 129",
+  "sourceUrl": "https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "119",
+  "label": "구급상황관리센터 119",
+  "agency": "119 긴급신고(구급·구조)",
+  "sourceUrl": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "03151899001",
+  "label": "응급실 031-5189-9001",
+  "agency": "용인세브란스병원 응급진료센터",
+  "sourceUrl": "https://yi.severance.healthcare/yi/patient-carer/guide/emergency.do",
+  "checked": "2026-10-30",
+  "action": "교체유지(공식 번호로 정정)"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "03151898511",
+  "label": "대표 031-5189-8511",
+  "agency": "용인세브란스병원 대표",
+  "sourceUrl": "https://yi.severance.healthcare/yi/patient-carer/guide/number.do",
+  "checked": "2026-10-30",
+  "action": "교체유지(공식 번호로 정정)"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "0313000119",
+  "label": "응급실 031-300-0119",
+  "agency": "강남병원 응급의료센터",
+  "sourceUrl": "https://www.knmc.or.kr/clin/clin6.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "0313000114",
+  "label": "대표 031-300-0114",
+  "agency": "강남병원 대표",
+  "sourceUrl": "https://www.knmc.or.kr/clin/clin6.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "03180212130",
+  "label": "응급실 031-8021-2130",
+  "agency": "응급실",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "03180212114",
+  "label": "대표 031-8021-2114",
+  "agency": "다보스병원 대표",
+  "sourceUrl": "data/emergency.json (국립중앙의료원 공공데이터 2026-10-30)",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "0313220001",
+  "label": "응급실 031-322-0001",
+  "agency": "응급실",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "0313370114",
+  "label": "대표 031-337-0114",
+  "agency": "용인서울병원 대표",
+  "sourceUrl": "https://yishospital.com/?page_id=5240",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "0313321119",
+  "label": "응급실 031-332-1119",
+  "agency": "메디필드한강병원 응급실",
+  "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "15510077",
+  "label": "대표 1551-0077",
+  "agency": "메디필드한강병원 대표",
+  "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "15771122",
+  "label": "민원콜센터 1577-1122",
+  "agency": "용인시 민원안내콜센터",
+  "sourceUrl": "https://www.yongin.go.kr/home/cvIf/cvIfTotal/cvIfTotal12.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Emergency.html",
+  "number": "03161932114",
+  "label": "시청 대표 031-6193-2114",
+  "agency": "용인시청 대표",
+  "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260331143713710",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "0313244911",
+  "label": "처인구 031-324-4911",
+  "agency": "처인구",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Health.html",
+  "number": "0313246911",
+  "label": "기흥구 031-324-6911",
+  "agency": "기흥구",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Health.html",
+  "number": "0313248940",
+  "label": "수지구 031-324-8940",
+  "agency": "수지구",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Health.html",
+  "number": "0313249303",
+  "label": "처인노인복지관 031-324-9303",
+  "agency": "용인시처인노인복지관",
+  "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930067",
+  "label": "처인구 031-6193-0067",
+  "agency": "처인구보건소(예방접종)",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930316",
+  "label": "기흥구 031-6193-0316",
+  "agency": "기흥구보건소(예방접종)",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930805",
+  "label": "수지구 031-6193-0805",
+  "agency": "수지구보건소(예방접종)",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930199",
+  "label": "처인구 031-6193-0199",
+  "agency": "처인구 치매안심센터",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930408",
+  "label": "기흥구 031-6193-0408",
+  "agency": "기흥구 치매안심센터",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930883",
+  "label": "수지구 031-6193-0883",
+  "agency": "수지구 치매안심센터",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930192",
+  "label": "처인구 치료비 031-6193-0192",
+  "agency": "처인구보건소 치매치료관리비",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930415",
+  "label": "기흥구 치료비 031-6193-0415",
+  "agency": "기흥구보건소 치매치료관리비",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Health.html",
+  "number": "03161930888",
+  "label": "수지구 치료비 031-6193-0888",
+  "agency": "수지구보건소 치매치료관리비",
+  "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Jobs.html",
+  "number": "0313260243",
+  "label": "용인시니어클럽 031-326-0243",
+  "agency": "용인시니어클럽",
+  "sourceUrl": "https://www.yongin.go.kr/home/job/yiJobInfo/oldJob.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Jobs.html",
+  "number": "0313249303",
+  "label": "처인노인복지관 031-324-9303",
+  "agency": "용인시처인노인복지관",
+  "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Jobs.html",
+  "number": "0313249305",
+  "label": "처인노인복지관 일자리 문의 031-324-9305",
+  "agency": "용인시처인노인복지관(031-324-9303~5)",
+  "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Jobs.html",
+  "number": "0312848852",
+  "label": "기흥노인복지관 031-284-8852",
+  "agency": "용인시기흥노인복지관",
+  "sourceUrl": "https://www.ygsenior.or.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Jobs.html",
+  "number": "0312700000",
+  "label": "수지노인복지관 031-270-0000",
+  "agency": "수지노인복지관",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Transit.html",
+  "number": "07082110390",
+  "label": "다봄센터 070-8211-0390",
+  "agency": "다봄센터(고령 어르신 동행서비스)",
+  "sourceUrl": "http://www.yongin.go.kr/home/www/www18/www18_02/www18_02_06.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "0313293500",
+  "label": "에버라인 031-329-3500",
+  "agency": "용인에버라인 대표",
+  "sourceUrl": "https://ever-line.co.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "0313249303",
+  "label": "복지관 셔틀 문의 031-324-9303",
+  "agency": "용인시처인노인복지관",
+  "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "0313293500",
+  "label": "에버라인 031-329-3500",
+  "agency": "용인에버라인 대표",
+  "sourceUrl": "https://ever-line.co.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "16660420",
+  "label": "특별교통수단 (광역콜센터) 1666-0420",
+  "agency": "경기도 교통약자 광역이동지원센터",
+  "sourceUrl": "https://ggsts.gg.go.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "0315267755",
+  "label": "용인시 교통약자 이동지원센터 031-526-7755",
+  "agency": "용인시 교통약자 이동지원센터(바우처택시)",
+  "sourceUrl": "https://www.yonginnuri.or.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "0315267755",
+  "label": "바우처택시 031-526-7755",
+  "agency": "용인시 교통약자 이동지원센터(바우처택시)",
+  "sourceUrl": "https://www.yonginnuri.or.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Transit.html",
+  "number": "03161933336",
+  "label": "용인시 대중교통과 031-6193-3336",
+  "agency": "용인시 대중교통과",
+  "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1020&q_bbscttSn=20260327101726830",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "112",
+  "label": "경찰 112 전화하기",
+  "agency": "112 긴급신고(경찰)",
+  "sourceUrl": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161932214",
+  "label": "전화 031-6193-2214",
+  "agency": "용인시 노인복지과",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "1355",
+  "label": "국민연금 상담 1355 (유료)",
+  "agency": "국민연금 고객센터",
+  "sourceUrl": "https://www.nps.or.kr/pbcpgdnc/ognzprsn/getOHAG0021M0.do",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "16003190",
+  "label": "에너지바우처 상담센터 1600-3190",
+  "agency": "에너지바우처 통합 상담센터",
+  "sourceUrl": "https://www.energyv.or.kr/",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161932214",
+  "label": "전화 031-6193-2214",
+  "agency": "용인시 노인복지과",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161932214",
+  "label": "식당 문의 031-6193-2214",
+  "agency": "용인시 노인복지과",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161932462",
+  "label": "도시락 문의 031-6193-2462",
+  "agency": "용인시 노인복지과",
+  "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_07.jsp",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161932466",
+  "label": "전화 031-6193-2466",
+  "agency": "용인시 노인복지과 노인돌봄팀",
+  "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1265&q_bbscttSn=20250828160000069",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "03161933152",
+  "label": "장애인복지과 031-6193-3152",
+  "agency": "용인시 장애인복지과",
+  "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1001&q_bbscttSn=20260203093702620",
+  "checked": "2026-10-30",
+  "action": "유지"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "07046572214",
+  "label": "처인 수리 문의 070-4657-2214",
+  "agency": "처인 수리 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "07049080909",
+  "label": "기흥 수리 문의 070-4908-0909",
+  "agency": "기흥 수리 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "Welfare.html",
+  "number": "0312700024",
+  "label": "수지 수리 문의 031-270-0024",
+  "agency": "수지 수리 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "index.html",
+  "number": "07079541967",
+  "label": "관람 문의 070-7954-1967",
+  "agency": "관람 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "index.html",
+  "number": "0313387100",
+  "label": "전화 문의 031-338-7100",
+  "agency": "전화 문의",
+  "sourceUrl": null,
+  "checked": "2026-10-30",
+  "action": "숨김"
+ },
+ {
+  "page": "index.html",
+  "number": "129",
+  "label": "전화로 물어보고 싶으세요?129 ☎복지 상담 전화예요. 누르면 전화가 걸려요.",
+  "agency": "보건복지상담센터 129",
+  "sourceUrl": "https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700",
+  "checked": "2026-10-30",
+  "action": "유지"
+ }
+]
