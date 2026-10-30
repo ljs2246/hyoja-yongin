@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 모의 자료(실제 병원 아님). 항목명은 공식 명세 확인 전 가정이며 미검증 -->
+<response><header><resultCode>00</resultCode></header><body><items>
+<item><yadmNm>시험병원A</yadmNm><addr>경기도 용인시 처인구 모의로 1</addr><telno>031-000-0001</telno><clCdNm>종합병원</clCdNm><sidoCdNm>경기</sidoCdNm><sgguCdNm>용인시처인구</sgguCdNm><ykiho>MOCK1</ykiho></item>
+<item><yadmNm>시험의원B</yadmNm><addr>경기도 용인시 기흥구 모의로 2</addr><telno>031-000-0002</telno><clCdNm>의원</clCdNm><sidoCdNm>경기</sidoCdNm><sgguCdNm>용인시기흥구</sgguCdNm><ykiho>MOCK2</ykiho></item>
+<item><yadmNm>시험의원B</yadmNm><addr>경기도 용인시 기흥구 모의로 2</addr><telno>031-000-0002</telno><clCdNm>의원</clCdNm><sidoCdNm>경기</sidoCdNm><sgguCdNm>용인시기흥구</sgguCdNm><ykiho>MOCK2</ykiho></item>
+<item><yadmNm>번호없음병원</yadmNm><addr>경기도 용인시 수지구 모의로 3</addr><telno>1234</telno><clCdNm>의원</clCdNm><sidoCdNm>경기</sidoCdNm><sgguCdNm>용인시수지구</sgguCdNm><ykiho>MOCK3</ykiho></item>
+<item><yadmNm>타지역의원</yadmNm><addr>서울특별시 모의로 4</addr><telno>02-000-0004</telno><clCdNm>의원</clCdNm><sidoCdNm>서울</sidoCdNm><sgguCdNm>강남구</sgguCdNm><ykiho>MOCK4</ykiho></item>
+</items></body></response>

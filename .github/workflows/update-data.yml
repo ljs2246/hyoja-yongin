@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write        # 갱신 브랜치(auto/data-*)에만 push. main 직접 push는 사용하지 않음
   pull-requests: write   # 검수용 PR 생성(병합은 사람이 승인)
+  actions: write         # 자동 생성 PR에는 필수 검사가 저절로 안 돌아서 qa 실행을 직접 요청
 jobs:
   update:
     runs-on: ubuntu-latest

@@ -26,6 +26,8 @@ STEPS=[
  ('09 일정·회계·경영 보고 담당','작업 현황 통합 관리표 검사','python3 scripts/work-board.py','docs/automation/work-board.json'),
  ('02 정보 검증·격리 담당','공식정보 근거·확인일 신선도 검사','python3 scripts/check-freshness.py','docs/phone-policy-log.json'),
  ('06 운영·보안 담당','보안 검사(비밀정보·외부 스크립트·권한)','python3 scripts/check-security.py','저장소 전체 파일'),
+ ('06 운영·보안 담당','보호 규칙·자동 갱신 흐름 충돌 사전 점검','python3 scripts/check-ruleset-compat.py','.github/workflows'),
+ ('02 정보 검증·격리 담당','격리 자료(일반 병원) 고객 화면 노출 차단 점검','python3 scripts/check-staging.py','data/staging'),
  ('03 앱 개발·테스트 담당','접근성·고령친화 정적 검사','python3 scripts/check-a11y.py','화면 HTML 전체'),
  ('03 앱 개발·테스트 담당','효마음 데모 단위검사(격리 기능)','node tests/hyomaeum.test.cjs','lab/hyomaeum/hyomaeum-core.js'),
  ('03 앱 개발·테스트 담당','가족 기능 단위검사','node tests/family.test.cjs','family.js'),
