@@ -21,6 +21,11 @@ with sync_playwright() as p:
     seed(1)
     o=pg.evaluate("JSON.parse(localStorage.getItem('hj_visit_v1'))")
     ok("1시간 지난 정보는 유지", o.get("ticket")=="A-023" and o.get("photo"))
+    # 이미 열린 화면에서 시간이 지나고 다시 초점을 얻을 때도 삭제해야 한다.
+    seed(1)
+    pg.evaluate("""() => {window.__clockOriginal=Date.now;Date.now=()=>window.__clockOriginal()+13*3600000;window.dispatchEvent(new Event('focus'));}""")
+    ok("열린 화면에서 12시간 경과·포커스 복귀 시 자동 삭제", pg.evaluate("!JSON.parse(localStorage.getItem('hj_visit_v1')).ticket"))
+    pg.evaluate("Date.now=window.__clockOriginal;delete window.__clockOriginal")
     seed(11.9)
     ok("11시간 54분 지난 정보는 유지(경계)", pg.evaluate("JSON.parse(localStorage.getItem('hj_visit_v1')).ticket")=="A-023")
     seed(12.1)
