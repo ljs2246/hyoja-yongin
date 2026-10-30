@@ -20,7 +20,7 @@ with sync_playwright() as p:
     check("정보 삭제/공용 휴대폰 안내", "공용 휴대폰" in page.locator("#app").inner_text())
     page.evaluate("""() => {
         localStorage.setItem('hj_visit_v1', JSON.stringify({
-            ticket: 'A-123',photo:'data:image/jpeg;base64,FAKE',ticketAt:100,dueAt:123,
+            ticket: 'A-123',photo:'data:image/jpeg;base64,FAKE',ticketAt:Date.now(),dueAt:123,
             visitDate:'2026-10-31',visitTime:'09:00',hosp:'가상 의원',hospTel:'0310000000',home:'가상 집'
         }));
         localStorage.setItem('hyoja-family',JSON.stringify([{name:'가족',phone:'010-1234-5678'}]));

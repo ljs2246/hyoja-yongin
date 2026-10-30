@@ -25,3 +25,12 @@ jobs:
         run: python experiments/visit-helper/tests-visit.py
       - name: 방문기록·사진·알림 삭제 모의시험 15건
         run: python experiments/visit-helper/tests-privacy.py
+      - name: 12시간 자동 삭제 모의시험 11건
+        run: python experiments/visit-helper/tests-expiry.py
+      - name: 가상 대기판 모의시험 16건
+        run: python experiments/hospital-queue/tests-demo.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 대기 엔진·어댑터·모의 서버 시험 83건
+        run: node --test experiments/hospital-queue/*.test.cjs
