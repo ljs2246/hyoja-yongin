@@ -36,3 +36,7 @@ assert.equal(search.validRegion({dutyAddr:'경기도 용인시 기흥구 도로 
 assert.equal(search.validRegion({dutyAddr:'경기도 용인시 기흥구 도로 12'},''),true);
 delete global.document;
 console.log('용인 지역·구 경계 필터 검사 통과');
+// 사고 모의훈련 1: 기관 번호로 부적절한 형식(휴대전화·유료·수신자부담)은 화면에 번호 링크로 나오지 않음
+assert.equal(maps.phone('010-1234-5678'),null);
+assert.equal(maps.phone('060-700-1234'),null);
+assert.equal(maps.phone('080-123-4567'),null);

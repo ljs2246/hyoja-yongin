@@ -69,7 +69,7 @@ svg[role=img]{animation:bob 3.2s ease-in-out infinite, glow 3.2s ease-in-out inf
 <div style="font-size: 22px; font-weight: 700">지금 문 연 병원과 약국 찾기</div>
 <div style="font-size: 19px; line-height: 1.6; color: #6A4A33">병원·약국은 응급의료포털에서 찾고 방문 전에 전화로 확인해 주세요. 129 일반 복지상담은 평일 오전 9시~오후 6시이며, 일부 긴급지원 상담은 24시간이에요.</div>
 <a data-hj-src="https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700" data-hj-checked="2026-10-30" href="tel:129" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">복지상담 129</a>
-<a data-hj-src="https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do" data-hj-checked="2026-10-30" href="tel:119" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">구급상황관리센터 119</a>
+<a data-hj-keep="1" data-hj-src="https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do" data-hj-checked="2026-10-30" href="tel:119" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; background: linear-gradient(180deg,#D2691E,#A8470F); color: #FFFFFF; box-shadow: 0 5px 0 #7A3510; font-size: 19px; font-weight: 700" class="hj-warm-action">구급상황관리센터 119</a>
 <a href="https://www.e-gen.or.kr" style="min-height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 26px; border: 2px solid #D9A066; color: #B8501A; font-size: 19px; font-weight: 700">응급의료포털 e-gen.or.kr</a>
 </div>
 <section class="hj-card" style="padding:16px;border:2px solid #F0D6B5;border-radius:22px;background:#fff" aria-labelledby="medical-search-title">
@@ -189,7 +189,7 @@ function render(){
   var a=document.createElement('div');a.style.cssText='font-size:21px;font-weight:700';a.textContent=p.dutyName||'';
   var b=document.createElement('div');b.style.cssText='font-size:18px;line-height:1.5;color:#6A4A33';b.textContent=(p.dutyAddr||'').replace('경기도 ','')+' · 등록 종료시간 '+closeStr(p,kst());
   box.appendChild(a);box.appendChild(b);
-  if(window.hjMedicalMaps.phone(p.dutyTel1)){var t=document.createElement('a');t.href='tel:'+String(p.dutyTel1).replace(/[^0-9]/g,'');t.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:19px;font-weight:700';t.textContent='전화 '+p.dutyTel1;box.appendChild(t);}
+  if(window.hjMedicalMaps.phone(p.dutyTel1)){var t=document.createElement('a');t.href='tel:'+String(p.dutyTel1).replace(/[^0-9]/g,'');t.setAttribute('data-hj-src','공공데이터 data/pharmacy.json');t.setAttribute('data-hj-checked',String(DATA['확인한 때']||'공공데이터').slice(0,10));t.style.cssText='min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:19px;font-weight:700';t.textContent='전화 '+p.dutyTel1;box.appendChild(t);}
   if(window.hjMapRow)box.appendChild(window.hjMapRow(p.dutyName||'',(p.dutyAddr||''),p.wgs84Lat,p.wgs84Lon));
   ls.appendChild(box);}
  more.style.display=rows.length>shown?'block':'none';

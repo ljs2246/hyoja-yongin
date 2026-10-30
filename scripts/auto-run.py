@@ -11,13 +11,17 @@ def sh(c,timeout=None):
 STEP_TIMEOUT=600;RETRY={'python3 tests/e2e-mobile.py':1}  # 단계별 제한시간 10분, 브라우저 시험만 1회 재시도(최대 2회)
 # 동일 작업 번호(taskId): 커밋+수정내용+단계 목록이 같으면 같은 작업. 이미 통과한 작업은 다시 만들지 않는다.
 def task_id():
-    d=sh("git diff HEAD -- . ':!docs/runs' ':!tests/e2e-mobile-results.json'").stdout+sh("git ls-files -o --exclude-standard | grep -v '^docs/runs/' | grep -v e2e-mobile-results").stdout
+    ex=[os.path.relpath(a.out).rstrip('/'),'docs/runs']  # 실행 기록 폴더 자체는 작업 내용에 포함하지 않음
+    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|incident-drills-results'
+    d=sh("git diff HEAD --name-only | grep -Ev '"+pat+"'; git ls-files -o --exclude-standard | grep -Ev '"+pat+"'").stdout
+    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json'").stdout
     return hashlib.sha1((sh('git rev-parse HEAD').stdout+d+'|'.join(s[1] for s in STEPS)).encode()).hexdigest()[:12]
 commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
 STEPS=[
  ('02 정보 검증·격리 담당','전화 링크 공식근거 검사','python3 scripts/check-phones.py','화면 HTML 전체 tel 링크'),
  ('05 구글 드라이브 문서관리 담당','드라이브 업로더 안전장치 시험(가짜 서버)','python3 tests/drive-upload.test.py','scripts/drive-upload.py'),
+ ('02 정보 검증·격리 담당','공식 자료 갱신 관문 검사','python3 scripts/check-data.py','data/emergency.json·pharmacy.json'),
  ('02 정보 검증·격리 담당','공식정보 근거·확인일 신선도 검사','python3 scripts/check-freshness.py','docs/phone-policy-log.json'),
  ('06 운영·보안 담당','보안 검사(비밀정보·외부 스크립트·권한)','python3 scripts/check-security.py','저장소 전체 파일'),
  ('03 앱 개발·테스트 담당','접근성·고령친화 정적 검사','python3 scripts/check-a11y.py','화면 HTML 전체'),
@@ -46,7 +50,7 @@ else:
         if r.returncode: run['status']='자동 중단(실패)';break
     else: run['status']='전체 통과'
 run['endedKST']=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).isoformat(timespec='seconds')
-f=os.path.join(a.out,f"run-{run['runId']}.json");json.dump(run,open(f,'w',encoding='utf-8'),ensure_ascii=False,indent=1)
+f=os.path.join(a.out,f"run-{run['runId']}.json");json.dump(run,open(f+'.tmp','w',encoding='utf-8'),ensure_ascii=False,indent=1);os.replace(f+'.tmp',f)  # 쓰기 성공 후에만 등록(원자적 저장)
 if run['status']!='전체 통과':
     al=os.path.join(a.out,f"ALERT-{run['runId']}.md")
     bad=[s for s in run['steps'] if s['result']=='실패']

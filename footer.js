@@ -33,3 +33,21 @@
   var GC='';
   if(GC){var s=document.createElement('script');s.async=true;s.setAttribute('data-goatcounter','https://'+GC+'.goatcounter.com/count');s.src='https://gc.zgo.at/count.js';document.head.appendChild(s);}
 })();
+
+/* 임시 장애 차단 스위치(킬스위치): data/killswitch.json 의 active 가 true 일 때만 동작. 기본은 꺼짐.
+   hide: 숨길 항목의 CSS 선택자 목록(예: 공공데이터 전화 링크). 숨긴 자리에는 notice 문구를 보여 준다.
+   119·112·129 같은 표준 긴급번호는 data-hj-keep 표시가 있으면 어떤 경우에도 숨기지 않는다. 켜고 끄는 것은 승인된 사람만(저장소 쓰기 권한). */
+(function(){
+  try{
+    fetch('data/killswitch.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(k){
+      if(!k||k.active!==true||!Array.isArray(k.hide)||!k.hide.length)return;
+      var css=k.hide.filter(function(s){return typeof s==='string'&&s.length<200;}).map(function(s){return s+':not([data-hj-keep])';}).join(',');
+      if(!css)return;
+      var st=document.createElement('style');st.setAttribute('data-hj-killswitch','1');st.textContent=css+'{display:none!important}';document.head.appendChild(st);
+      var n=document.createElement('div');n.setAttribute('role','status');n.setAttribute('data-hj-killswitch-notice','1');
+      n.style.cssText='margin:12px;padding:14px;border:2px solid #C0392B;border-radius:14px;background:#FFF3F0;font-size:19px;line-height:1.6';
+      n.textContent=String(k.notice||'일부 정보를 확인하는 중이라 잠시 가렸어요. 급할 때는 119에 전화해 주세요.');
+      document.body.insertBefore(n,document.body.firstChild);
+    }).catch(function(){});
+  }catch(e){}
+})();

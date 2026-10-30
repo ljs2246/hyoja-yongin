@@ -18,6 +18,9 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python3 scripts/fetch_data.py
+      - name: 자료 검사 관문(이상하면 이전 승인본으로 되돌리고 저장하지 않음)
+        if: always()
+        run: python3 scripts/check-data.py --restore
       - name: 바뀐 자료 저장
         if: always()
         run: |

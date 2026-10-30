@@ -12,7 +12,7 @@
     return 'nmap://'+action;
   }
   function normalize(s){return String(s||'').replace(/\s+/g,'');}
-  function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');return (/^\d{8,11}$/.test(n)||/^050\d{9}$/.test(n))&&!/0{7}$/.test(n)?n:null;}
+  function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');if(/^(01\d|060|080|700)/.test(n))return null;/* 휴대전화·유료/수신자부담 번호는 기관 번호로 인정하지 않음 */return (/^\d{8,11}$/.test(n)||/^050\d{9}$/.test(n))&&!/0{7}$/.test(n)?n:null;}
   function hospitalMatch(list,id,address){
     var expected=normalize(address),matches=list.filter(function(p){var actual=normalize(p.dutyAddr),suffix=actual.slice(expected.length);return expected&&p.hpid===id&&actual.startsWith(expected)&&(!suffix||/^[,(]/.test(suffix))&&coord(p.wgs84Lat,p.wgs84Lon);});
     return matches.length===1?matches[0]:null;

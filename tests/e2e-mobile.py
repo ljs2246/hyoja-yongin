@@ -3,6 +3,8 @@
 import subprocess,time,json,sys,datetime
 from playwright.sync_api import sync_playwright
 PORT=8791;R=[]
+import re
+SWV=re.search(r"const V='([^']+)'",open('sw.js').read()).group(1)  # 현재 서비스워커 버전을 코드에서 읽어 비교(버전을 올려도 시험이 낡지 않게)
 def rec(group,name,ok,note=''):R.append({'구분':group,'항목':name,'결과':'통과' if ok else '실패','비고':note});print(('통과 ' if ok else '실패 '),group,name,note)
 srv=subprocess.Popen(['python3','-m','http.server',str(PORT)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
 U=f'http://localhost:{PORT}/'
@@ -113,7 +115,7 @@ try:
     pg2.evaluate("caches.open('hyoja-v41').then(c=>c.put('/Centers.html',new Response('OLD tel:03161935611')))")
     pg2.goto(U+'Centers.html');pg2.wait_for_timeout(3000);pg2.reload();pg2.wait_for_timeout(1500)
     keys=pg2.evaluate("caches.keys()")
-    rec('번호 정책','서비스워커 갱신 후 예전 캐시 삭제',all(k=='hyoja-v43' for k in keys),str(keys))
+    rec('번호 정책','서비스워커 갱신 후 예전 캐시 삭제',all(k==SWV for k in keys),str(keys))
     rec('번호 정책','갱신 후 숨긴 번호 모현읍 링크 없음',pg2.locator('a[href="tel:03161935611"]').count()==0)
     ctx2.close()
     ctx.close();b.close()
