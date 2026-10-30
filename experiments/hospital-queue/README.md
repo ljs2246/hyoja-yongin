@@ -8,6 +8,10 @@
 ## 구성
 - `queue-engine.js`: 모의 접수 이벤트 상태 전이·중복 방지·갱신 지연 차단·발송하지 않는 문자 미리보기
 - `queue-engine.test.cjs`: Node.js 내장 테스트 18개 (명령: `node --test experiments/hospital-queue/queue-engine.test.cjs`)
+- `queue-core.js` (v2): 다중 병원·대기열·접수 토큰, 관측시각 신선도, 순번 후퇴 감지, 취소·호출 충돌 정정, 문자 outbox(재시도·불명 시 재발송 금지)
+- `adapters.js`: 공급사 웹훅(HMAC 서명) · 효자 직원 보드 · 모의 문자 게이트웨이 · SENS 본문 생성기(발송 안 함)
+- 시험: `node --test experiments/hospital-queue/*.test.cjs` (62건)
+- 규격·공급사 비교표: `ADAPTER-SPEC-AND-VENDORS-20261030.md`, 실기기 시험 준비: `DEVICE-TEST-PLAN-20261030.md`
 - 실제 SMS/알림톡 전송 코드, 개인식별정보, 통신 API 키, 환자 데이터 파일은 없다.
 
 ## 허가된 병원 연동 때 필요한 필수 데이터 — 아직 수신하지 않음
