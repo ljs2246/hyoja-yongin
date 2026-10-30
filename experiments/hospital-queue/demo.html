@@ -2,7 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>효자 병원 대기판 시험 견본</title>
 <style>
-:root{--bg:#fffdf8;--fg:#1d1d1d;--mut:#555;--ok:#0b6b3a;--warn:#8a4b00;--bd:#c9c2b4;--btn:#1f4f8f}
+:root{--bg:#FBF7F1;--fg:#47342F;--mut:#6A4A33;--ok:#0b6b3a;--warn:#8a4b00;--bd:#F0D6B5;--btn:#A8470F}
 body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.5 system-ui,sans-serif}
 .wrap{max-width:520px;margin:0 auto;padding:12px 16px 40px}
 .banner{background:#fff1cc;border:2px solid #d9a400;padding:8px 12px;font-size:16px;border-radius:8px}
@@ -28,6 +28,7 @@ table{width:100%;border-collapse:collapse;font-size:18px}td,th{border-bottom:1px
 [hidden]{display:none!important}
 </style></head><body><div class="wrap">
 <div class="banner" role="note">시험 견본 · 가상 병원/가상 접수번호 · 실제 병원 연결·문자 발송·개인정보 없음 · 직원 로그인은 모의(미구현)</div>
+<a href="../visit-helper/index.html" style="display:inline-flex;min-height:48px;align-items:center;margin-top:8px;color:#B8501A;font-weight:800">‹ 병원 방문 도우미로</a>
 <nav aria-label="화면 선택"><button id="tabS" aria-pressed="true">직원 화면</button><button id="tabP" aria-pressed="false">환자 화면</button></nav>
 
 <section id="staff">
@@ -128,7 +129,7 @@ function renderPatient2(){
 function render(){renderStaff();renderPatient2();}
 function tab(p){$("staff").hidden=p;$("patient").hidden=!p;$("tabS").setAttribute("aria-pressed",String(!p));$("tabP").setAttribute("aria-pressed",String(p));render();}
 $("tabS").onclick=function(){tab(false);};$("tabP").onclick=function(){tab(true);};$("mine").onchange=render;
-render();setInterval(render,1000);
+tab(location.hash==="#patient");setInterval(render,1000);
 window.__demo={store:store,Core:C};
 })();
 </script></body></html>

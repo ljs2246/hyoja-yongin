@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>효자 병원 방문 도우미 (시험 견본)</title>
+<style>
+:root{--bg:#FBF7F1;--fg:#47342F;--mut:#6A4A33;--line:#F0D6B5;--sh:#E8C79B;--pri1:#D2691E;--pri2:#A8470F;--pri-sh:#7A3510;--soft:#FFEBCC}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:20px/1.55 "Noto Sans KR",system-ui,sans-serif}
+.wrap{max-width:480px;margin:0 auto;padding:12px 16px 56px}
+.test{background:#FFF1CC;border:2px solid #D9A400;border-radius:12px;padding:8px 12px;font-size:16px;line-height:1.45}
+header.top{display:flex;align-items:center;gap:10px;margin:12px 0 4px}
+header.top a.home{min-height:52px;min-width:52px;display:flex;align-items:center;justify-content:center;border-radius:26px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-weight:800;text-decoration:none;padding:0 14px;font-size:18px}
+h1{font-size:28px;margin:6px 0;font-weight:900;line-height:1.25}
+h2{font-size:23px;margin:0 0 6px;font-weight:900}
+.card{background:#fff;border:2px solid var(--line);border-radius:22px;box-shadow:0 8px 0 var(--sh),0 16px 22px rgba(120,70,20,.14);padding:16px;margin:18px 0;display:flex;flex-direction:column;gap:12px}
+.btn{min-height:60px;display:flex;align-items:center;justify-content:center;border-radius:30px;font-size:21px;font-weight:800;font-family:inherit;text-decoration:none;border:0;padding:8px 16px;text-align:center;cursor:pointer;width:100%}
+.pri{background:linear-gradient(180deg,var(--pri1),var(--pri2));color:#fff;box-shadow:0 5px 0 var(--pri-sh)}
+.sec{background:linear-gradient(180deg,#fff,var(--soft));color:#7A3510;border:2px solid #D9A066;box-shadow:0 5px 0 var(--sh)}
+.dng{background:#fff;color:#A31515;border:2px solid #A31515}
+.card.step{flex-direction:row;gap:14px;align-items:center;text-decoration:none;color:inherit}
+.step .n{flex:none;width:52px;height:52px;border-radius:50%;background:linear-gradient(180deg,var(--pri1),var(--pri2));color:#fff;font-size:26px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.step .t{font-size:24px;font-weight:900;line-height:1.25}.step .d{font-size:17px;color:var(--mut)}
+label{font-weight:800;font-size:19px;display:block;margin-bottom:4px}
+input,select{width:100%;min-height:56px;font-size:21px;padding:6px 12px;border:2px solid #D9B58A;border-radius:14px;background:#fff;color:var(--fg);font-family:inherit}
+.mut{color:var(--mut);font-size:17px;line-height:1.55}
+.notice{background:#F3EBE1;border-radius:16px;padding:12px 14px;font-size:17px;line-height:1.6;color:var(--mut)}
+.notice.warn{background:#FFF1E0;border:2px solid #E8A14A;color:#7A3510;font-weight:700}
+.bignum{font-size:84px;font-weight:900;text-align:center;letter-spacing:2px;line-height:1.1;color:#7A3510}
+.photo{max-width:100%;border-radius:16px;border:2px solid var(--line)}
+.alarm{background:#FFF1E0;border:3px solid #D2691E;border-radius:18px;padding:14px;font-size:22px;font-weight:800;text-align:center}
+[hidden]{display:none!important}
+.sr{position:absolute;left:-9999px}
+</style></head><body><div class="wrap">
+<div class="test" role="note">시험 견본 · 병원 시스템과 연결되어 있지 않아요 · 입력한 내용은 이 휴대폰에만 저장돼요(서버 전송 없음) · 실제 병원 호출/대기 인원을 알려주지 않아요</div>
+<div id="app" aria-live="polite"></div>
+</div>
+<script>
+(function(){
+"use strict";
+var KEY="hj_visit_v1", FAMKEY="hyoja-family";
+var st=null;try{st=window.localStorage;st.setItem("hj_t","1");st.removeItem("hj_t");}catch(e){st=null;}
+var mem={};
+function get(){try{return JSON.parse((st&&st.getItem(KEY))||"null")||mem;}catch(e){return mem;}}
+function put(o){mem=o;if(!st)return false;try{st.setItem(KEY,JSON.stringify(o));return true;}catch(e){return false;}}
+function upd(k,v){var o=get();o[k]=v;return put(o);}
+function digits(v){return String(v||"").replace(/[^0-9]/g,"");}
+function validPhone(v){return /^(01[016789]\d{7,8}|02\d{7,8}|0[3-6]\d{8,9}|070\d{8}|0507\d{8}|1[5-9]\d{6})$/.test(digits(v));}
+function family(){try{var a=JSON.parse((st&&st.getItem(FAMKEY))||"[]");return Array.isArray(a)?a.filter(function(x){return x&&x.name&&validPhone(x.phone);}).slice(0,3):[];}catch(e){return [];}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function nav(){return '<header class="top"><a class="home" href="#/home" aria-label="처음으로">‹ 처음으로</a></header>';}
+var app=document.getElementById("app"), timer=null;
+
+function home(){
+ var d=get();
+ app.innerHTML='<h1>병원 방문 도우미</h1><p class="mut">집을 나서기 전부터 집에 돌아올 때까지, 순서대로 도와드려요.</p>'+
+ '<a class="card step" href="#/prep"><span class="n">1</span><span><span class="t">병원 가기 전</span><br><span class="d">길 찾기 · 전화 · 예약 메모 · 가족에게 알리기</span></span></a>'+
+ '<a class="card step" href="#/ticket"><span class="n">2</span><span><span class="t">접수한 뒤</span><br><span class="d">접수번호 저장 · 번호표 사진'+(d.ticket?' · 저장된 번호 '+esc(d.ticket):'')+'</span></span></a>'+
+ '<a class="card step" href="#/wait"><span class="n">3</span><span><span class="t">기다리는 동안</span><br><span class="d">내가 정한 확인 알림 · 가족 연락 · 도움 요청</span></span></a>'+
+ '<a class="card step" href="#/pharmacy"><span class="n">4</span><span><span class="t">진료 후</span><br><span class="d">약국 찾기 · 집에 가는 길 · 가족 연락</span></span></a>'+
+ '<div class="notice">이 앱은 병원의 접수·호출 시스템과 연결되어 있지 않아요. 내 앞에 몇 명인지, 언제 호출되는지는 알지 못하고, 병원 안내와 직원 호출이 항상 먼저예요.</div>'+
+ '<div class="card"><h2>병원과 연결된 화면 (가상 시험)</h2><p class="mut">아래는 가상 병원·가상 접수번호로 만든 견본이에요. 실제 병원 데이터가 아니에요.</p>'+
+ '<a class="btn sec" href="../hospital-queue/demo.html#staff">병원 직원용 가상 대기판</a>'+
+ '<a class="btn sec" href="../hospital-queue/demo.html#patient">QR로 여는 환자용 가상 대기 카드</a></div>';
+}
+
+function prep(){
+ var d=get(), fam=family();
+ app.innerHTML=nav()+'<h1>병원 가기 전</h1>'+
+ '<div class="card"><label for="hn">병원 이름</label><input id="hn" maxlength="40" placeholder="예: 우리동네의원" value="'+esc(d.hosp||"")+'">'+
+ '<a class="btn pri" id="mapB" href="#" target="_blank" rel="noopener">네이버 지도에서 찾기 · 길찾기</a>'+
+ '<p class="mut">지도에서 보이는 병원 이름·전화번호가 맞는지 꼭 확인해 주세요. 이 앱이 병원 정보를 직접 보증하지 않아요.</p>'+
+ '<label for="hp">병원 전화번호 (직접 적어 두세요)</label><input id="hp" inputmode="tel" maxlength="14" placeholder="예: 031-000-0000" value="'+esc(d.hospTel||"")+'">'+
+ '<a class="btn sec" id="telB" href="#">병원에 전화하기</a><div id="hpMsg" class="mut" role="status"></div></div>'+
+ '<div class="card"><h2>예약 날짜와 시간 메모</h2><label for="vd">날짜</label><input id="vd" type="date" value="'+esc(d.visitDate||"")+'"><label for="vt">시간</label><input id="vt" type="time" value="'+esc(d.visitTime||"")+'">'+
+ '<p class="mut">메모예요. 병원 예약 시스템과 연결되지 않아요. 예약 자체는 병원에 확인하세요.</p><div id="vmsg" class="mut" role="status"></div></div>'+
+ '<div class="card"><h2>가족에게 방문 일정 알리기</h2><div id="famBox"></div></div>';
+ var hn=document.getElementById("hn"),hp=document.getElementById("hp"),vd=document.getElementById("vd"),vt=document.getElementById("vt");
+ function sync(){
+  var name=hn.value.trim();
+  document.getElementById("mapB").href=name?"https://map.naver.com/p/search/"+encodeURIComponent(name):"#";
+  var ok=validPhone(hp.value), tb=document.getElementById("telB");
+  tb.href=ok?"tel:"+digits(hp.value):"#"; tb.style.opacity=ok?"1":".45";
+  document.getElementById("hpMsg").textContent=hp.value&&!ok?"전화번호 모양이 맞지 않아요. 다시 확인해 주세요.":"";
+  var o=get();o.hosp=name;o.hospTel=ok?hp.value.trim():"";o.visitDate=vd.value;o.visitTime=vt.value;
+  document.getElementById("vmsg").textContent=put(o)?"":"이 휴대폰에 저장하지 못했어요.";
+  var msg="[병원 방문] "+(name||"병원")+(vd.value?" "+vd.value:"")+(vt.value?" "+vt.value:"")+" 에 가요.";
+  var fb=document.getElementById("famBox");
+  fb.innerHTML=fam.length?fam.map(function(f){return '<a class="btn sec" href="sms:'+digits(f.phone)+'?&body='+encodeURIComponent(msg)+'">'+esc(f.name)+'에게 문자 쓰기</a>';}).join("")+'<p class="mut">누르면 문자 앱이 열려요. 보내기 버튼은 내가 직접 눌러야 보내져요.</p>':'<p class="mut">저장된 가족이 없어요. 효자 첫 화면의 「가족에게 전화」에서 먼저 저장해 주세요.</p>';
+ }
+ [hn,hp,vd,vt].forEach(function(e){e.addEventListener("input",sync);e.addEventListener("change",sync);});
+ document.getElementById("mapB").addEventListener("click",function(e){if(!hn.value.trim()){e.preventDefault();document.getElementById("hpMsg").textContent="병원 이름을 먼저 적어 주세요.";}});
+ document.getElementById("telB").addEventListener("click",function(e){if(!validPhone(hp.value))e.preventDefault();});
+ sync();
+}
+
+function ticket(){
+ var d=get();
+ app.innerHTML=nav()+'<h1>접수번호 저장</h1>'+
+ '<div class="card"><div class="notice warn">내가 직접 적은 번호예요. 병원의 실제 순서와 연결되어 있지 않아요.</div>'+
+ '<label for="tn">접수번호 (번호표에 적힌 대로)</label><input id="tn" maxlength="10" autocomplete="off" placeholder="예: 23 또는 A-023" value="'+esc(d.ticket||"")+'">'+
+ '<div id="tmsg" class="mut" role="status"></div></div>'+
+ '<div class="card" id="show"></div>'+
+ '<div class="card"><h2>번호표 사진 (이 휴대폰에만 저장)</h2><input id="ph" type="file" accept="image/*" capture="environment" aria-label="번호표 사진 찍기"><div id="pbox"></div><button class="btn dng" id="phDel" hidden>사진 지우기</button><div id="pmsg" class="mut" role="status"></div></div>'+
+ '<a class="btn pri" href="#/wait">다음: 기다리는 동안</a>';
+ var tn=document.getElementById("tn");
+ function showT(){var v=(get().ticket||"");document.getElementById("show").innerHTML=v?'<div class="mut" style="text-align:center">내 접수번호</div><div class="bignum" aria-label="내 접수번호 '+esc(v)+'">'+esc(v)+'</div><div class="mut" style="text-align:center">내가 적은 번호 · 병원 호출은 병원 안내를 따르세요</div>':'<div class="mut">아직 저장한 번호가 없어요.</div>';}
+ tn.addEventListener("input",function(){var v=tn.value.trim().toUpperCase();
+  if(v&&!/^[A-Z0-9\-]{1,10}$/.test(v)){document.getElementById("tmsg").textContent="숫자나 영어, - 만 쓸 수 있어요.";return;}
+  document.getElementById("tmsg").textContent=upd("ticket",v)?(v?"저장했어요.":""):"저장하지 못했어요."; upd("ticketAt",Date.now()); showT();});
+ showT();
+ function showP(){var p=get().photo, box=document.getElementById("pbox");box.innerHTML=p?'<img class="photo" alt="저장한 번호표 사진" src="'+p+'">':'<p class="mut">저장한 사진이 없어요.</p>';document.getElementById("phDel").hidden=!p;}
+ showP();
+ document.getElementById("ph").addEventListener("change",function(ev){
+  var f=ev.target.files&&ev.target.files[0]; if(!f)return;
+  var r=new FileReader(); r.onerror=function(){document.getElementById("pmsg").textContent="사진을 읽지 못했어요.";};
+  r.onload=function(){var im=new Image();im.onerror=function(){document.getElementById("pmsg").textContent="사진 형식을 읽지 못했어요.";};
+   im.onload=function(){var S=640,sc=Math.min(1,S/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+    var u=c.toDataURL("image/jpeg",0.6); var ok=upd("photo",u);
+    document.getElementById("pmsg").textContent=ok?"이 휴대폰에 저장했어요. 서버로 보내지 않아요.":"저장 공간이 부족해서 저장하지 못했어요."; showP();};
+   im.src=r.result;}; r.readAsDataURL(f);});
+ document.getElementById("phDel").addEventListener("click",function(){var o=get();delete o.photo;put(o);document.getElementById("pmsg").textContent="사진을 지웠어요.";showP();});
+}
+
+function wait(){
+ var d=get(), fam=family();
+ app.innerHTML=nav()+'<h1>기다리는 동안</h1>'+
+ '<div class="card"><div class="mut" style="text-align:center">내 접수번호</div><div class="bignum" id="wn">'+esc(d.ticket||"-")+'</div>'+
+ '<div class="notice warn">아래 알림은 <b>내가 정한 시간에 울리는 확인 알림</b>이에요. 병원의 호출 알림이 아니에요. 울리면 병원 안내 화면을 보거나 직원에게 물어보세요.</div></div>'+
+ '<div class="card"><h2>확인 알림 맞추기</h2><label for="mins">몇 분 뒤에 알려 드릴까요?</label><select id="mins"><option value="5">5분 뒤</option><option value="10">10분 뒤</option><option value="15" selected>15분 뒤</option><option value="20">20분 뒤</option><option value="30">30분 뒤</option></select>'+
+ '<button class="btn pri" id="setB">알림 맞추기</button><button class="btn dng" id="offB" hidden>알림 끄기</button>'+
+ '<div id="cd" class="mut" role="status"></div><div id="alarm" class="alarm" role="alert" hidden>맞춰 둔 시간이 됐어요.<br>병원 안내 화면이나 직원에게 확인해 주세요.<br><span style="font-size:17px;font-weight:600">(이 알림은 병원 호출이 아니에요)</span></div>'+
+ '<p class="mut">이 화면을 켜 둔 동안에만 울려요(진동이 되는 폰은 진동). 화면을 끄거나 앱을 닫으면 울리지 않을 수 있어요 — 실제 휴대폰 검증 전(미검증).</p></div>'+
+ '<div class="card"><h2>도움이 필요할 때</h2>'+
+ (fam.length?fam.map(function(f){return '<a class="btn pri" href="tel:'+digits(f.phone)+'">'+esc(f.name)+'에게 전화</a>';}).join(""):'<p class="mut">저장된 가족이 없어요. 효자 첫 화면에서 저장해 주세요.</p>')+
+ '<button class="btn sec" id="helpB">병원 직원에게 도움 요청하기</button><div id="help" class="alarm" hidden style="font-size:24px">직원에게 이 화면을 보여 주세요.<br><br>“도움이 필요해요.<br>접수번호는 <b id="hn2"></b> 번이에요.”</div></div>';
+ document.getElementById("helpB").addEventListener("click",function(){document.getElementById("hn2").textContent=get().ticket||"(미입력)";document.getElementById("help").hidden=false;});
+ var setB=document.getElementById("setB"),offB=document.getElementById("offB"),cd=document.getElementById("cd"),al=document.getElementById("alarm");
+ function tick(){var due=get().dueAt;
+  if(!due){cd.textContent="맞춰 둔 알림이 없어요.";offB.hidden=true;al.hidden=true;return;}
+  offB.hidden=false;var left=due-Date.now();
+  if(left>0){var m=Math.floor(left/60000),s=Math.floor(left%60000/1000);cd.textContent="알림까지 "+m+"분 "+s+"초";al.hidden=true;}
+  else{cd.textContent="";if(al.hidden){al.hidden=false;try{if(navigator.vibrate)navigator.vibrate([300,150,300,150,300]);}catch(e){}}}}
+ setB.addEventListener("click",function(){var m=parseInt(document.getElementById("mins").value,10);upd("dueAt",Date.now()+m*60000);al.hidden=true;tick();});
+ offB.addEventListener("click",function(){var o=get();delete o.dueAt;put(o);al.hidden=true;tick();});
+ tick(); timer=setInterval(tick,1000);
+}
+
+function pharmacy(){
+ var d=get(), fam=family();
+ app.innerHTML=nav()+'<h1>진료 후</h1>'+
+ '<div class="card"><h2>약국 찾기</h2><p class="mut">지도 앱에서 가까운 약국을 찾아요. 문을 열었는지, 전화번호가 맞는지는 지도에서 꼭 확인해 주세요.</p>'+
+ '<a class="btn pri" href="https://map.naver.com/p/search/%EC%95%BD%EA%B5%AD" target="_blank" rel="noopener">네이버 지도에서 약국 찾기</a>'+
+ '<a class="btn sec" href="https://map.kakao.com/link/search/%EC%95%BD%EA%B5%AD" target="_blank" rel="noopener">카카오맵에서 약국 찾기</a>'+
+ '<a class="btn sec" href="../../Emergency.html">급할 때 · 문 연 약국 안내</a></div>'+
+ '<div class="card"><h2>집에 가는 길</h2><label for="hm">집 주소나 가까운 장소 이름</label><input id="hm" maxlength="60" placeholder="예: 용인 ○○아파트" value="'+esc(d.home||"")+'">'+
+ '<a class="btn pri" id="hmB" href="#" target="_blank" rel="noopener">네이버 지도에서 길찾기</a><p class="mut">집 주소는 이 휴대폰에만 저장돼요.</p></div>'+
+ '<div class="card"><h2>가족에게 연락</h2>'+(fam.length?fam.map(function(f){return '<a class="btn pri" href="tel:'+digits(f.phone)+'">'+esc(f.name)+'에게 전화</a><a class="btn sec" href="sms:'+digits(f.phone)+'?&body='+encodeURIComponent("진료 끝났어요. 집에 가는 중이에요.")+'">'+esc(f.name)+'에게 문자 쓰기</a>';}).join(""):'<p class="mut">저장된 가족이 없어요. 효자 첫 화면에서 저장해 주세요.</p>')+'</div>'+
+ '<div class="card"><h2>처방전·복약 일정</h2><div class="notice">아직 만들지 않았어요. 처방전과 진료 정보는 아주 민감해서, 안전하게 보관하는 방법을 정하고 점검을 마친 뒤에만 만들 거예요. 지금은 사진이나 내용을 저장하지 않아요.</div></div>';
+ var hm=document.getElementById("hm"),hb=document.getElementById("hmB");
+ function sync(){var v=hm.value.trim();hb.href=v?"https://map.naver.com/p/search/"+encodeURIComponent(v):"#";upd("home",v);}
+ hm.addEventListener("input",sync);hb.addEventListener("click",function(e){if(!hm.value.trim())e.preventDefault();});sync();
+}
+
+var routes={"/home":home,"/prep":prep,"/ticket":ticket,"/wait":wait,"/pharmacy":pharmacy};
+function route(){if(timer){clearInterval(timer);timer=null;}var r=(location.hash||"#/home").slice(1);(routes[r]||home)();window.scrollTo(0,0);}
+window.addEventListener("hashchange",route);route();
+})();
+</script></body></html>
