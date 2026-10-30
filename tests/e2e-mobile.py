@@ -73,10 +73,12 @@ try:
     ctx.close()
     # 공식 근거 없는 번호 차단
     ctx=b.new_context(**p.devices['iPhone 13']);pg=ctx.new_page();pg.goto(U+'Centers.html');pg.wait_for_timeout(800)
-    for nm,num in [('포곡읍','03161935531'),('이동읍','03161935691'),('성복동','03161938777')]:
-        rec('노출 차단',f'행정복지센터 {nm} 번호 숨김',pg.locator(f'a[href="tel:{num}"]').count()==0 and pg.locator(f'[data-hj-blocked="{nm}"]').count()==1)
-    rec('노출 차단','행정복지센터 나머지 번호 링크 36개 유지',pg.locator('a[href^="tel:0316193"]').count()==36)
+    ok7={'풍덕천1동':'03161938602','신봉동':'03161938642','죽전1동':'03161938662','죽전2동':'03161938693','죽전3동':'03161938871','상현1동':'03161938733','상현3동':'03161938844'}
+    rec('노출 차단','공식 원문 일치 7곳만 전화 링크 노출',pg.locator('a[href^="tel:0316193"]').count()==7 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src][data-hj-checked]').count()==1 for n in ok7.values()))
+    rec('노출 차단','미확인 센터 32곳 「공식 확인 중」 표시',pg.locator('[data-hj-blocked]').count()==32)
+    rec('노출 차단','포곡읍·이동읍·성복동·모현읍 번호 링크 없음',all(pg.locator(f'a[href="tel:{n}"]').count()==0 for n in ['03161935531','03161935691','03161938777','03161935611']))
     rec('노출 차단','안내 문구 표시',pg.locator('[data-hj-note=centers]').count()==1)
+    rec('노출 차단','1577-1122 미표시(센터 화면)',pg.locator('text=1577-1122').count()==0)
     ctx.close()
     ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.wait_for_timeout(500)
     bad=0
