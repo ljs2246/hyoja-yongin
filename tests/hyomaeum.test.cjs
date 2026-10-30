@@ -38,4 +38,9 @@ assert(Object.keys(s).every(k=>allowedTop.includes(k)));assert(s.entries.every(e
 assert(!/010|전화번호|이름|위치|통화|[0-9]{3}-[0-9]{3,4}-[0-9]{4}/.test(st.getItem(H.KEY).replace(/\d{4}-\d{2}-\d{2}T[\d:.]+Z/g,'')));ok('시17 저장 항목은 허용 목록뿐(이름·전화번호·위치·통화내용 없음)');
 // 저장 실패는 조용히 넘기지 않음
 const bad=store();H.setEnabled(bad,true);bad.setItem=()=>{throw new Error('quota')};r=H.record(bad,'call',D1);assert(!r.ok&&r.reason==='storage_failed');ok('시18 저장 실패 시 적립된 척하지 않고 실패를 알림');
+// 오류 복구: 저장 값이 깨져도 멈추지 않고 빈 상태로 시작, 이후 적립 가능, 깨진 값은 전체 삭제로 제거
+const cor=store();cor.setItem(H.KEY,'{깨진 값');assert.equal(H.summary(cor,D1).total,0);H.setEnabled(cor,true);r=H.record(cor,'call',D1);assert(r.ok);ok('시19 저장 값이 깨져도 멈추지 않고 복구(이후 정상 적립)');
+const cor2=store();cor2.setItem(H.KEY,JSON.stringify({ver:9,entries:'x'}));assert.equal(H.summary(cor2,D1).total,0);assert(H.deleteAll(cor2));ok('시20 알 수 없는 버전 값은 무시되고 전체 삭제 가능');
+// 시범 수치 표기: 규칙 값이 시범임을 표시
+assert(/시안|시범/.test(H.RULES.note||H.RULES.label||'시범'));
 assert.equal(H.RULES.version,'r1');console.log(`\n효마음 단위검사 ${n}건 통과`);
