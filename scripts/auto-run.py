@@ -10,6 +10,7 @@ commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
 STEPS=[
  ('02 정보 검증·격리 담당','전화 링크 공식근거 검사','python3 scripts/check-phones.py','화면 HTML 전체 tel 링크'),
+ ('05 구글 드라이브 문서관리 담당','드라이브 업로더 안전장치 시험(가짜 서버)','python3 tests/drive-upload.test.py','scripts/drive-upload.py'),
  ('03 앱 개발·테스트 담당','가족 기능 단위검사','node tests/family.test.cjs','family.js'),
  ('03 앱 개발·테스트 담당','의료·지역 검사','node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs','medical-maps/region 스크립트'),
  ('03 앱 개발·테스트 담당','휴대폰 화면 모의검사','python3 tests/e2e-mobile.py','Chromium 모의 기기 3종'),

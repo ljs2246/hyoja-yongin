@@ -6,7 +6,8 @@
   "agency": "전화 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "Ad.html",
@@ -15,7 +16,8 @@
   "agency": "기관",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "Ad2.html",
@@ -24,7 +26,8 @@
   "agency": "전화 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "Ad2.html",
@@ -33,7 +36,8 @@
   "agency": "기관",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "Centers.html",
@@ -42,7 +46,8 @@
   "agency": "풍덕천1동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center010102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -51,7 +56,8 @@
   "agency": "신봉동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center03.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -60,7 +66,8 @@
   "agency": "죽전1동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center040102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -69,7 +76,8 @@
   "agency": "죽전2동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center050102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -78,7 +86,8 @@
   "agency": "죽전3동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center100102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -87,7 +96,8 @@
   "agency": "상현1동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center070102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Centers.html",
@@ -96,7 +106,8 @@
   "agency": "상현3동 행정복지센터",
   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center110102.asp",
   "checked": "2026-10-26",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -105,7 +116,8 @@
   "agency": "전화",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -114,7 +126,8 @@
   "agency": "백남준아트센터 관람문의",
   "sourceUrl": "https://njp.ggcf.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -123,7 +136,8 @@
   "agency": "용인자연휴양림",
   "sourceUrl": "https://www.foresttrip.go.kr/rep/or/fcfsRsrvtMain.do?hmpgId=ID02030031&menuId=001001",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -132,7 +146,8 @@
   "agency": "처인구청 대표",
   "sourceUrl": "https://www.cheoingu.go.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -141,7 +156,8 @@
   "agency": "에버랜드 고객센터",
   "sourceUrl": "https://www.everland.com/cscenter/faq-list",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -150,7 +166,8 @@
   "agency": "용인시 관광과",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260327153357010",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -159,7 +176,8 @@
   "agency": "NH농협카드",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -168,7 +186,8 @@
   "agency": "IBK기업은행",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -177,7 +196,8 @@
   "agency": "용인시 문화예술과",
   "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -186,7 +206,8 @@
   "agency": "용인시 문화예술과",
   "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -195,7 +216,8 @@
   "agency": "용인시 문화예술과",
   "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -204,7 +226,8 @@
   "agency": "용인시 문화예술과",
   "sourceUrl": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Culture.html",
@@ -213,7 +236,8 @@
   "agency": "전화하기",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "Emergency.html",
@@ -222,7 +246,8 @@
   "agency": "보건복지상담센터 129",
   "sourceUrl": "https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "긴급공공"
  },
  {
   "page": "Emergency.html",
@@ -231,25 +256,28 @@
   "agency": "119 긴급신고(구급·구조)",
   "sourceUrl": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "긴급공공"
  },
  {
   "page": "Emergency.html",
   "number": "03151899001",
   "label": "응급실 031-5189-9001",
-  "agency": "용인세브란스병원 응급진료센터",
-  "sourceUrl": "https://yi.severance.healthcare/yi/patient-carer/guide/emergency.do",
+  "agency": "용인세브란스병원 응급실",
+  "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
   "checked": "2026-10-30",
-  "action": "교체유지(공식 번호로 정정)"
+  "action": "유지(경기도청 응급의료기관 현황 값 복원; 병원 사이트 응급진료센터 031-5189-8015~8016 별도 표기)",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
   "number": "03151898511",
   "label": "대표 031-5189-8511",
   "agency": "용인세브란스병원 대표",
-  "sourceUrl": "https://yi.severance.healthcare/yi/patient-carer/guide/number.do",
+  "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
   "checked": "2026-10-30",
-  "action": "교체유지(공식 번호로 정정)"
+  "action": "유지(경기도청 응급의료기관 현황 값 복원; 병원 자체 사이트는 예약센터 1899-1004로 별도 표기)",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -258,7 +286,8 @@
   "agency": "강남병원 응급의료센터",
   "sourceUrl": "https://www.knmc.or.kr/clin/clin6.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -267,16 +296,18 @@
   "agency": "강남병원 대표",
   "sourceUrl": "https://www.knmc.or.kr/clin/clin6.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
   "number": "03180212130",
   "label": "응급실 031-8021-2130",
-  "agency": "응급실",
-  "sourceUrl": null,
+  "agency": "다보스병원 응급실",
+  "sourceUrl": "https://www.davoshospital.co.kr/guide/page05.html",
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "교체유지(031-8021-2119로 교체: 병원 자체 사이트 3개 페이지 일치. 경기도청 목록의 2130과 상충 → 피트 확인 요청)",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -285,16 +316,18 @@
   "agency": "다보스병원 대표",
   "sourceUrl": "data/emergency.json (국립중앙의료원 공공데이터 2026-10-30)",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
   "number": "0313220001",
   "label": "응급실 031-322-0001",
-  "agency": "응급실",
-  "sourceUrl": null,
+  "agency": "용인서울병원 응급실",
+  "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "유지(경기도청 응급의료기관 현황 2025.1.1 기준)",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -303,7 +336,8 @@
   "agency": "용인서울병원 대표",
   "sourceUrl": "https://yishospital.com/?page_id=5240",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -312,7 +346,8 @@
   "agency": "메디필드한강병원 응급실",
   "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -321,7 +356,8 @@
   "agency": "메디필드한강병원 대표",
   "sourceUrl": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Emergency.html",
@@ -330,7 +366,8 @@
   "agency": "용인시 민원안내콜센터",
   "sourceUrl": "https://www.yongin.go.kr/home/cvIf/cvIfTotal/cvIfTotal12.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "긴급공공"
  },
  {
   "page": "Emergency.html",
@@ -339,7 +376,8 @@
   "agency": "용인시청 대표",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260331143713710",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Health.html",
@@ -348,7 +386,8 @@
   "agency": "처인구",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Health.html",
@@ -357,7 +396,8 @@
   "agency": "기흥구",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Health.html",
@@ -366,7 +406,8 @@
   "agency": "수지구",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Health.html",
@@ -375,7 +416,8 @@
   "agency": "용인시처인노인복지관",
   "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Health.html",
@@ -384,7 +426,8 @@
   "agency": "처인구보건소(예방접종)",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -393,7 +436,8 @@
   "agency": "기흥구보건소(예방접종)",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -402,7 +446,8 @@
   "agency": "수지구보건소(예방접종)",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -411,7 +456,8 @@
   "agency": "처인구 치매안심센터",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -420,7 +466,8 @@
   "agency": "기흥구 치매안심센터",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -429,7 +476,8 @@
   "agency": "수지구 치매안심센터",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -438,7 +486,8 @@
   "agency": "처인구보건소 치매치료관리비",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -447,7 +496,8 @@
   "agency": "기흥구보건소 치매치료관리비",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Health.html",
@@ -456,7 +506,8 @@
   "agency": "수지구보건소 치매치료관리비",
   "sourceUrl": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "의료"
  },
  {
   "page": "Jobs.html",
@@ -465,7 +516,8 @@
   "agency": "용인시니어클럽",
   "sourceUrl": "https://www.yongin.go.kr/home/job/yiJobInfo/oldJob.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Jobs.html",
@@ -474,7 +526,8 @@
   "agency": "용인시처인노인복지관",
   "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Jobs.html",
@@ -483,7 +536,8 @@
   "agency": "용인시처인노인복지관(031-324-9303~5)",
   "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Jobs.html",
@@ -492,7 +546,8 @@
   "agency": "용인시기흥노인복지관",
   "sourceUrl": "https://www.ygsenior.or.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Jobs.html",
@@ -501,7 +556,8 @@
   "agency": "수지노인복지관",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -510,7 +566,8 @@
   "agency": "다봄센터(고령 어르신 동행서비스)",
   "sourceUrl": "http://www.yongin.go.kr/home/www/www18/www18_02/www18_02_06.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -519,7 +576,8 @@
   "agency": "용인에버라인 대표",
   "sourceUrl": "https://ever-line.co.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -528,7 +586,8 @@
   "agency": "용인시처인노인복지관",
   "sourceUrl": "http://www.yiswc.or.kr/About_YISWC_08.php",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -537,7 +596,8 @@
   "agency": "용인에버라인 대표",
   "sourceUrl": "https://ever-line.co.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -546,7 +606,8 @@
   "agency": "경기도 교통약자 광역이동지원센터",
   "sourceUrl": "https://ggsts.gg.go.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -555,7 +616,8 @@
   "agency": "용인시 교통약자 이동지원센터(바우처택시)",
   "sourceUrl": "https://www.yonginnuri.or.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -564,7 +626,8 @@
   "agency": "용인시 교통약자 이동지원센터(바우처택시)",
   "sourceUrl": "https://www.yonginnuri.or.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Transit.html",
@@ -573,7 +636,8 @@
   "agency": "용인시 대중교통과",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1020&q_bbscttSn=20260327101726830",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -582,7 +646,8 @@
   "agency": "112 긴급신고(경찰)",
   "sourceUrl": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "긴급공공"
  },
  {
   "page": "Welfare.html",
@@ -591,7 +656,8 @@
   "agency": "용인시 노인복지과",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -600,7 +666,8 @@
   "agency": "국민연금 고객센터",
   "sourceUrl": "https://www.nps.or.kr/pbcpgdnc/ognzprsn/getOHAG0021M0.do",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -609,7 +676,8 @@
   "agency": "에너지바우처 통합 상담센터",
   "sourceUrl": "https://www.energyv.or.kr/",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -618,7 +686,8 @@
   "agency": "용인시 노인복지과",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -627,7 +696,8 @@
   "agency": "용인시 노인복지과",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -636,7 +706,8 @@
   "agency": "용인시 노인복지과",
   "sourceUrl": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_07.jsp",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -645,7 +716,8 @@
   "agency": "용인시 노인복지과 노인돌봄팀",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1265&q_bbscttSn=20250828160000069",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -654,7 +726,8 @@
   "agency": "용인시 장애인복지과",
   "sourceUrl": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1001&q_bbscttSn=20260203093702620",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -663,7 +736,8 @@
   "agency": "처인 수리 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -672,7 +746,8 @@
   "agency": "기흥 수리 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "Welfare.html",
@@ -681,7 +756,8 @@
   "agency": "수지 수리 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "기관"
  },
  {
   "page": "index.html",
@@ -690,7 +766,8 @@
   "agency": "관람 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "index.html",
@@ -699,7 +776,8 @@
   "agency": "전화 문의",
   "sourceUrl": null,
   "checked": "2026-10-30",
-  "action": "숨김"
+  "action": "숨김",
+  "category": "광고주"
  },
  {
   "page": "index.html",
@@ -708,6 +786,7 @@
   "agency": "보건복지상담센터 129",
   "sourceUrl": "https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700",
   "checked": "2026-10-30",
-  "action": "유지"
+  "action": "유지",
+  "category": "긴급공공"
  }
 ]
