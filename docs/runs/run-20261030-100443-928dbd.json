@@ -1,0 +1,49 @@
+{
+ "runId": "20261030-100443-928dbd",
+ "startedKST": "2026-10-30T10:04:43+09:00",
+ "branch": "test/yongin-pilot-prep-v2",
+ "commit": "f1dc1fc",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "가족 기능 단위검사",
+   "input": "family.js",
+   "command": "node tests/family.test.cjs",
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "통과 13 실패 0"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "의료·지역 검사",
+   "input": "medical-maps/region 스크립트",
+   "command": "node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs",
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "12개 내 지역·부모님 지역 저장·복원·오류 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "휴대폰 화면 모의검사",
+   "input": "Chromium 모의 기기 3종",
+   "command": "python3 tests/e2e-mobile.py",
+   "seconds": 34.2,
+   "result": "통과",
+   "tail": "통과 91 / 전체 91"
+  }
+ ],
+ "status": "전체 통과",
+ "endedKST": "2026-10-30T10:05:17+09:00"
+}

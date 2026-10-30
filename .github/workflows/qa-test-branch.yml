@@ -1,0 +1,33 @@
+name: 자동 검수 (테스트 브랜치 전용)
+# 목적: 테스트 브랜치 푸시마다 자동 시험·실행 기록 생성. 배포·게시·결제 없음. 운영 main 반영은 사용자 최종 승인 후 사람이 수행.
+on:
+  push:
+    branches: ['test/**']
+  workflow_dispatch:
+permissions:
+  contents: read        # 읽기 전용: 코드 수정·배포·이슈 작성 권한 없음
+concurrency:
+  group: qa-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15   # 멈춤 방지(초과 시 자동 중단)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: 휴대폰 화면 모의검사 도구 설치
+        run: pip install playwright && playwright install --with-deps chromium
+      - name: 단계별 자동 실행(실패 시 즉시 중단)
+        run: python3 scripts/auto-run.py
+      - name: 실행 기록·알림 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-records
+          path: |
+            docs/runs/
+            tests/e2e-mobile-results.json

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """드라이브 파일명 규칙 검사: [상태]_YYYY-MM-DD_번호_담당자_내용_vNN . 인자: 파일명들 또는 stdin 줄. 중복(같은 날짜·번호·내용의 다른 버전 제외) 감지."""
 import re,sys
-R=re.compile(r'^(작업중|검수중|승인완료|보류)_(\d{4})-(\d{2})-(\d{2})_(\d{3})_([^_]+)_([^_]+)_v(\d{2})(\.[A-Za-z0-9]+)?$')
+R=re.compile(r'^(?:\[신규-)?(작업중|검수중|승인완료|보류)\]?_(\d{4})-(\d{2})-(\d{2})_(\d{3})_([^_]+)_(.+)_v(\d{2})(\.[A-Za-z0-9]+)?$')
 names=sys.argv[1:] or [l.strip() for l in sys.stdin if l.strip()]
 bad=0;seen={}
 for n in names:
