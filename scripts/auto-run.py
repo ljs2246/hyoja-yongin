@@ -20,6 +20,7 @@ commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
 STEPS=[
  ('02 정보 검증·격리 담당','전화 링크 공식근거 검사','python3 scripts/check-phones.py','화면 HTML 전체 tel 링크'),
+ ('02 정보 검증·격리 담당','약국 전화 검증대장 검사','python3 scripts/pharmacy-phone-ledger.py check','docs/pharmacy-phone-ledger.json·medical-maps.js 승인 목록'),
  ('05 구글 드라이브 문서관리 담당','드라이브 업로더 안전장치 시험(가짜 서버)','python3 tests/drive-upload.test.py','scripts/drive-upload.py'),
  ('02 정보 검증·격리 담당','공식 자료 갱신 관문 검사','python3 scripts/check-data.py','data/emergency.json·pharmacy.json'),
  ('02 정보 검증·격리 담당','공식 자료 변경 탐지 보고(읽기 전용)','python3 scripts/detect-changes.py','data/*.json 직전 저장본과 비교'),
