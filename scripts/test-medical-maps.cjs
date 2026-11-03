@@ -40,3 +40,15 @@ console.log('용인 지역·구 경계 필터 검사 통과');
 assert.equal(maps.phone('010-1234-5678'),null);
 assert.equal(maps.phone('060-700-1234'),null);
 assert.equal(maps.phone('080-123-4567'),null);
+
+// 약국 전화 승인 전 숨김: 승인 목록이 비어 있으면 형식이 맞아도 null
+assert.equal(maps.pharmacyPhone('031-328-0325'),null);
+assert.equal(maps.pharmacyPhone('070-8667-3173'),null);
+assert.equal(maps.pharmacyPhone('031-300-0114'),null);
+// 자료 확인일 경과 판단(7일): 5일=정상, 8일=경고, 날짜 해석 불가=경고
+const now=Date.UTC(2026,10,4);
+assert.equal(maps.isStale('2026-10-30 10:41',now,7),false);
+assert.equal(maps.isStale('2026-10-27 10:41',now,7),true);
+assert.equal(maps.isStale('',now,7),true);
+assert.equal(maps.isStale('날짜없음',now,7),true);
+console.log('약국 전화 숨김·자료 경과 검사 통과');

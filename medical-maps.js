@@ -13,6 +13,11 @@
   }
   function normalize(s){return String(s||'').replace(/\s+/g,'');}
   function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');if(/^(01\d|060|080|700)/.test(n))return null;/* 휴대전화·유료/수신자부담 번호는 기관 번호로 인정하지 않음 */return (/^\d{8,11}$/.test(n)||/^050\d{9}$/.test(n))&&!/0{7}$/.test(n)?n:null;}
+  /* 약국 전화 버튼은 공식기관 확인·최종 승인된 번호만 허용(기본: 빈 목록=전부 숨김). 승인 번호는 숫자만 적는다. */
+  var PHARMACY_PHONE_APPROVED=[];
+  function pharmacyPhone(value){var n=phone(value);return n&&PHARMACY_PHONE_APPROVED.indexOf(n)>=0?n:null;}
+  /* 자료 확인일이 limit일을 넘으면 true. 날짜 해석 불가도 true(안전 쪽). */
+  function isStale(dateText,nowMs,limit){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(String(dateText||''));if(!m)return true;var t=Date.UTC(+m[1],+m[2]-1,+m[3]);return (nowMs-t)/86400000>(limit||7);}
   function hospitalMatch(list,id,address){
     var expected=normalize(address),matches=list.filter(function(p){var actual=normalize(p.dutyAddr),suffix=actual.slice(expected.length);return expected&&p.hpid===id&&actual.startsWith(expected)&&(!suffix||/^[,(]/.test(suffix))&&coord(p.wgs84Lat,p.wgs84Lon);});
     return matches.length===1?matches[0]:null;
@@ -40,7 +45,7 @@
     copy.onclick=function(){if(!navigator.clipboard){status.textContent='위 주소를 선택해 복사해 주세요.';return;}navigator.clipboard.writeText(addr).then(function(){status.textContent='주소를 복사했어요.';},function(){status.textContent='위 주소를 선택해 복사해 주세요.';});};details.appendChild(copy);details.appendChild(status);box.appendChild(details);
     return box;
   }
-  var api={coord:coord,route:route,phone:phone,hospitalMatch:hospitalMatch,row:row};
+  var api={coord:coord,route:route,phone:phone,pharmacyPhone:pharmacyPhone,isStale:isStale,hospitalMatch:hospitalMatch,row:row};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   if(root){root.hjMedicalMaps=api;root.hjMapRow=row;}
 })(typeof window==='undefined'?null:window);

@@ -11,7 +11,7 @@ U=f'http://localhost:{PORT}/'
 try:
   with sync_playwright() as p:
     b=p.chromium.launch()
-    devs=[('Pixel 5(안드로이드 에뮬레이션)',p.devices['Pixel 5']),('iPhone 13(아이폰 화면 에뮬레이션)',p.devices['iPhone 13']),('작은 폰 320px',{'viewport':{'width':320,'height':640},'is_mobile':True,'has_touch':True,'device_scale_factor':2})]
+    devs=[('Pixel 5(안드로이드 에뮬레이션)',p.devices['Pixel 5']),('iPhone 13(아이폰 화면 에뮬레이션)',p.devices['iPhone 13']),('Galaxy S9+(갤럭시 화면 에뮬레이션)',p.devices['Galaxy S9+']),('작은 폰 320px',{'viewport':{'width':320,'height':640},'is_mobile':True,'has_touch':True,'device_scale_factor':2})]
     for dn,dv in devs:
         ctx=b.new_context(**dv);pg=ctx.new_page();errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
         pg.goto(U+'index.html');pg.wait_for_selector('#hjFamily button')
@@ -84,7 +84,8 @@ try:
     rec('노출 차단','안내 문구 표시',pg.locator('[data-hj-note=centers]').count()==1)
     rec('노출 차단','센터 화면 1577-1122 안내는 공식 확인(yongin.go.kr) 후에만 표시',pg.locator('text=1577-1122').count()>=1)
     ctx.close()
-    ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.wait_for_timeout(500)
+    ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.clock.set_fixed_time('2026-11-04T05:00:00Z')  # 한국 14시 고정: 시험 시각(새벽)에 따라 운영 약국 0곳이 되어 결과가 달라지던 문제 방지
+    pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.wait_for_timeout(500)
     bad=0
     for gu in ['처인구','기흥구','수지구']:
         pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250)
@@ -96,6 +97,23 @@ try:
     txt=' '.join(names)
     rec('노출 차단','중복 의심·시간 미확인 약국이 운영 약국 목록에 없음',all(n not in txt for n in ['건강약국','나무약국','메디박스약국','365 열린큰약국','365열린큰약국','대학당약국','상현중앙약국']))
     rec('노출 차단','제외 안내 문구',('공식 확인이 끝나지 않은' in pg.inner_text('#phStatus')))
+    # 약국 전화 버튼 승인 전 숨김(2026-11-04 긴급 조치): 3개 구 모두 tel 링크 0, 안내 문구 표시
+    telN=0;noteN=0
+    for gu in ['처인구','기흥구','수지구']:
+        pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250)
+        telN+=pg.locator('#phList a[href^="tel:"]').count();noteN+=pg.locator('#phList p:has-text("전화번호 확인 필요")').count()
+    rec('약국 전화 안전','승인 전 약국 전화 버튼 0개(3개 구)',telN==0,f'tel 링크 {telN}개')
+    rec('약국 전화 안전','전화 대신 확인 필요 안내 표시',noteN>0,f'안내 {noteN}개')
+    pg.select_option('#medicalKind','pharmacy');pg.select_option('#medicalGu','기흥구');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
+    rec('약국 전화 안전','약국 검색 결과에도 전화 버튼 0개',pg.locator('#medicalSearchResults a[href^="tel:"]').count()==0 and pg.locator('#medicalSearchResults article').count()>0)
+    # 오래된 자료 경고(오프라인 옛 저장본 대응): 자료 확인일을 2026-01-01로 바꿔 내려줌
+    ctx3=b.new_context(**p.devices['Pixel 5']);pg3=ctx3.new_page()
+    def old(route):
+        import json as _j
+        r=route.fetch();d=_j.loads(r.text());d['확인한 때']='2026-01-01 00:00';route.fulfill(response=r,body=_j.dumps(d,ensure_ascii=False))
+    pg3.route('**/data/pharmacy.json',old);pg3.goto(U+'Emergency.html');pg3.wait_for_selector('button.gu');pg3.wait_for_timeout(600)
+    rec('약국 전화 안전','자료 확인일 7일 초과 시 경고 표시',pg3.locator('[role=alert]:has-text("자료 확인일이 오래됐어요")').count()==1)
+    ctx3.close()
     pg.goto(U+'Welfare.html');pg.wait_for_timeout(500)
     rec('노출 차단','근거 없는 복지 카드(장기요양) 숨김',pg.locator('[data-hj-blocked=노인장기요양보험]').count()==1 and pg.locator('text=65세 이상, 또는 노인성 질환').count()==0)
     # 전화번호 정책 (총괄 작업지시 005)
