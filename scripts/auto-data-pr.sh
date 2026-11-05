@@ -4,7 +4,7 @@
 # DRY_RUN=0: 갱신 브랜치 push → PR 생성 → 필수 검사 'qa' 수동 실행 요청(자동 생성 PR은 검사가 저절로 안 돌기 때문) → 제한 시간 대기 후 결과 확인.
 # 환경변수: PATHS(공백으로 구분, 기본 data 3개) PREFIX(기본 auto/data) CHECK(기본 python3 scripts/check-data.py --restore, none 이면 생략) BASE(main) QA_WORKFLOW(qa-test-branch.yml)
 set -u; DRY_RUN=${DRY_RUN:-1}; BASE=${BASE:-main}; PREFIX=${PREFIX:-auto/data}; PATHS=${PATHS:-"data/emergency.json data/pharmacy.json data/status.json"}
-CHECK=${CHECK:-"python3 scripts/check-data.py --restore"}; QA_WORKFLOW=${QA_WORKFLOW:-qa-test-branch.yml}
+CHECK=${CHECK:-"python3 scripts/check-data.py --restore --fresh"}; QA_WORKFLOW=${QA_WORKFLOW:-qa-test-branch.yml}
 DAY=$(TZ=Asia/Seoul date +%Y%m%d); BR="$PREFIX-$DAY"
 [ "$CHECK" = "none" ] || $CHECK || exit 1
 git add $PATHS 2>/dev/null
