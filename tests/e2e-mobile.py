@@ -137,7 +137,7 @@ try:
     hidden={''.join(ch for ch in str(x['number']) if ch.isdigit()) for x in pol
             if str(x.get('action','')).startswith('숨김')}
     keep=[x for x in pol if str(x.get('action','')).startswith('유지')]
-    held_expected={'0312018571','0313360040','03161935114','03161932114','03180212130'}
+    held_expected={'0312018571','0313360040','03161935114','03161932114','03180212130',"0313000119"}
     rec('번호 정책','보류 5건 모두 숨김(사유 포함)으로 분류',held_expected.issubset(hidden))
     rec('번호 정책','모든 전화 정책에 유지/숨김 상태 명시',sum(str(x.get('action','')).startswith('숨김') for x in pol)+len(keep)==len(pol))
     for page in ['Ad','Ad2','Culture','Emergency','Health','Jobs','Transit','Welfare','index','Centers']:
@@ -147,7 +147,7 @@ try:
         rec('번호 정책',f'{page}: 남은 모든 전화 링크에 출처·확인일 기록(긴급 3자리 포함)',all(h and c for n,h,c in links))
     pg.goto(U+'Emergency.html');pg.wait_for_timeout(500)
     rec('번호 정책','119 구급상황관리센터 연결 유지',pg.locator('a[href="tel:119"]').count()>=1)
-    rec('번호 정책','병원 응급실 직통: 공식 근거 확인분만 표시(세브란스 9001·다보스 2119·용인서울 322-0001·강남 0119·메디필드 1119)',all(pg.locator(f'a[href="tel:{n}"][data-hj-src]').count()==1 for n in ['03151899001','03180212119','0313220001','0313000119','0313321119']) and pg.locator('a[href="tel:03180212130"]').count()==0)
+    rec('번호 정책','병원 응급실 직통: 공식 근거 확인분만 표시(세브란스 9001·다보스 2119·용인서울 322-0001·메디필드 1119 / 강남 0119는 대표 결정으로 숨김)',pg.locator('a[href="tel:0313000119"]').count()==0 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src]').count()==1 for n in ['03151899001','03180212119','0313220001','0313321119']) and pg.locator('a[href="tel:03180212130"]').count()==0)
     held=['0312018571','0313360040','03161935114','03161932114','03180212130']
     for pgn in ['Culture','Emergency','index','Welfare','Health','Centers']:
         pg.goto(U+pgn+'.html');pg.wait_for_timeout(300)
