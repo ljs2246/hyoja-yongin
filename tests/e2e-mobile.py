@@ -106,6 +106,11 @@ try:
     rec('약국 전화 안전','전화 대신 확인 필요 안내 표시',noteN>0,f'안내 {noteN}개')
     pg.select_option('#medicalKind','pharmacy');pg.select_option('#medicalGu','기흥구');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
     rec('약국 전화 안전','약국 검색 결과에도 전화 버튼 0개',pg.locator('#medicalSearchResults a[href^="tel:"]').count()==0 and pg.locator('#medicalSearchResults article').count()>0)
+    # 지역 검색 개선: 여러 단어(띄어쓰기 무관)로 검색, 다른 구 결과가 섞이지 않음
+    pg.fill('#medicalQuery','기흥구 약국');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
+    addrs=pg.eval_on_selector_all('#medicalSearchResults article > p:nth-of-type(1)','e=>e.map(x=>x.textContent)')
+    rec('지역 검색','여러 단어 검색("기흥구 약국") 결과 있음·모두 기흥구',len(addrs)>0 and all('기흥구' in a for a in addrs),f'{len(addrs)}건')
+    pg.fill('#medicalQuery','')
     # 오래된 자료 경고(오프라인 옛 저장본 대응): 자료 확인일을 2026-01-01로 바꿔 내려줌
     ctx3=b.new_context(**p.devices['Pixel 5']);pg3=ctx3.new_page()
     def old(route):

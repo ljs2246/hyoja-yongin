@@ -15,6 +15,8 @@
   function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');if(/^(01\d|060|080|700)/.test(n))return null;/* 휴대전화·유료/수신자부담 번호는 기관 번호로 인정하지 않음 */return (/^\d{8,11}$/.test(n)||/^050\d{9}$/.test(n))&&!/0{7}$/.test(n)?n:null;}
   /* 약국 전화 버튼은 공식기관 확인·최종 승인된 번호만 허용(기본: 빈 목록=전부 숨김). 승인 번호는 숫자만 적는다. */
   var PHARMACY_PHONE_APPROVED=[];
+  // 검색어 일치: 띄어쓰기·대소문자 무시, 여러 단어는 모두 들어 있어야 일치(예: '기흥 내과' → 기흥 주소의 내과). 빈 검색어는 전부 일치.
+  function matchQuery(text,q){var t=String(text||'').toLowerCase().replace(/\s+/g,'');var w=String(q||'').toLowerCase().split(/\s+/).filter(Boolean);for(var i=0;i<w.length;i++){if(t.indexOf(w[i])<0)return false;}return true;}
   function pharmacyPhone(value){var n=phone(value);return n&&PHARMACY_PHONE_APPROVED.indexOf(n)>=0?n:null;}
   /* 자료 확인일이 limit일을 넘으면 true. 날짜 해석 불가도 true(안전 쪽). */
   function isStale(dateText,nowMs,limit){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(String(dateText||''));if(!m)return true;var t=Date.UTC(+m[1],+m[2]-1,+m[3]);return (nowMs-t)/86400000>(limit||7);}
@@ -45,7 +47,7 @@
     copy.onclick=function(){if(!navigator.clipboard){status.textContent='위 주소를 선택해 복사해 주세요.';return;}navigator.clipboard.writeText(addr).then(function(){status.textContent='주소를 복사했어요.';},function(){status.textContent='위 주소를 선택해 복사해 주세요.';});};details.appendChild(copy);details.appendChild(status);box.appendChild(details);
     return box;
   }
-  var api={coord:coord,route:route,phone:phone,pharmacyPhone:pharmacyPhone,isStale:isStale,hospitalMatch:hospitalMatch,row:row};
+  var api={coord:coord,route:route,phone:phone,pharmacyPhone:pharmacyPhone,isStale:isStale,matchQuery:matchQuery,hospitalMatch:hospitalMatch,row:row};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   if(root){root.hjMedicalMaps=api;root.hjMapRow=row;}
 })(typeof window==='undefined'?null:window);
