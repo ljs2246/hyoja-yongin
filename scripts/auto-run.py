@@ -28,6 +28,7 @@ STEPS=[
  ('03 자동화·배포 담당','자동 갱신 흐름 시험(실패·중복·취소 안전, 모의)','bash tests/pr-flow-test.sh','scripts/auto-data-pr.sh·tests/pr-flow-test.sh'),
  ('04 앱 개발 담당','가족 공유·주소 복사 시험(갤럭시 화면 모의)','python3 tests/share-test.py','footer.js·index.html 공유 버튼'),
  ('04 앱 개발 담당','글자 3단계 줄바꿈 시험(제목 낱말 끊김·버튼 한 줄)','python3 tests/wordbreak-test.py','index.html 첫 화면·글자 크기 버튼'),
+ ('04 앱 개발 담당','약국·병원 화면 줄바꿈 시험(전화번호 한 줄·지도 버튼 낱말 끊김)','python3 tests/wordbreak-tel-test.py','Emergency.html 전화·지도 버튼'),
  ('02 정보 검증·격리 담당','오프라인 옛 저장본 안전 시험(경고·전화버튼 0, 6건)','python3 tests/offline-stale-test.py','sw.js 저장본·Emergency.html'),
  ('04 앱 개발 담당','미구현 기능 공개 안내 검사','python3 scripts/check-unimplemented-claims.py','docs/feature-status.json·화면 html'),
  ('04 앱 개발 담당','터치 영역 44px 시험(13개 화면×글자 3단계, 갤럭시 화면 모의)','python3 tests/touch-44-test.py','13개 화면 버튼·링크'),
