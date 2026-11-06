@@ -19,6 +19,8 @@ case "$1 $2" in
 esac
 G
 chmod +x $T/bin/gh; export PATH=$T/bin:$PATH GHLOG=$T/gh.log GITHUB_REPOSITORY=o/r
+# 시험 자료(2026-10-30)에 맞춰 기준 시각 고정: 신선도 관문은 켜 둔 채 날짜만 맞춤
+export CHECK="python3 scripts/check-data.py --restore --fresh --now=2026-10-30T12:00"
 mkdir $T/w && cd $T/w && tar --exclude=.git --exclude=docs/runs -cf - -C $ROOT . | tar -xf - && git init -q . && git checkout -qb main && git add -A >/dev/null && git -c user.email=t@t -c user.name=t commit -qm base && git remote add origin $T/remote.git && git push -q origin main
 BR="auto/data-$(TZ=Asia/Seoul date +%Y%m%d)"
 chg(){ python3 - <<'P'
