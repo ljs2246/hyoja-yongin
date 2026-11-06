@@ -6,7 +6,7 @@
     {
       "기능": "글자 크기 3단계(보통·크게·아주 크게)",
       "상태": "구현",
-      "시험": "모의 브라우저 통과(13개 화면, tests/e2e-mobile.py·font-size-13pages.py)",
+      "시험": "모의 브라우저 통과(13개 화면, tests/e2e-mobile.py·font-size-13pages.py) + 줄바꿈 18건(tests/wordbreak-test.py)",
       "실기기": "미검증"
     },
     {
