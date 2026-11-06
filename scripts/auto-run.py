@@ -25,6 +25,7 @@ STEPS=[
  ('02 정보 검증·격리 담당','공식 자료 갱신 관문 검사','python3 scripts/check-data.py','data/emergency.json·pharmacy.json'),
  ('02 정보 검증·격리 담당','자료 갱신 관문 시험(실패·오래됨·급감 차단 9건)','bash tests/data-gate-test.sh','scripts/check-data.py --fresh'),
  ('02 정보 검증·격리 담당','오프라인 옛 저장본 안전 시험(경고·전화버튼 0, 6건)','python3 tests/offline-stale-test.py','sw.js 저장본·Emergency.html'),
+ ('06 운영·보안 담당','백업 복원 시험(번들·패치로 실제 복원, 13건)','bash scripts/backup-restore-test.sh','git 번들·패치·복원본 시험'),
  ('02 정보 검증·격리 담당','공식 자료 변경 탐지 보고(읽기 전용)','python3 scripts/detect-changes.py','data/*.json 직전 저장본과 비교'),
  ('09 일정·회계·경영 보고 담당','작업 현황 통합 관리표 검사','python3 scripts/work-board.py','docs/automation/work-board.json'),
  ('02 정보 검증·격리 담당','공식정보 근거·확인일 신선도 검사','python3 scripts/check-freshness.py','docs/phone-policy-log.json'),
