@@ -33,7 +33,7 @@
   var st=document.createElement('style');
   st.textContent='a[href^="tel:"],a[style*="min-height"]{box-sizing:border-box!important;padding:12px 20px!important;text-align:center;line-height:1.4!important;flex-wrap:wrap;gap:2px .6em;max-width:100%;min-width:0}a[href^="tel:"] .tn{white-space:nowrap}span[style*="flex:1"] a[href^="tel:"],span[style*="flex: 1"] a[href^="tel:"]{padding:0!important;display:inline!important;border-radius:0!important}a[href^="tel:"] span{min-width:0}span[style*="flex:1"],span[style*="flex: 1"]{min-width:0;overflow-wrap:anywhere}div[style*="grid-template-columns: 82px 1fr"]{grid-template-columns:82px minmax(0,1fr)!important}div[style*="1fr"]>*{min-width:0}.hj-narrow div[style*="82px"]{grid-template-columns:minmax(0,1fr)!important}';
   document.head.appendChild(st);
-  st.textContent+='body{word-break:keep-all;overflow-wrap:break-word}label,select,input{max-width:100%;box-sizing:border-box}select,input[type=search],input[type=text]{width:100%}.hj-medical-maps a{word-break:keep-all;line-height:1.3;padding:8px 6px;text-align:center}';
+  st.textContent+='body{word-break:keep-all;overflow-wrap:break-word}p a[href]:not([class]),li a[href]:not([class]){padding:12px 4px;margin:-12px -4px}label,select,input{max-width:100%;box-sizing:border-box}select,input[type=search],input[type=text]{width:100%}.hj-medical-maps a{word-break:keep-all;line-height:1.3;padding:8px 6px;text-align:center}';
   function wrapTel(){var tl=document.querySelectorAll('a[href^="tel:"]');
     for(var j=0;j<tl.length;j++){var a=tl[j];if(a.children.length)continue;
       a.innerHTML=a.textContent.replace(/([0-9][0-9\-~]{5,})/g,'<span class="tn">$1</span>');}}

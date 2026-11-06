@@ -1,0 +1,146 @@
+{
+ "dirty": true,
+ "taskId": "63c79c0e15d5",
+ "runId": "20261107-001224-3ba569",
+ "startedKST": "2026-11-07T00:12:24+09:00",
+ "branch": "test/galaxy-safety-20261104",
+ "commit": "0417b16",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "약국 전화 검증대장 검사",
+   "input": "docs/pharmacy-phone-ledger.json·medical-maps.js 승인 목록",
+   "command": "python3 scripts/pharmacy-phone-ledger.py check",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "통과: 대장 439 건 {'미확인·숨김': 439} / 화면 승인 목록 0 건"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "응급 전화 허용목록 검사",
+   "input": "docs/phone-allowlist.json·medical-maps.js",
+   "command": "python3 scripts/check-allowlist.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "허용목록 검사 통과 (허용 기관 3 곳)"
+  },
+  {
+   "department": "05 구글 드라이브 문서관리 담당",
+   "task": "드라이브 업로더 안전장치 시험(가짜 서버)",
+   "input": "scripts/drive-upload.py",
+   "command": "python3 tests/drive-upload.test.py",
+   "attempts": 1,
+   "seconds": 0.7,
+   "result": "통과",
+   "tail": "통과 8 / 전체 8"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식 자료 갱신 관문 검사",
+   "input": "data/emergency.json·pharmacy.json",
+   "command": "python3 scripts/check-data.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "자료 검사 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "자료 갱신 관문 시험(실패·오래됨·필드 누락·중복·건수 급변 차단 14건)",
+   "input": "scripts/check-data.py --fresh",
+   "command": "bash tests/data-gate-test.sh",
+   "attempts": 1,
+   "seconds": 2.2,
+   "result": "통과",
+   "tail": "자료 갱신 관문 시험: 통과 14 / 실패 0"
+  },
+  {
+   "department": "03 자동화·배포 담당",
+   "task": "자동 갱신 흐름 시험(실패·중복·취소 안전, 모의)",
+   "input": "scripts/auto-data-pr.sh·tests/pr-flow-test.sh",
+   "command": "bash tests/pr-flow-test.sh",
+   "attempts": 1,
+   "seconds": 2.6,
+   "result": "통과",
+   "tail": "통과 지역 갱신 흐름도 DRY_RUN=1 이면 push·PR 0건"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "가족 공유·주소 복사 시험(갤럭시 화면 모의)",
+   "input": "footer.js·index.html 공유 버튼",
+   "command": "python3 tests/share-test.py",
+   "attempts": 1,
+   "seconds": 13.7,
+   "result": "통과",
+   "tail": "공유 시험: 통과 10 / 실패 0"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "글자 3단계 줄바꿈 시험(제목 낱말 끊김·버튼 한 줄)",
+   "input": "index.html 첫 화면·글자 크기 버튼",
+   "command": "python3 tests/wordbreak-test.py",
+   "attempts": 1,
+   "seconds": 5.9,
+   "result": "통과",
+   "tail": "줄바꿈 시험: 통과 18 / 실패 0"
+  },
+  {
+   "department": "05 어르신 사용성 담당",
+   "task": "13개 화면 점검(글자 3단계·폭 2종: 넘침·잘림 차단, 끊김·작은 버튼 집계)",
+   "input": "13개 화면",
+   "command": "python3 tests/screen-audit.py",
+   "attempts": 1,
+   "seconds": 105.1,
+   "result": "통과",
+   "tail": "화면 넘침·잘림 없음"
+  },
+  {
+   "department": "01 의료 안전 담당",
+   "task": "번호 숨김 시험(강남병원 0119·미확인 약국 번호 전 화면)",
+   "input": "Emergency.html 외 8개 화면",
+   "command": "python3 tests/phone-hide-test.py",
+   "attempts": 1,
+   "seconds": 22.6,
+   "result": "통과",
+   "tail": "번호 숨김 시험: 통과 15 / 실패 0"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "약국·병원 화면 줄바꿈 시험(전화번호 한 줄·지도 버튼 낱말 끊김)",
+   "input": "Emergency.html 전화·지도 버튼",
+   "command": "python3 tests/wordbreak-tel-test.py",
+   "attempts": 1,
+   "seconds": 36.4,
+   "result": "통과",
+   "tail": "전화·지도 줄바꿈 시험: 통과 18 / 실패 0"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "오프라인 옛 저장본 안전 시험(경고·전화버튼 0, 6건)",
+   "input": "sw.js 저장본·Emergency.html",
+   "command": "python3 tests/offline-stale-test.py",
+   "attempts": 1,
+   "seconds": 13.7,
+   "result": "실패",
+   "tail": "오프라인 옛 저장본 시험: 통과 4 / 실패 2 (모의 브라우저, 실기기 아님)",
+   "error": "실패 A 옛 저장본(30일 전): 인터넷 끊고 열어도 약국 목록 표시 항목 0\n통과 A 옛 저장본(30일 전): 오래된 자료 경고 표시 경고 1개\n통과 A 옛 저장본(30일 전): 약국 전화 버튼 0개 tel 0개\n실패 B 최근 저장본(3시간 전): 인터넷 끊고 열어도 약국 목록 표시 항목 0\n통과 B 최근 저장본(3시간 전): 오래된 자료 경고 없음(거짓 경고 없음) 경고 0개\n통과 B 최근 저장본(3시간 전): 약국 전화 버튼 0개 tel 0개\n오프라인 옛 저장본 시험: 통과 4 / 실패 2 (모의 브라우저, 실기기 아님)"
+  }
+ ],
+ "status": "자동 중단(실패)",
+ "endedKST": "2026-11-07T00:15:47+09:00"
+}

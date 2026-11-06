@@ -1,0 +1,176 @@
+{
+ "dirty": true,
+ "taskId": "6812f0ba30cf",
+ "runId": "20261107-001708-c2414a",
+ "startedKST": "2026-11-07T00:17:08+09:00",
+ "branch": "test/galaxy-safety-20261104",
+ "commit": "0417b16",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "약국 전화 검증대장 검사",
+   "input": "docs/pharmacy-phone-ledger.json·medical-maps.js 승인 목록",
+   "command": "python3 scripts/pharmacy-phone-ledger.py check",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "통과: 대장 439 건 {'미확인·숨김': 439} / 화면 승인 목록 0 건"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "응급 전화 허용목록 검사",
+   "input": "docs/phone-allowlist.json·medical-maps.js",
+   "command": "python3 scripts/check-allowlist.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "허용목록 검사 통과 (허용 기관 3 곳)"
+  },
+  {
+   "department": "05 구글 드라이브 문서관리 담당",
+   "task": "드라이브 업로더 안전장치 시험(가짜 서버)",
+   "input": "scripts/drive-upload.py",
+   "command": "python3 tests/drive-upload.test.py",
+   "attempts": 1,
+   "seconds": 0.7,
+   "result": "통과",
+   "tail": "통과 8 / 전체 8"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식 자료 갱신 관문 검사",
+   "input": "data/emergency.json·pharmacy.json",
+   "command": "python3 scripts/check-data.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "자료 검사 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "자료 갱신 관문 시험(실패·오래됨·필드 누락·중복·건수 급변 차단 14건)",
+   "input": "scripts/check-data.py --fresh",
+   "command": "bash tests/data-gate-test.sh",
+   "attempts": 1,
+   "seconds": 2.4,
+   "result": "통과",
+   "tail": "자료 갱신 관문 시험: 통과 14 / 실패 0"
+  },
+  {
+   "department": "03 자동화·배포 담당",
+   "task": "자동 갱신 흐름 시험(실패·중복·취소 안전, 모의)",
+   "input": "scripts/auto-data-pr.sh·tests/pr-flow-test.sh",
+   "command": "bash tests/pr-flow-test.sh",
+   "attempts": 1,
+   "seconds": 2.9,
+   "result": "통과",
+   "tail": "통과 지역 갱신 흐름도 DRY_RUN=1 이면 push·PR 0건"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "가족 공유·주소 복사 시험(갤럭시 화면 모의)",
+   "input": "footer.js·index.html 공유 버튼",
+   "command": "python3 tests/share-test.py",
+   "attempts": 1,
+   "seconds": 13.4,
+   "result": "통과",
+   "tail": "공유 시험: 통과 10 / 실패 0"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "글자 3단계 줄바꿈 시험(제목 낱말 끊김·버튼 한 줄)",
+   "input": "index.html 첫 화면·글자 크기 버튼",
+   "command": "python3 tests/wordbreak-test.py",
+   "attempts": 1,
+   "seconds": 6.3,
+   "result": "통과",
+   "tail": "줄바꿈 시험: 통과 18 / 실패 0"
+  },
+  {
+   "department": "05 어르신 사용성 담당",
+   "task": "13개 화면 점검(글자 3단계·폭 2종: 넘침·잘림 차단, 끊김·작은 버튼 집계)",
+   "input": "13개 화면",
+   "command": "python3 tests/screen-audit.py",
+   "attempts": 1,
+   "seconds": 105.7,
+   "result": "통과",
+   "tail": "화면 넘침·잘림 없음"
+  },
+  {
+   "department": "01 의료 안전 담당",
+   "task": "번호 숨김 시험(강남병원 0119·미확인 약국 번호 전 화면)",
+   "input": "Emergency.html 외 8개 화면",
+   "command": "python3 tests/phone-hide-test.py",
+   "attempts": 1,
+   "seconds": 22.6,
+   "result": "통과",
+   "tail": "번호 숨김 시험: 통과 15 / 실패 0"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "약국·병원 화면 줄바꿈 시험(전화번호 한 줄·지도 버튼 낱말 끊김)",
+   "input": "Emergency.html 전화·지도 버튼",
+   "command": "python3 tests/wordbreak-tel-test.py",
+   "attempts": 1,
+   "seconds": 36.1,
+   "result": "통과",
+   "tail": "전화·지도 줄바꿈 시험: 통과 18 / 실패 0"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "오프라인 옛 저장본 안전 시험(경고·전화버튼 0, 6건)",
+   "input": "sw.js 저장본·Emergency.html",
+   "command": "python3 tests/offline-stale-test.py",
+   "attempts": 1,
+   "seconds": 13.8,
+   "result": "통과",
+   "tail": "오프라인 옛 저장본 시험: 통과 6 / 실패 0 (모의 브라우저, 실기기 아님)"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "미구현 기능 공개 안내 검사",
+   "input": "docs/feature-status.json·화면 html",
+   "command": "python3 scripts/check-unimplemented-claims.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "미구현 기능 안내 검사 통과 (금지 문구 14 개)"
+  },
+  {
+   "department": "04 앱 개발 담당",
+   "task": "터치 영역 44px 시험(13개 화면×글자 3단계, 갤럭시 화면 모의)",
+   "input": "13개 화면 버튼·링크",
+   "command": "python3 tests/touch-44-test.py",
+   "attempts": 1,
+   "seconds": 67.8,
+   "result": "통과",
+   "tail": "총 위반(44px 미만) 요소: 0 / 점검 조합 39"
+  },
+  {
+   "department": "06 운영·보안 담당",
+   "task": "백업 복원 시험(번들·패치로 실제 복원, 13건)",
+   "input": "git 번들·패치·복원본 시험",
+   "command": "bash scripts/backup-restore-test.sh",
+   "attempts": 1,
+   "seconds": 18.3,
+   "result": "실패",
+   "tail": "백업 복원 시험: 통과 12 / 실패 1",
+   "error": "통과: 전체 번들 생성\n통과: 번들 자체 검증\n통과: 빈 폴더에 복제(복원)\n통과: 복원본 커밋 번호가 원본과 같음(0417b16d3bc03872e155be7c9ab93ee2488fc152)\n통과: 복원본 객체 무결성(fsck)\n통과: 복원본에서 의료 지도·전화 숨김 시험\n통과: 복원본에서 자료 갱신 관문 시험\n통과: 복원본에서 전화 링크 공식근거 검사\n통과: 복원본에서 약국 전화 검증대장 검사\n실패: 복원본에서 오프라인 옛 저장본 시험\n통과: 패치 파일 생성(466894 bytes)\n통과: 기준 커밋 위에 패치 적용(git am)\n통과: 패치 복원 결과 폴더 내용이 원본과 같음(트리 해시 일치)\n백업 복원 시험: 통과 12 / 실패 1"
+  }
+ ],
+ "status": "자동 중단(실패)",
+ "endedKST": "2026-11-07T00:21:58+09:00"
+}

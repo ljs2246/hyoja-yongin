@@ -15,7 +15,7 @@ def serve(stamp,port):
 def run(b,p,stamp,port,expect_alert,label):
     s,d=serve(stamp,port)
     try:
-        ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();U=f'http://localhost:{port}/'
+        ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.clock.set_fixed_time(FIXED);U=f'http://localhost:{port}/'
         pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.evaluate('navigator.serviceWorker.ready.then(()=>1)');pg.wait_for_timeout(2500)
         pg.reload();pg.wait_for_timeout(1500);ctx.set_offline(True)
         pg.reload();pg.wait_for_selector('button.gu',timeout=10000);pg.click('button.gu[data-gu=기흥구]');pg.wait_for_timeout(600)
@@ -26,7 +26,9 @@ def run(b,p,stamp,port,expect_alert,label):
         rec(f'{label}: 약국 전화 버튼 0개',tel==0,f'tel {tel}개')
         ctx.close()
     finally:s.terminate();shutil.rmtree(d,ignore_errors=True)
-today=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+# 시각에 따라 '지금 문 연 약국'이 0곳이 되는 것을 막으려고, 시험 시계를 오후 2시(한국)로 고정한다
+today=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).replace(hour=14,minute=0,second=0,microsecond=0)
+FIXED=today
 with sync_playwright() as p:
     b=p.chromium.launch()
     run(b,p,'2026-10-01 00:00',8123,True,'A 옛 저장본(30일 전)')
