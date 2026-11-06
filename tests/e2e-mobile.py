@@ -106,6 +106,14 @@ try:
     rec('약국 전화 안전','전화 대신 확인 필요 안내 표시',noteN>0,f'안내 {noteN}개')
     pg.select_option('#medicalKind','pharmacy');pg.select_option('#medicalGu','기흥구');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
     rec('약국 전화 안전','약국 검색 결과에도 전화 버튼 0개',pg.locator('#medicalSearchResults a[href^="tel:"]').count()==0 and pg.locator('#medicalSearchResults article').count()>0)
+    # 응급의료기관 검색 전화 허용목록: 허용 번호만 tel 링크, 메디필드(번호 불일치)는 '확인 필요'
+    pg.select_option('#medicalKind','emergency');pg.select_option('#medicalGu','');pg.fill('#medicalQuery','');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
+    tels=pg.eval_on_selector_all('#medicalSearchResults a[href^="tel:"]','e=>e.map(a=>a.getAttribute("href").slice(4))')
+    okset={'03180212114','0313370114','0313000114'}
+    rec('응급 전화 허용목록','응급의료기관 검색 결과의 전화 링크는 허용 번호뿐',len(tels)>0 and set(tels)<=okset,str(tels))
+    rec('응급 전화 허용목록','메디필드한강병원 잘못된 번호(031-1551-0077)가 전화 링크로 나오지 않음','tel:03115510077' not in ['tel:'+t for t in tels] and pg.locator('#medicalSearchResults article:has-text("메디필드") a[href^="tel:"]').count()==0)
+    rec('응급 전화 허용목록','허용목록에 없는 기관은 확인 필요 안내 표시',pg.locator('#medicalSearchResults article:has-text("메디필드") p:has-text("전화번호 확인 필요")').count()==1)
+    pg.select_option('#medicalKind','pharmacy')
     # 지역 검색 개선: 여러 단어(띄어쓰기 무관)로 검색, 다른 구 결과가 섞이지 않음
     pg.fill('#medicalQuery','기흥구 약국');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
     addrs=pg.eval_on_selector_all('#medicalSearchResults article > p:nth-of-type(1)','e=>e.map(x=>x.textContent)')

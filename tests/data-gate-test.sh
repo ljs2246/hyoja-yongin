@@ -5,7 +5,7 @@ ok(){ if [ "$1" = "$2" ]; then P=$((P+1)); echo "통과: $3"; else F=$((F+1)); e
 mk(){ rm -rf "$T/r"; mkdir -p "$T/r/data" "$T/r/scripts"; cp "$ROOT/scripts/check-data.py" "$T/r/scripts/"; cd "$T/r"; git init -q
  python3 - "$1" <<'P'
 import json,sys
-rows=[{"dutyName":f"기관{i}","dutyTel1":"031-111-2222"} for i in range(10)]
+rows=[{"dutyName":f"기관{i}","dutyAddr":f"주소{i}","dutyTel1":"031-111-2222"} for i in range(10)]
 for n in('emergency','pharmacy'):json.dump({"확인한 때":sys.argv[1],"건수":10,"목록":rows},open(f'data/{n}.json','w'),ensure_ascii=False)
 json.dump({"emergency":{"상태":"성공"},"pharmacy":{"상태":"성공"}},open('data/status.json','w'))
 P
@@ -22,6 +22,16 @@ mk "2026-11-05 06:30"; python3 -c "
 import json;d=json.load(open('data/emergency.json'));d['목록'][0]['dutyTel1']='010-1234-5678';json.dump(d,open('data/emergency.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "휴대전화 번호 섞이면 차단"
 mk "2026-11-05 06:30"; python3 -c "
 import json;d=json.load(open('data/pharmacy.json'));d['목록']=d['목록'][:3];d['건수']=3;json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "건수 급감(10→3)은 차단"
+mk "2026-11-05 06:30"; python3 -c "
+import json;d=json.load(open('data/pharmacy.json'));del d['목록'][0]['dutyAddr'];json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "주소 필드 누락은 차단"
+mk "2026-11-05 06:30"; python3 -c "
+import json;d=json.load(open('data/pharmacy.json'));d['목록'].append(dict(d['목록'][0]));d['건수']=11;json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "중복 항목이 늘면 차단"
+mk "2026-11-05 06:30"; python3 -c "
+import json;d=json.load(open('data/pharmacy.json'));d['목록']=[dict(x,dutyName=x['dutyName']+str(k),dutyAddr=x['dutyAddr']+str(k)) for k in range(2) for x in d['목록']];d['건수']=20;json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "건수 급증(10→20)은 차단"
+mk "2026-11-05 06:30"; python3 -c "
+import json;d=json.load(open('data/pharmacy.json'));d['목록']=d['목록'][:6];d['건수']=6;json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 1 "건수 급감(10→6, 30% 초과)은 차단"
+mk "2026-11-05 06:30"; python3 -c "
+import json;d=json.load(open('data/pharmacy.json'));d['목록']=d['목록'][:8];d['건수']=8;json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; ok "$(rc)" 0 "작은 변동(10→8)은 통과(과잉 차단 방지)"
 # 복구: 오래된 새 자료를 --restore 하면 승인본으로 돌아가는지
 mk "2026-11-05 06:30"; python3 -c "
 import json;d=json.load(open('data/pharmacy.json'));d['확인한 때']='2026-10-01 00:00';json.dump(d,open('data/pharmacy.json','w'),ensure_ascii=False)"; run >/dev/null; ok "$(git diff --quiet && echo 0 || echo 1)" 0 "--restore 후 승인본으로 복구(변경 0)"

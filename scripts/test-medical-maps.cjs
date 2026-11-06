@@ -56,4 +56,13 @@ assert.equal(maps.matchQuery('경기도 용인시 수지구 우리내과','기�
 assert.equal(maps.matchQuery('가나다약국','  '),true);
 assert.equal(maps.matchQuery('Alpha Pharmacy','ALPHA'),true);
 assert.equal(maps.isStale('날짜없음',now,7),true);
+// 응급의료기관 허용목록: 목록에 있는 기관·번호가 정확히 일치할 때만 번호를 돌려줌
+assert.equal(maps.emergencyPhone('A2100122','031-337-0114'),'0313370114');
+assert.equal(maps.emergencyPhone('A2100122','031-337-0115'),null);   // 번호가 한 자리 달라도 숨김
+assert.equal(maps.emergencyPhone('A2100019','031-337-0114'),null);   // 다른 기관 번호는 숨김
+assert.equal(maps.emergencyPhone('A2121142','031-1551-0077'),null);  // 메디필드: 정책 번호와 불일치 → 숨김
+assert.equal(maps.emergencyPhone('A2100020','1899-1004'),null);      // 세브란스: 용도가 다른 번호 → 숨김
+assert.equal(maps.emergencyPhone('','031-337-0114'),null);
+assert.equal(maps.emergencyPhone(undefined,undefined),null);
+assert.equal(maps.emergencyPhone('A2100122','010-1234-5678'),null);
 console.log('약국 전화 숨김·자료 경과 검사 통과');

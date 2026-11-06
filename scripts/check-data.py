@@ -22,11 +22,19 @@ for f in ['data/emergency.json','data/pharmacy.json']:
         if fresh:chk_fresh(f,d);assert isinstance(L,list) and L
         if d.get('건수') not in(None,len(L)):bad.append((f,f'건수 불일치 {d.get("건수")} != {len(L)}'))
         if any(not x.get('dutyName') for x in L):bad.append((f,'기관명 없는 항목'))
+        if fresh:  # 갱신 직후 관문: 필드 누락·중복 증가·건수 급변
+            if any(not x.get('dutyAddr') for x in L):bad.append((f,'주소 없는 항목'))
+            kk=[(x.get('dutyName'),x.get('dutyAddr')) for x in L];dup=len(kk)-len(set(kk))
         n=sum(1 for x in L if re.match(r'^(01\d|060|080|700)',re.sub(r'\D','',str(x.get('dutyTel1','')))))
         if n:bad.append((f,f'기관 번호로 부적절한 형식 {n}건'))
         try:
             old=json.loads(subprocess.run(['git','show','HEAD:'+f],capture_output=True,text=True,check=True).stdout)['목록']
             if len(L)<len(old)*0.5:bad.append((f,f'건수 급감 {len(old)}→{len(L)}'))
+            if fresh:
+                if len(L)<len(old)*0.7:bad.append((f,f'건수 급변(30% 넘는 감소) {len(old)}→{len(L)}'))
+                if len(L)>len(old)*1.5:bad.append((f,f'건수 급변(50% 넘는 증가) {len(old)}→{len(L)}'))
+                ok2=[(x.get('dutyName'),x.get('dutyAddr')) for x in old];odup=len(ok2)-len(set(ok2))
+                if dup>odup:bad.append((f,f'중복 항목 증가 {odup}→{dup}'))
         except Exception:pass
     except Exception as e:bad.append((f,'읽기·형식 오류 '+type(e).__name__))
 if fresh:
