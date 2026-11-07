@@ -30,7 +30,7 @@
     host.textContent='';
     var fam=st?load(st):[];
     var c2=el('div',card);c2.appendChild(el('div','font-size:24px;font-weight:900','가족에게 전화'));
-    if(!fam.length&&!editing){c2.appendChild(el('div','font-size:19px;line-height:1.5;color:#6A4A33','자주 전화하는 가족을 3명까지 저장해 두면, 사진을 보고 한 번에 전화할 수 있어요.'));}
+    if(!fam.length&&!editing){c2.appendChild(el('div','font-size:19px;line-height:1.5;color:#6A4A33','가족 3명까지 저장하면 사진을 눌러 바로 전화해요.'));}
     fam.forEach(function(f){var row=el('div','display:flex;align-items:center;gap:12px');row.appendChild(avatar(f,76));
       var a=el('a',btn+'flex:1;min-width:0;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:22px;flex-direction:column;gap:2px;min-height:76px',f.name+'에게 전화');
       a.appendChild(el('span','font-size:20px;white-space:nowrap',fmt(f.phone)));a.href='tel:'+digits(f.phone);a.setAttribute('aria-label',f.name+'에게 전화 걸기 '+fmt(f.phone));row.appendChild(a);c2.appendChild(row);});
@@ -57,7 +57,7 @@
       if(fam.length){var del=el('button',btn+'background:#fff;color:#6A4A33;font-size:18px;min-height:52px','저장한 가족 지우기');del.type='button';
         del.onclick=function(){if(st)save(st,[]);render(false);};c2.appendChild(del);}
     }
-    c2.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','가족 이름·번호·사진은 이 휴대폰에만 저장되고, 외부로 전송되지 않아요. 위치는 사용하지 않아요.'));
+    c2.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','이 휴대폰에만 저장돼요. 밖으로 보내지 않아요.'));
     host.appendChild(c2);
   }
   render(false);
