@@ -9,7 +9,8 @@
  function render(){
    var s=profiles.get();
    ['mine','parents'].forEach(function(key){
-     var label=document.getElementById('region-'+key+'-name');if(label)label.textContent=name(s[key]);
+     var label=document.getElementById('region-'+key+'-name');if(label){var sv=!!s[key];label.textContent=sv?('✓ 저장된 지역: '+name(s[key])):'저장된 지역 없음 (아래에서 골라 주세요)';
+       label.style.cssText='margin:0 0 10px;padding:12px 14px;border-radius:14px;font-weight:800;font-size:19px;line-height:1.45;border:2px solid '+(sv?'#2F6B3A;background:#E7F3E8;color:#1F4F2A':'#BDA697;background:#F4EEE8;color:#5A4A44');}
      var button=document.getElementById('region-'+key+'-active');if(button)button.setAttribute('aria-pressed',String(s.active===key));
    });
    var active=current(),summary=document.getElementById('hj-region-summary');
