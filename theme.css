@@ -23,3 +23,24 @@
 @media(prefers-reduced-motion:reduce){.hj-subpage *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 
 .home-skip{position:absolute;top:-100px;left:12px;z-index:100;background:#fff;color:#3B2314;padding:12px;border-radius:8px;font-size:18px;font-weight:700}.home-skip:focus{top:8px}
+
+/* 디자인 1차 확대(2026-11-07): 코랄 레드·베이지·아이보리·올리브. 긴급=빨강, 일반=베이지·아이보리, 올리브=보조 */
+.hj-subpage{background:#FFF9EF!important}
+.hj-subpage .hj-page{background:#FFF9EF!important;color:#3B2822!important}
+.hj-brand{border-bottom:2px solid #EBDCC3}
+.hj-brand>a{color:#3B2822}
+.hj-brand small{color:#6A4A3E}
+.hj-subpage .hj-notice{background:#F5EBD7!important;color:#5A3A2E!important}
+.hj-subpage .hj-heading{color:#3B2822!important}
+.hj-subpage .hj-card{background:#FFFDF7!important;border:2px solid #E6D3B8!important;box-shadow:0 5px 0 #DCC6A6!important}
+.hj-subpage .hj-warm-action{background:linear-gradient(180deg,#C94034,#A92B22)!important;box-shadow:0 5px 0 #7E1F18!important;color:#fff!important}
+.hj-subpage .hj-back{color:#4F5B32!important;border:2px solid #6C7A47!important;background:#FFFDF7!important;font-weight:800}
+.hj-subpage #hj-sizebar{background:#F5EBD7!important;border-color:#E6D3B8!important}
+.hj-subpage #hj-sizebar button{border:2px solid #C23A2E!important;color:#A92B22!important;background:#fff}
+.hj-subpage #hj-sizebar button[aria-pressed=true]{background:#C23A2E!important;border-color:#A92B22!important;color:#fff!important}
+.hj-subpage a:focus-visible,.hj-subpage button:focus-visible{outline:3px solid #A92B22}
+/* 전체 메뉴 타일: 긴급만 빨강, 나머지는 베이지·아이보리로 통일 */
+.hj-subpage a[style*="background: #EADFF5"],.hj-subpage a[style*="background: #DCEBF7"],.hj-subpage a[style*="background: #DDF1E4"],.hj-subpage a[style*="background: #FFEDC9"],.hj-subpage a[style*="border: 2px solid #F0D6B5"][style*="min-height"]{background:#FFF4E3!important;border:2px solid #E6D3B8!important;box-shadow:0 5px 0 #DCC6A6!important;color:#3B2822!important}
+.hj-subpage a[style*="background: #B3261E"]{background:linear-gradient(180deg,#C94034,#A92B22)!important;box-shadow:0 5px 0 #7E1F18!important}
+.hj-subpage a[href="Regions.html"][style*="border:2px solid #e5d2c3"]{background:#F5EBD7!important;border:2px solid #D9BE98!important;color:#3B2822!important}
+.hj-subpage a[href="Regions.html"] strong{color:#3B2822!important}
