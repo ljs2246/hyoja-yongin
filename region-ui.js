@@ -22,7 +22,9 @@
  ['mine','parents'].forEach(function(key){
    var select=document.getElementById('region-'+key+'-select');
    if(select){catalog.forEach(function(r){var o=document.createElement('option');o.value=r.code;o.textContent=r.name;select.appendChild(o);});select.value=profiles.get()[key]||'';}
-   var save=document.getElementById('region-'+key+'-save');if(save)save.onclick=function(){if(!select.value){document.getElementById('region-save-status').textContent='먼저 지역을 골라 주세요.';return;}profiles.select(key,select.value);profiles.activate(key);render();};
+   var save=document.getElementById('region-'+key+'-save');if(save)save.onclick=function(){if(!select.value){document.getElementById('region-save-status').textContent='먼저 지역을 골라 주세요.';return;}profiles.select(key,select.value);profiles.activate(key);render();var nt=document.getElementById('region-'+key+'-note');if(nt)nt.textContent='✓ '+name(select.value)+' 저장했어요.';};
+   if(select){var note=document.createElement('p');note.id='region-'+key+'-note';note.setAttribute('role','status');note.style.cssText='margin:0 0 10px;font-weight:700;color:#2F6B3A;min-height:0';select.parentNode.insertBefore(note,select.nextSibling);
+     select.addEventListener('change',function(){if(!select.value){note.textContent='';return;}profiles.select(key,select.value);profiles.activate(key);render();note.textContent='✓ '+name(select.value)+' 저장했어요.';});}
    var active=document.getElementById('region-'+key+'-active');if(active)active.onclick=function(){profiles.activate(key);render();};
    var clear=document.getElementById('region-'+key+'-clear');if(clear)clear.onclick=function(){profiles.clear(key);select.value='';render();};
  });
