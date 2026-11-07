@@ -9,7 +9,7 @@
   var c=document.createElement('div');c.style.cssText='margin-top:6px;font-weight:700;color:#3B2314';
   var u=['hyoja.yongin','gmail.com'].join('@');
   c.appendChild(document.createTextNode('운영: 효자 용인 운영팀 · 문의: '));
-  var m=document.createElement('a');m.href='mailto:'+u;m.textContent=u;m.style.cssText='color:#B8501A;text-decoration:underline;overflow-wrap:anywhere;display:inline-flex;align-items:center;min-height:44px';
+  var m=document.createElement('a');m.href='mailto:'+u;m.appendChild(document.createTextNode(u.split('@')[0]+'@'));m.appendChild(document.createElement('wbr'));m.appendChild(document.createTextNode(u.split('@')[1]));m.style.cssText='color:#B8501A;text-decoration:underline;overflow-wrap:normal;word-break:keep-all;display:block;padding:10px 0;min-height:44px';
   c.appendChild(m);
   var fb=document.createElement('a');fb.href='mailto:'+u+'?subject='+encodeURIComponent('효자 용인 의견');fb.textContent='의견 보내기';
   fb.style.cssText='display:flex;align-items:center;justify-content:center;margin-top:10px;min-height:48px;border-radius:24px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-size:18px;font-weight:700;text-decoration:none';

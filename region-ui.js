@@ -13,7 +13,7 @@
      var button=document.getElementById('region-'+key+'-active');if(button)button.setAttribute('aria-pressed',String(s.active===key));
    });
    var active=current(),summary=document.getElementById('hj-region-summary');
-   if(summary)summary.textContent=(s.active==='parents'?'부모님 지역':'내 지역')+' · '+(active?active.name:'지역을 선택해 주세요');
+   if(summary)summary.textContent=active?((s.active==='parents'?'부모님 지역':'내 지역')+' · '+active.name):'지역을 선택해 주세요';
    var status=document.getElementById('region-save-status');
    if(status)status.textContent=s.persistent?'선택한 지역은 이 브라우저에 저장됩니다.':'이 브라우저에서는 저장할 수 없어요. 현재 화면에서만 선택이 유지됩니다.';
    var go=document.getElementById('region-medical-link');
