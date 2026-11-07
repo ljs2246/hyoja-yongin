@@ -6,10 +6,10 @@ ROOT=os.path.abspath(os.path.join(os.path.dirname(__file__),'..'));PORT=8133
 srv=subprocess.Popen([sys.executable,'-m','http.server',str(PORT),'--directory',ROOT],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
 R=[]
 def rec(n,ok):R.append((n,bool(ok)));print(('통과 ' if ok else '실패 ')+n)
-JS="""()=>{const e=document.querySelector('#family-title');const words=['사랑하는','마음,','언제나','곁에.'];
-const t=e.firstChild.textContent+'|'+e.lastChild.textContent;const r=document.createRange();let broken=[];
-for(const node of [e.firstChild,e.lastChild]){const txt=node.textContent;let i=0;for(const w of txt.split(/\\s+/)){const s=txt.indexOf(w,i);if(!w){continue}i=s+w.length;
- const rg=document.createRange();rg.setStart(node,s);rg.setEnd(node,s+w.length);const tops=new Set([...rg.getClientRects()].map(x=>Math.round(x.top)));if(tops.size>1)broken.push(w)}}
+JS="""()=>{const e=document.querySelector('#family-title');let broken=[];
+const w=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);let node;
+while(node=w.nextNode()){const txt=node.textContent;let i=0;for(const x of txt.split(/\\s+/)){if(!x)continue;const s=txt.indexOf(x,i);i=s+x.length;
+ const rg=document.createRange();rg.setStart(node,s);rg.setEnd(node,s+x.length);const tops=new Set([...rg.getClientRects()].map(q=>Math.round(q.top)));if(tops.size>1)broken.push(x)}}
 return broken}"""
 with sync_playwright() as p:
     b=p.chromium.launch()

@@ -9,6 +9,7 @@ U=f'http://localhost:{PORT}/'
 PAGES=['index','Emergency','Welfare','Transit','All','Culture','Health','Jobs','Centers','Guide','Regions','Ad','Ad2']
 TITLE={'Emergency':'급할 때','Welfare':'복지·혜택','Transit':'이동·교통','All':'전체 메뉴'}
 NAVLAB=[('홈','index.html'),('급할 때','Emergency.html'),('복지·혜택','Welfare.html'),('이동·교통','Transit.html'),('전체 메뉴','All.html')]
+BOTTOM=[('홈','index.html'),('메뉴','All.html')]  # 2차 디자인 하단 3칸 중 화면 이동 2칸(가족은 첫 화면 안쪽 이동)
 def newpage(b,errs,w=360):
     c=b.new_context(viewport={'width':w,'height':800},is_mobile=True,has_touch=True);pg=c.new_page()
     pg.on('pageerror',lambda e:errs.append('pageerror:'+str(e)[:80]));pg.on('console',lambda m:errs.append('console:'+m.text[:80]) if m.type=='error' and 'ERR_' not in m.text and 'Failed to load resource' not in m.text else None)
@@ -31,7 +32,7 @@ try:
     # 2 하단 메뉴 40회 무작위 이동
     random.seed(7);pg.goto(U+'index.html');cur='index.html';ok=True;bad=''
     for i in range(40):
-        lab,href=random.choice(NAVLAB)
+        lab,href=random.choice(BOTTOM)
         with pg.expect_navigation():pg.locator('[data-hjnav] a',has_text=lab).first.click()
         if not pg.url.split('#')[0].endswith(href) and not (href=='index.html' and pg.url.endswith('/')):ok=False;bad=f'{i}:{lab}->{pg.url}';break
         if pg.locator('[data-hjnav]').count()!=1:ok=False;bad=f'{i}:하단 메뉴 개수';break
@@ -39,14 +40,14 @@ try:
     # 3 하단 「가족 전화」 반복
     pg.goto(U+'Welfare.html')
     for i in range(3):
-        with pg.expect_navigation():pg.locator('[data-hjnav] a',has_text='가족 전화').click()
+        with pg.expect_navigation():pg.locator('[data-hjnav] a',has_text='가족').click()
         pg.wait_for_selector('#hjFamily');
         with pg.expect_navigation():pg.go_back()
     rec('가족 전화 이동','3번 반복 이동·뒤로 가기 정상',pg.url.endswith('Welfare.html'),pg.url)
     # 4 뒤로 가기 흐름
     pg.goto(U+'index.html')
-    for h in ['Emergency.html','All.html']:
-        with pg.expect_navigation():pg.locator(f'[data-hjnav] a[href="{h}"]').first.click()
+    with pg.expect_navigation():pg.locator('a.hj-urgent').first.click()
+    with pg.expect_navigation():pg.locator('[data-hjnav] a[href="All.html"]').first.click()
     with pg.expect_navigation():pg.locator('a[href="Culture.html"]').first.click()
     seq=[]
     for _ in range(3):
@@ -87,7 +88,7 @@ try:
     rec('오프라인','인터넷 끊고 13개 화면 모두 열림',not bad,str(bad))
     try:
         pg.goto(U+'index.html')
-        for lab,href in NAVLAB[1:]:
+        for lab,href in [('메뉴','All.html'),('홈','index.html')]:
             with pg.expect_navigation(timeout=8000):pg.locator('[data-hjnav] a',has_text=lab).first.click()
             assert pg.locator('h1').count()==1
         rec('오프라인','오프라인에서 하단 메뉴로 이동',True)
