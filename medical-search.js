@@ -2,7 +2,7 @@
  'use strict';
  var form=document.getElementById('medicalSearchForm');if(!form)return;
  var status=document.getElementById('medicalSearchStatus'),out=document.getElementById('medicalSearchResults'),more=document.getElementById('medicalSearchMore');
- var sequence=0,rows=[],shown=0,duplicateKeys=new Set();
+ var curKind='emergency',sequence=0,rows=[],shown=0,duplicateKeys=new Set();
  function recordKey(p){return String(p.dutyName||'').replace(/\s+/g,'')+'|'+String(p.dutyAddr||'').replace(/\s+/g,'');}
  function qualityNotes(p){var notes=[];if(duplicateKeys.has(recordKey(p)))notes.push('같은 이름·주소의 등록 자료가 중복돼 있어요. 현재 기관 정보를 다시 확인해 주세요.');
  Object.keys(p).some(function(k){return /^dutyTime/.test(k)&&String(p[k])==='2500';})&&notes.push('운영시간 원천에 해석 미확인 값이 있어요. 심야 운영 여부는 전화로 확인해 주세요.');return notes;}
@@ -18,7 +18,7 @@
      var card=document.createElement('article');card.style.cssText='padding:14px;border:1px solid #e5d2c3;border-radius:16px';
      var name=document.createElement('h3');name.textContent=p.dutyName;name.style.cssText='font-size:22px;margin:0 0 8px';card.appendChild(name);
      var addr=document.createElement('p');addr.textContent=p.dutyAddr;card.appendChild(addr);
-     var phone=window.hjMedicalMaps.phone(p.dutyTel1);
+     var phone=curKind==='pharmacy'?null:window.hjMedicalMaps.emergencyPhone(p.hpid,p.dutyTel1);
      if(phone){var a=document.createElement('a');a.href='tel:'+phone;a.textContent='전화 '+p.dutyTel1;a.style.cssText='min-height:52px;display:flex;align-items:center;font-size:20px;font-weight:700;color:#96344a';card.appendChild(a);}
      else{var unknown=document.createElement('p');unknown.textContent='전화번호 확인 필요 · 지도나 공식 안내에서 확인해 주세요.';card.appendChild(unknown);}
      var note=document.createElement('p');note.textContent='등록 기관 검색 결과예요. 현재 운영·진료 가능 여부는 전화로 확인해 주세요.';note.style.fontSize='16px';card.appendChild(note);
@@ -28,7 +28,7 @@
  }
  form.addEventListener('submit',function(e){
    e.preventDefault();clear();var request=sequence;
-   var kind=document.getElementById('medicalKind').value,gu=document.getElementById('medicalGu').value,q=document.getElementById('medicalQuery').value.trim().toLowerCase();
+   var kind=document.getElementById('medicalKind').value;curKind=kind;var gu=document.getElementById('medicalGu').value,q=document.getElementById('medicalQuery').value.trim().toLowerCase();
    status.textContent='선택한 지역의 자료를 확인하고 있어요.';
    fetch('data/'+(kind==='pharmacy'?'pharmacy':'emergency')+'.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error();return r.json();}).then(function(data){
      if(request!==sequence)return;

@@ -13,6 +13,9 @@
   }
   function normalize(s){return String(s||'').replace(/\s+/g,'');}
   function phone(value){var n=String(value||'').replace(/[^0-9]/g,'');return (/^\d{8,11}$/.test(n)||/^050\d{9}$/.test(n))&&!/0{7}$/.test(n)?n:null;}
+  /* 응급의료기관 검색의 전화 버튼은 허용목록(기관 코드 hpid → 승인 번호)과 정확히 일치할 때만 표시. 형식이 맞아도 목록에 없으면 숨김. docs/phone-allowlist.json 과 같아야 하며 scripts/check-allowlist.py 가 검사. */
+  var EMERGENCY_PHONE_APPROVED={'A2100019':['03180212114'],'A2100122':['0313370114'],'A2100029':['0313000114']};
+  function emergencyPhone(hpid,value){var n=phone(value);return n&&(EMERGENCY_PHONE_APPROVED[String(hpid||'')]||[]).indexOf(n)>=0?n:null;}
   function hospitalMatch(list,id,address){
     var expected=normalize(address),matches=list.filter(function(p){var actual=normalize(p.dutyAddr),suffix=actual.slice(expected.length);return expected&&p.hpid===id&&actual.startsWith(expected)&&(!suffix||/^[,(]/.test(suffix))&&coord(p.wgs84Lat,p.wgs84Lon);});
     return matches.length===1?matches[0]:null;
@@ -40,7 +43,7 @@
     copy.onclick=function(){if(!navigator.clipboard){status.textContent='위 주소를 선택해 복사해 주세요.';return;}navigator.clipboard.writeText(addr).then(function(){status.textContent='주소를 복사했어요.';},function(){status.textContent='위 주소를 선택해 복사해 주세요.';});};details.appendChild(copy);details.appendChild(status);box.appendChild(details);
     return box;
   }
-  var api={coord:coord,route:route,phone:phone,hospitalMatch:hospitalMatch,row:row};
+  var api={coord:coord,route:route,phone:phone,emergencyPhone:emergencyPhone,hospitalMatch:hospitalMatch,row:row};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   if(root){root.hjMedicalMaps=api;root.hjMapRow=row;}
 })(typeof window==='undefined'?null:window);
