@@ -33,7 +33,11 @@ try:
     random.seed(7);pg.goto(U+'index.html');cur='index.html';ok=True;bad=''
     for i in range(40):
         lab,href=random.choice(BOTTOM)
-        with pg.expect_navigation():pg.locator('[data-hjnav] a',has_text=lab).first.click()
+        if href=='index.html' and pg.url.split('#')[0].endswith(('index.html','/')):
+            pg.locator('[data-hjnav] a',has_text=lab).first.click();pg.wait_for_timeout(500)  # 첫 화면에서 홈: 같은 화면 맨 위로(이동 없음)
+        else:
+            with pg.expect_navigation():pg.locator('[data-hjnav] a',has_text=lab).first.click()
+        pg.wait_for_load_state('load')
         if not pg.url.split('#')[0].endswith(href) and not (href=='index.html' and pg.url.endswith('/')):ok=False;bad=f'{i}:{lab}->{pg.url}';break
         if pg.locator('[data-hjnav]').count()!=1:ok=False;bad=f'{i}:하단 메뉴 개수';break
     rec('이동 40회','하단 메뉴 무작위 40번 이동: 항상 맞는 화면·하단 메뉴 1개',ok,bad)
