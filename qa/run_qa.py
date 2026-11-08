@@ -177,10 +177,11 @@ with sync_playwright() as p:
         pg.goto(U + 'Emergency.html'); pg.wait_for_selector('button.gu')
         for gu in ('처인구', '기흥구', '수지구'):
             pg.click(f'button.gu[data-gu={gu}]'); pg.wait_for_timeout(500)
-            r = pg.evaluate("({items:document.querySelectorAll('#phList > *').length,tel:document.querySelectorAll('#phList a[href^=tel]').length})")
+            r = pg.evaluate("({items:document.querySelectorAll('#phList > *').length,tel:document.querySelectorAll('#phList a[href^=tel]').length,msg:(document.getElementById('phStatus')||{}).innerText||''})")
             probs = []
             if r['tel']: probs.append(f"전화 버튼 {r['tel']}개 노출")
-            if r['items'] == 0: probs.append('목록 0건')
+            # 시간표상 지금 문 연 약국이 없는 시간대에는 0건이 정상이다. 이때는 안내 문구가 있어야 한다.
+            if r['items'] == 0 and '찾지 못했어요' not in r['msg']: probs.append('목록 0건인데 안내 문구 없음')
             rec('검색', f'지금 문 연 약국 · {gu} ({r["items"]}건)', 'FAIL' if probs else 'PASS', ' / '.join(probs), shot(pg, 'phlist_' + gu) if probs else None)
         ctx.close()
 
