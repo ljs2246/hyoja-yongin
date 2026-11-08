@@ -26,6 +26,18 @@ SIZE_KO = {'normal': '보통', 'large': '크게', 'xl': '아주 크게'}
 R = []  # 결과 목록
 
 
+def tap(pg, sel):
+    """사람이 하듯 화면 가운데로 스크롤한 뒤, 그 자리에서 실제로 그 버튼이 맨 위에 있는지 확인하고 누른다.
+    다른 요소(예: 아래 고정 메뉴)가 가리고 있으면 오류를 내서 실패로 잡는다."""
+    el = pg.locator(sel).first
+    el.evaluate("e=>e.scrollIntoView({block:'center'})")
+    pg.wait_for_timeout(120)
+    hit = el.evaluate("e=>{const b=e.getBoundingClientRect();const t=document.elementFromPoint(b.left+b.width/2,b.top+b.height/2);return t===e||e.contains(t)?'':(t?t.tagName+':'+(t.textContent||'').slice(0,30):'none')}")
+    if hit:
+        raise RuntimeError(f'{sel} 이(가) {hit} 에 가려 눌리지 않음')
+    b = el.bounding_box()
+    pg.mouse.click(b['x'] + b['width'] / 2, b['y'] + b['height'] / 2)
+
 def rec(group, name, status, detail='', shot=None):
     R.append({'group': group, 'name': name, 'status': status, 'detail': detail, 'shot': shot})
     mark = {'PASS': '통과', 'FAIL': '실패', 'WARN': '경고'}[status]
@@ -258,8 +270,8 @@ with sync_playwright() as p:
             pg.click('#medicalSearchForm button[type=submit]'); pg.wait_for_timeout(500)
             t = pg.locator('#medicalSearchResults a[href^="tel:"]').first
             if t.count(): t.click(); pg.wait_for_timeout(150)
-            pg.click('button.gu[data-gu=수지구]'); pg.wait_for_timeout(300)
-            pg.click('#hj-sizebar button[data-k=large]'); pg.wait_for_timeout(200)
+            tap(pg, 'button.gu[data-gu=수지구]'); pg.wait_for_timeout(300)
+            tap(pg, '#hj-sizebar button[data-k=large]'); pg.wait_for_timeout(200)
             pg.goto(U + 'Centers.html'); pg.wait_for_timeout(300); pg.evaluate(NOPREVENT)
             pg.locator('a[href^="tel:"]').first.click(); pg.wait_for_timeout(150)
 

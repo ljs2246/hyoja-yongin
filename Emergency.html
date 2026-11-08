@@ -201,7 +201,7 @@ function pick(gu){
 }
 fetch('data/pharmacy.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
  DATA=d;document.getElementById('phSrc').textContent+=' 자료 확인한 때: '+d['확인한 때']+'.';
- if(window.hjMedicalMaps.isStale(d['확인한 때'],Date.now(),7)){var w=document.createElement('p');w.setAttribute('role','alert');w.style.cssText='font-size:18px;line-height:1.6;color:#86384a;margin:8px 0';w.textContent='자료 확인일이 오래됐어요. 반드시 전화로 먼저 확인해 주세요. 급하면 119로 전화해 주세요.';document.getElementById('phSrc').parentNode.appendChild(w);}
+ if(window.hjMedicalMaps.isStale(d['확인한 때'],Date.now(),7)){var w=document.createElement('p');w.setAttribute('role','alert');w.style.cssText='font-size:18px;line-height:1.6;color:#86384a;margin:8px 0';w.textContent='자료 확인일이 오래됐어요. 반드시 응급의료포털에서 먼저 확인해 주세요. 급하면 119로 전화해 주세요.';document.getElementById('phSrc').parentNode.appendChild(w);}
  var bs=document.querySelectorAll('.gu');for(var i=0;i<bs.length;i++)bs[i].onclick=function(){pick(this.getAttribute('data-gu'));};
 }).catch(function(){st.textContent='지금은 약국 자료를 불러오지 못했어요. 응급의료포털에서 확인해 주세요. 응급상황이면 119로 전화해 주세요.';});
 more.onclick=function(){shown+=10;render();};
