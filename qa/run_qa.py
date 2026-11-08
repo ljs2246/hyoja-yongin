@@ -255,12 +255,9 @@ with sync_playwright() as p:
         hosts = sorted({re.sub(r'^https?://([^/]+)/.*', r'\1', u) for u, _ in reqs})
         bad = [h for h in hosts if any(x in h for x in STOP)]
         KNOWN = ('api.open-meteo.com', 'air-quality-api.open-meteo.com')      # 날씨·대기질(고정 좌표)
-        FONTS = ('fonts.googleapis.com', 'fonts.gstatic.com')                 # 구글 글꼴(기존 외부 요청)
-        extra = [h for h in hosts if h not in KNOWN and h not in FONTS and not any(x in h for x in STOP)]
-        rec('통계', '(가) 기본 상태: 날씨·글꼴 외 외부 요청 0건', 'FAIL' if extra else 'PASS', f'예상 밖 외부 주소 {extra}' if extra else '')
-        fo = [h for h in hosts if h in FONTS]
-        if fo:
-            rec('통계', '(가) 참고: 구글 글꼴 서버 접속(기존 동작, 접속 정보가 구글에 전달됨)', 'WARN', f'{fo} — 처리방침 고지 또는 글꼴 자체 보관 검토')
+        FONTS = ('fonts.googleapis.com', 'fonts.gstatic.com')                 # 구글 글꼴(자체 보관으로 바꾼 뒤에는 접속하면 안 됨)
+        extra = [h for h in hosts if h not in KNOWN and not any(x in h for x in STOP)]
+        rec('통계', '(가) 기본 상태: 날씨 외 외부 요청 0건(구글 글꼴 포함)', 'FAIL' if extra else 'PASS', f'예상 밖 외부 주소 {extra}' if extra else '', shot(pg, 'stats_hosts') if extra else None)
         ctx.close()
 
         # (나) 모의 기록 모드: 통계가 만드는 이벤트 이름만 기록(전송 없음)
@@ -341,6 +338,40 @@ with sync_playwright() as p:
         pg.goto('https://hyoja-qa.example/index.html'); pg.wait_for_timeout(800)
         n = pg.evaluate('(window.__hjLog||[]).length')
         rec('통계', '(마) 실제 주소에서는 시험용 설정 무시(기록 0·전송 0)', 'PASS' if n == 0 and not gcreq else 'FAIL', '' if n == 0 and not gcreq else f'기록 {n}건 전송 {len(gcreq)}건')
+        ctx.close()
+
+
+    # ── 7. 글꼴 자체 보관 ──
+    if want('글꼴'):
+        FONT_HOSTS = ('fonts.googleapis.com', 'fonts.gstatic.com')
+        ctx = b.new_context(viewport={'width': 390, 'height': 800}, has_touch=True, is_mobile=True)
+        pg = ctx.new_page(); hosts_seen = []; font_reqs = []
+        ctx.on('request', lambda r: hosts_seen.append(r.url) if any(h in r.url for h in FONT_HOSTS) else None)
+        ctx.on('response', lambda r: font_reqs.append((r.url.split('/')[-1], r.status)) if '/fonts/' in r.url else None)
+        bad = []
+        for name in PAGES:
+            pg.goto(U + name + '.html'); pg.wait_for_timeout(250)
+        rec('글꼴', '14개 화면에서 구글 글꼴 서버 접속 0건', 'FAIL' if hosts_seen else 'PASS', f'{hosts_seen[:2]}' if hosts_seen else '')
+        pg.goto(U + 'Emergency.html'); pg.wait_for_timeout(300)
+        ok = pg.evaluate("document.fonts.load('400 16px \"Noto Sans KR\"','가나다').then(f=>f.length)")
+        ok9 = pg.evaluate("document.fonts.load('900 16px \"Noto Sans KR\"','응급').then(f=>f.length)")
+        got = [n for n, st in font_reqs if st == 200]
+        rec('글꼴', '자체 보관 글꼴(자주 쓰는 글자) 내려받기·적용', 'PASS' if ok and ok9 and 'noto-sans-kr-a.woff' in got else 'FAIL', f'faces={ok}/{ok9} 받은 파일={got}', None if ok and ok9 else shot(pg, 'font_a'))
+        RARE = '뷁'
+        r = pg.evaluate("(c)=>document.fonts.load('400 16px \"Noto Sans KR\"',c).then(f=>f.length)", RARE)
+        got = [n for n, st in font_reqs if st == 200]
+        rec('글꼴', f'드문 글자({RARE}) 구간 내려받기', 'PASS' if r and 'noto-sans-kr-b.woff' in got else 'FAIL', f'faces={r} 받은 파일={got}', None if r else shot(pg, 'font_b'))
+        w = pg.evaluate("(()=>{const e=document.createElement('span');e.style.cssText='font:700 20px \"Noto Sans KR\";position:absolute;visibility:hidden';e.textContent='응급 병원 약국';document.body.appendChild(e);const a=e.getBoundingClientRect().width;e.style.fontFamily='serif';const b=e.getBoundingClientRect().width;return [a,b]})()")
+        rec('글꼴', '글꼴이 실제 글자 폭에 적용됨(대체 글꼴과 다름)', 'PASS' if abs(w[0] - w[1]) > 0.5 else 'FAIL', f'폭 {w}')
+        # 비행기 모드에서도 글꼴 사용
+        pg.goto(U + 'index.html'); pg.wait_for_timeout(1500); pg.goto(U + 'index.html'); pg.wait_for_timeout(500)
+        ctx.set_offline(True)
+        try:
+            pg.goto(U + 'Emergency.html', timeout=15000); pg.wait_for_timeout(400)
+            off = pg.evaluate("document.fonts.load('400 16px \"Noto Sans KR\"','가').then(f=>f.length)")
+            rec('글꼴', '비행기 모드에서도 자체 글꼴 적용', 'PASS' if off else 'FAIL', f'faces={off}', None if off else shot(pg, 'font_offline'))
+        except Exception as e:
+            rec('글꼴', '비행기 모드에서도 자체 글꼴 적용', 'FAIL', str(e)[:100])
         ctx.close()
 
     b.close()
