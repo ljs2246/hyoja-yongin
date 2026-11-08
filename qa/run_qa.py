@@ -208,6 +208,141 @@ with sync_playwright() as p:
         n = pg.evaluate("document.querySelectorAll('a[href^=\"tel:\"]').length")
         rec('오프라인', '재접속 후 주민센터 전화 37개 복원', 'PASS' if n == 37 else 'FAIL', '' if n == 37 else f'{n}개')
         ctx.close()
+
+    # ── 6. 익명 통계 (외부 전송 없이 모의 시험) ──
+    if want('통계'):
+        import mimetypes
+        ALLOWED = re.compile(r'^(search-(pharmacy|emergency)-(all|chein|giheung|suji)-q[01]|tel-[a-z]{2,12}|map-(pharmacy|emergency)|gu-(chein|giheung|suji)|size-(normal|large|xl))$')
+        PATHRE = re.compile(r'^/[A-Za-z0-9_.\-]*$')
+        QUERY = '동백중앙로'
+        STOP = ('goatcounter.com', 'zgo.at')
+        NOPREVENT = """document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(a&&/^(tel:|https:\\/\\/map\\.)/.test(a.getAttribute('href')||''))e.preventDefault();});"""
+
+        def stats_ctx(init=None, w=390):
+            ctx = b.new_context(viewport={'width': w, 'height': 800}, has_touch=True, is_mobile=True)
+            pg = ctx.new_page()
+            pg.route(re.compile(r'.*(fonts\.googleapis|fonts\.gstatic).*'), lambda r: r.abort())
+            pg.route(re.compile(r'https://map\.(naver|kakao)\.com/.*'), lambda r: r.abort())
+            if init:
+                ctx.add_init_script(init)
+            reqs = []
+            ctx.on('request', lambda r: reqs.append((r.url, r.headers)) if not r.url.startswith(U) and not r.url.startswith('data:') else None)
+            errs = []
+            pg.on('pageerror', lambda e: errs.append(str(e)[:100]))
+            return ctx, pg, reqs, errs
+
+        def drive(pg):
+            """대표적인 이용 흐름: 홈 → 응급 → 약국 검색(검색어 입력) → 지도 → 문 연 약국 구 선택 → 글자 크기 → 주민센터 전화 클릭"""
+            pg.goto(U + 'index.html'); pg.wait_for_timeout(400)
+            pg.goto(U + 'Emergency.html'); pg.wait_for_selector('#medicalKind'); pg.wait_for_timeout(300)
+            pg.evaluate(NOPREVENT)
+            pg.select_option('#medicalKind', 'pharmacy'); pg.select_option('#medicalGu', '기흥구'); pg.fill('#medicalQuery', QUERY)
+            pg.click('#medicalSearchForm button[type=submit]'); pg.wait_for_timeout(700)
+            m = pg.locator('#medicalSearchResults a[href*="map."]').first
+            if m.count(): m.click(); pg.wait_for_timeout(200)
+            pg.select_option('#medicalKind', 'emergency'); pg.select_option('#medicalGu', ''); pg.fill('#medicalQuery', '')
+            pg.click('#medicalSearchForm button[type=submit]'); pg.wait_for_timeout(500)
+            t = pg.locator('#medicalSearchResults a[href^="tel:"]').first
+            if t.count(): t.click(); pg.wait_for_timeout(150)
+            pg.click('button.gu[data-gu=수지구]'); pg.wait_for_timeout(300)
+            pg.click('#hj-sizebar button[data-k=large]'); pg.wait_for_timeout(200)
+            pg.goto(U + 'Centers.html'); pg.wait_for_timeout(300); pg.evaluate(NOPREVENT)
+            pg.locator('a[href^="tel:"]').first.click(); pg.wait_for_timeout(150)
+
+        # (가) 기본 상태: 통계 코드가 비어 있어 아무것도 보내지 않는다
+        ctx, pg, reqs, errs = stats_ctx()
+        drive(pg)
+        hosts = sorted({re.sub(r'^https?://([^/]+)/.*', r'\1', u) for u, _ in reqs})
+        bad = [h for h in hosts if any(x in h for x in STOP)]
+        KNOWN = ('api.open-meteo.com', 'air-quality-api.open-meteo.com')      # 날씨·대기질(고정 좌표)
+        FONTS = ('fonts.googleapis.com', 'fonts.gstatic.com')                 # 구글 글꼴(기존 외부 요청)
+        extra = [h for h in hosts if h not in KNOWN and h not in FONTS and not any(x in h for x in STOP)]
+        rec('통계', '(가) 기본 상태: 날씨·글꼴 외 외부 요청 0건', 'FAIL' if extra else 'PASS', f'예상 밖 외부 주소 {extra}' if extra else '')
+        fo = [h for h in hosts if h in FONTS]
+        if fo:
+            rec('통계', '(가) 참고: 구글 글꼴 서버 접속(기존 동작, 접속 정보가 구글에 전달됨)', 'WARN', f'{fo} — 처리방침 고지 또는 글꼴 자체 보관 검토')
+        ctx.close()
+
+        # (나) 모의 기록 모드: 통계가 만드는 이벤트 이름만 기록(전송 없음)
+        ctx, pg, reqs, errs = stats_ctx("window.__HJ_STATS_TEST={sink:(window.__hjLog=JSON.parse(sessionStorage.getItem('__t')||'[]')),allowLocal:true};window.addEventListener('pagehide',()=>{try{sessionStorage.setItem('__t',JSON.stringify(window.__hjLog))}catch(e){}});")
+        drive(pg)
+        pg.evaluate("sessionStorage.setItem('__t',JSON.stringify(window.__hjLog))")
+        collected = pg.evaluate('window.__hjLog')
+        cookies = ctx.cookies()
+        ls = pg.evaluate("Object.keys(localStorage)")
+        names = [x['name'] for x in collected]
+        badn = [n for n in names if not (ALLOWED.match(n) or PATHRE.match(n))]
+        rec('통계', f'(나) 기록된 이벤트 {len(names)}건 모두 허용 형식', 'FAIL' if badn else 'PASS', f'허용 밖 이름 {badn}' if badn else '', shot(pg, 'stats_names') if badn else None)
+        need = ['search-pharmacy-giheung-q1', 'search-emergency-all-q0', 'gu-suji', 'size-large', 'tel-centers']
+        miss = [n for n in need if n not in names]
+        rec('통계', '(나) 핵심 이용 이벤트 기록(검색·구 선택·글자 크기·전화 클릭)', 'FAIL' if miss else 'PASS', f'기록 안 됨 {miss}' if miss else '', shot(pg, 'stats_missing') if miss else None)
+        rec('통계', '(나) 방문 기록(주소 경로만)', 'PASS' if any(PATHRE.match(n) for n in names) else 'FAIL', '' if any(PATHRE.match(n) for n in names) else '방문 기록 없음')
+        blob = json.dumps(collected, ensure_ascii=False)
+        leaks = []
+        if QUERY in blob: leaks.append('검색어 원문')
+        if re.search(r'\d{5,}', blob): leaks.append('긴 숫자(전화번호 가능성)')
+        if re.search(r'0\d{1,2}-?\d{3,4}-?\d{4}', blob): leaks.append('전화번호 형식')
+        if re.search(r'병원|약국|의원|센터', blob): leaks.append('기관 이름')
+        rec('통계', '(나) 기록에 검색어·전화번호·기관 이름 없음', 'FAIL' if leaks else 'PASS', ' / '.join(leaks), shot(pg, 'stats_leak') if leaks else None)
+        rec('통계', '(나) 쿠키 0개', 'PASS' if not cookies else 'FAIL', '' if not cookies else f'쿠키 {len(cookies)}개')
+        ls_bad = [k for k in ls if k not in ('hyoja-size', 'hj-sound', 'hyoja-sound', 'hyoja-vol')]
+        rec('통계', '(나) 통계용 저장소(localStorage) 사용 없음', 'PASS' if not ls_bad else 'WARN', f'확인할 저장 키 {ls_bad}' if ls_bad else '')
+        ctx.close()
+
+        # (다) 전송 경로 점검: 가짜 사이트 코드로 켜고, 통계 서버 요청은 밖으로 나가기 전에 막아 내용만 검사
+        ctx, pg, reqs, errs = stats_ctx("window.__HJ_STATS_TEST={code:'hyoja-qa-test',sink:[],allowLocal:true};")
+        seen = []
+        def grab(route):
+            seen.append((route.request.url, route.request.headers)); route.abort()
+        ctx.route(re.compile(r'https://[a-z0-9-]+\.goatcounter\.com/.*'), grab)
+        drive(pg)
+        problems = []
+        from urllib.parse import urlparse, parse_qs, unquote
+        for url, hd in seen:
+            u_ = urlparse(url); q_ = parse_qs(u_.query)
+            if u_.hostname != 'hyoja-qa-test.goatcounter.com': problems.append(f'다른 서버 {u_.hostname}')
+            if u_.path != '/count': problems.append(f'경로 {u_.path}')
+            extra_keys = set(q_) - {'p', 't', 'e', 's', 'rnd'}
+            if extra_keys: problems.append(f'예상 밖 항목 {sorted(extra_keys)}')
+            pv = unquote(q_.get('p', [''])[0])
+            if not (ALLOWED.match(pv) or PATHRE.match(pv)): problems.append(f'p 값 {pv!r}')
+            if QUERY in url or re.search(r'%EB%8F%99%EB%B0%B1', url): problems.append('검색어 포함')
+            if 'referer' in {k.lower() for k in hd}: problems.append('Referer 헤더 전송')
+            if 'cookie' in {k.lower() for k in hd}: problems.append('Cookie 헤더 전송')
+        rec('통계', f'(다) 전송 요청 {len(seen)}건: 주소·항목·내용 검사', 'FAIL' if problems or not seen else 'PASS',
+            ' / '.join(sorted(set(problems))) if problems else ('요청이 하나도 만들어지지 않음' if not seen else ''), shot(pg, 'stats_send') if problems or not seen else None)
+        rec('통계', '(다) 통계 서버가 막혀도 앱 오류 0건', 'FAIL' if errs else 'PASS', f'{errs[:2]}' if errs else '', shot(pg, 'stats_err') if errs else None)
+        third = [u for u, _ in reqs if any(x in u for x in ('zgo.at',))]
+        rec('통계', '(다) 외부 통계 스크립트(gc.zgo.at) 불러오지 않음', 'FAIL' if third else 'PASS', f'{third[:1]}' if third else '')
+        ctx.close()
+
+        # (라) 추적 거부(Do Not Track) 신호가 있으면 아무것도 기록하지 않는다
+        ctx, pg, reqs, errs = stats_ctx("Object.defineProperty(navigator,'doNotTrack',{get:()=>'1'});window.__HJ_STATS_TEST={code:'hyoja-qa-test',sink:(window.__hjLog=[]),allowLocal:true};")
+        pg.goto(U + 'Emergency.html'); pg.wait_for_selector('#medicalKind'); pg.wait_for_timeout(300)
+        pg.select_option('#medicalKind', 'pharmacy'); pg.click('#medicalSearchForm button[type=submit]'); pg.wait_for_timeout(400)
+        n = pg.evaluate('window.__hjLog.length'); gc = [u for u, _ in reqs if 'goatcounter' in u]
+        rec('통계', '(라) 추적 거부 신호 시 기록 0건·전송 0건', 'PASS' if n == 0 and not gc else 'FAIL', '' if n == 0 and not gc else f'기록 {n}건 전송 {len(gc)}건')
+        ctx.close()
+
+        # (마) 실제 사이트 주소처럼 보이는 곳에서는 시험용 설정을 무시한다
+        ctx = b.new_context(viewport={'width': 390, 'height': 800}); pg = ctx.new_page()
+        ctx.add_init_script("window.__HJ_STATS_TEST={code:'hyoja-qa-test',sink:(window.__hjLog=[]),allowLocal:true};")
+        gcreq = []
+        def fake(route):
+            r = route.request; u_ = urlparse(r.url)
+            if 'goatcounter' in (u_.hostname or ''): gcreq.append(r.url); return route.abort()
+            if u_.hostname == 'hyoja-qa.example':
+                f = os.path.join(ROOT, u_.path.lstrip('/') or 'index.html')
+                if os.path.isfile(f):
+                    return route.fulfill(status=200, body=open(f, 'rb').read(), content_type=mimetypes.guess_type(f)[0] or 'application/octet-stream')
+                return route.fulfill(status=404, body='')
+            return route.abort()
+        ctx.route('**/*', fake)
+        pg.goto('https://hyoja-qa.example/index.html'); pg.wait_for_timeout(800)
+        n = pg.evaluate('(window.__hjLog||[]).length')
+        rec('통계', '(마) 실제 주소에서는 시험용 설정 무시(기록 0·전송 0)', 'PASS' if n == 0 and not gcreq else 'FAIL', '' if n == 0 and not gcreq else f'기록 {n}건 전송 {len(gcreq)}건')
+        ctx.close()
+
     b.close()
 httpd.shutdown()
 

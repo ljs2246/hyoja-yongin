@@ -29,7 +29,47 @@
     }}catch(e){}
   // 인터넷이 느리거나 끊겨도 저장된 화면을 보여 줘요
   try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');}catch(e){}
-  // 방문 수만 세는 통계(개인정보·쿠키 없음). 아래에 GoatCounter 코드를 넣으면 켜져요.
+})();
+
+// ── 익명 이용 통계 (기본 꺼짐) ──────────────────────────────────────────
+// 원칙: 쿠키·저장 없음 / 검색어·전화번호·위치·건강정보 전송 금지 / 아래 허용 형식의 이름만 보냄.
+// 켜는 방법: 대표 승인 후 효자 전용 GoatCounter 사이트 코드를 GC에 넣기. 비어 있으면 아무것도 보내지 않아요.
+// 외부 스크립트는 불러오지 않고, 작은 이미지 요청(tracking pixel) 하나로만 보냅니다.
+(function(){
   var GC='';
-  if(GC){var s=document.createElement('script');s.async=true;s.setAttribute('data-goatcounter','https://'+GC+'.goatcounter.com/count');s.src='https://gc.zgo.at/count.js';document.head.appendChild(s);}
+  var local=/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var T=local?window.__HJ_STATS_TEST:null;            // 시험용 설정은 내 컴퓨터(localhost)에서만 인정
+  var code=(T&&T.code)||GC, sink=T&&T.sink;
+  if(!code&&!sink)return;
+  try{if(navigator.doNotTrack==='1'||window.doNotTrack==='1'||navigator.globalPrivacyControl)return;}catch(e){}
+  if(local&&!(T&&T.allowLocal))return;                // 개발 중 방문은 세지 않음
+  var OK=/^(search-(pharmacy|emergency)-(all|chein|giheung|suji)-q[01]|tel-[a-z]{2,12}|map-(pharmacy|emergency)|gu-(chein|giheung|suji)|size-(normal|large|xl))$/;
+  var PATH=/^\/[A-Za-z0-9_.\-]*$/;
+  var GU={'':'all','처인구':'chein','기흥구':'giheung','수지구':'suji'};
+  function bucket(){var w=window.innerWidth||0,b=[320,360,390,430,600,768,1024,1440],r=0;for(var i=0;i<b.length;i++){if(w>=b[i])r=b[i];}return r;}
+  function send(p,isEvent){
+    if(sink){try{sink.push({name:p,event:!!isEvent});}catch(e){}}
+    if(!code||!/^[a-z0-9-]{1,40}$/.test(code))return;
+    try{var im=new Image();im.referrerPolicy='no-referrer';
+      im.src='https://'+code+'.goatcounter.com/count?p='+encodeURIComponent(p)+(isEvent?'&e=true':'&t='+encodeURIComponent(document.title))+'&s='+bucket()+',0,1&rnd='+Math.random().toString(36).slice(2,8);}catch(e){}
+  }
+  function ev(name){if(OK.test(name))send(name,true);}
+  function pg(){return((location.pathname.split('/').pop()||'index').replace(/\.html$/i,'').toLowerCase().replace(/[^a-z]/g,''))||'index';}
+  var path=location.pathname.replace(/index\.html$/i,'');if(!PATH.test(path))path='/';
+  send(path||'/',false);                              // 방문 1회(주소의 경로만, 검색어·해시 제외)
+  document.addEventListener('submit',function(e){
+    var f=e.target;if(!f||f.id!=='medicalSearchForm')return;
+    var k=document.getElementById('medicalKind'),g=document.getElementById('medicalGu'),q=document.getElementById('medicalQuery');
+    if(!k||(k.value!=='pharmacy'&&k.value!=='emergency'))return;
+    ev('search-'+k.value+'-'+(GU[g?g.value:'']||'all')+'-q'+((q&&q.value.trim())?1:0));   // 검색어 글자는 읽지만 보내지 않고, 썼는지(1)/안 썼는지(0)만
+  },true);
+  document.addEventListener('click',function(e){
+    var t=e.target;if(!t||!t.closest)return;
+    var a=t.closest('a[href]');
+    if(a){var h=a.getAttribute('href')||'';
+      if(/^tel:/i.test(h)){ev('tel-'+pg());return;}                 // 눌렀다는 기록일 뿐, 통화 연결 성공이 아님
+      if(/^https:\/\/map\.(naver|kakao)\.com\//.test(h)){var k=document.getElementById('medicalKind');if(k)ev('map-'+k.value);return;}}
+    var gb=t.closest('button.gu[data-gu]');if(gb){var c=GU[gb.getAttribute('data-gu')];if(c&&c!=='all')ev('gu-'+c);return;}
+    var sb=t.closest('#hj-sizebar button[data-k]');if(sb)ev('size-'+sb.getAttribute('data-k'));
+  },true);
 })();
