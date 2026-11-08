@@ -4,8 +4,9 @@ if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance)return;
 var path=location.pathname.split('/').pop()||'index.html',cur=null;
 var D={'0':'공','1':'일','2':'이','3':'삼','4':'사','5':'오','6':'육','7':'칠','8':'팔','9':'구'};
 function digits(s){return s.split('').map(function(c){return D[c];}).join(' ');}
-function say(t){return t.replace(/\b119\b/g,'일일구').replace(/\b112\b/g,'일일이').replace(/\b129\b/g,'일이구')
-  .replace(/\d[\d-]*\d|\d/g,function(m){return m.split('-').map(digits).join(', ');})
+function say(t){t=t.replace(/([가-힣A-Za-z)])(\d)/g,'$1 $2');
+  return t.replace(/\b119\b/g,'일일구').replace(/\b112\b/g,'일일이').replace(/\b129\b/g,'일이구')
+  .replace(/\d{2,4}-\d{3,4}-\d{4}|\d{4}-\d{4}|\d{7,}|\b1\d{2,3}\b(?![\d월일년명원개번회시분세%])/g,function(m){return m.split('-').map(digits).join(', ');})
   .replace(/[›↗!]/g,' ').replace(/·/g,', ').replace(/\s+/g,' ').trim();}
 function clean(a){return (a.textContent||'').replace(/\s+/g,' ').trim();}
 function reset(){document.querySelectorAll('.hj-say2').forEach(function(b){b.setAttribute('aria-pressed','false');b.textContent='🔊';});cur=null;}
@@ -18,12 +19,13 @@ function speak(b,text){
 function mkBtn(label,text){var b=document.createElement('button');b.type='button';b.className='hj-say2';b.textContent='🔊';
   b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',label+' 소리로 듣기');
   b.onclick=function(e){e.preventDefault();e.stopPropagation();speak(b,text);};return b;}
-function wrapRow(a,btn){var w=document.createElement('div');w.className='hj-tw2';a.parentNode.insertBefore(w,a);w.appendChild(btn);w.appendChild(a);}
+function wrapRow(a,btn){var w=document.createElement('div');w.className='hj-tw2';try{var pp=a.parentNode,pd=pp&&getComputedStyle(pp);if(pd&&(pd.display==='grid'||(pd.display==='flex'&&pd.flexDirection.indexOf('row')===0)||pd.display==='inline-flex'))w.className='hj-tw2 hj-col';}catch(x){}a.parentNode.insertBefore(w,a);w.appendChild(btn);w.appendChild(a);}
 var css=document.createElement('style');
 css.textContent='.hj-tw2{display:flex;align-items:center;gap:8px;width:100%}.hj-tw2>a{flex:1;min-width:0}'
 +'.hj-say2{flex:0 0 56px;width:56px;height:56px;border-radius:50%;border:2px solid #D9A066;background:#fff;color:#7A3510;font-size:24px;line-height:1;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #E8C79B}'
 +'.hj-say2[aria-pressed=true]{background:#7A3510;color:#fff;border-color:#7A3510}.hj-say2:focus-visible{outline:3px solid #A92B22;outline-offset:2px}'
 +':is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair){flex-direction:column;align-items:stretch;gap:6px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2{flex:0 0 auto;width:100%;height:52px;border-radius:26px;font-size:20px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2::after{content:" 듣기";font-size:18px;font-weight:700}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2[aria-pressed=true]::after{content:" 멈추기"}'
++'.hj-tw2.hj-col{flex-direction:column;align-items:stretch;gap:6px;min-width:0}.hj-tw2.hj-col .hj-say2{flex:0 0 auto;width:100%;height:52px;border-radius:26px;font-size:20px}'
 +'.hj-tw2.hj-pair{margin:6px 0}.hj-tw2.hj-pair .hj-say2{flex:0 0 auto;width:auto;height:52px;border-radius:26px;padding:0 16px;font-size:18px;font-weight:700;gap:6px}';
 document.head.appendChild(css);
 /* 홈: 급할 때 */
@@ -40,6 +42,32 @@ if(path==='Emergency.html'){
     if(!as.length)return;var row=as[0].parentNode;if(!row||row.querySelector('.hj-say2'))return;
     var b=mkBtn(k[0]+' 찾기 지도 버튼',k[1]);b.textContent='🔊';var w=document.createElement('div');w.className='hj-tw2 hj-pair';row.parentNode.insertBefore(w,row);w.appendChild(b);
     var lab=document.createElement('span');lab.textContent=k[0]+' 찾기 버튼 듣기';lab.style.cssText='font-size:18px;font-weight:700;color:#6A4A33';w.appendChild(lab);});
+}
+
+/* 모든 화면: 눌러서 이동·전화·열기 하는 버튼마다 🔊 한 개. 🔊는 전화를 걸거나 화면을 옮기지 않고 읽어 주기만 함. */
+if(path!=='Review.html'){
+  var SKIP='[data-hjnav],[data-hjfoot],#hj-readbar,#hj-sizebar,#hj-sndbar,#sizeBtns,#hj-share-x,#hj-kakao,footer,header,.hj-tw,.hj-tw2,.hj-say2,.hj-say,.home-nav,details.home-sound-settings,form,[role=tablist]';
+  var busy=false;
+  function pass(){
+    if(busy)return;busy=true;
+    try{[].slice.call(document.querySelectorAll('a[href],button')).forEach(function(a){try{
+      if(a.closest(SKIP)||a.classList.contains('hj-say2')||a.disabled)return;
+      var h=a.getAttribute('href')||'';
+      if(a.tagName==='A'&&(h.charAt(0)==='#'||h==='index.html'||h===''))return;
+      if(getComputedStyle(a).display==='none')return;
+      var t=clean(a);if(!t)return;
+      var tail=a.tagName==='BUTTON'?' 버튼이에요.':/^tel:/.test(h)?'. 누르면 바로 전화가 걸려요.':/^https?:/.test(h)?'. 누르면 안내 화면이 열려요.':'. 누르면 그 화면으로 가요.';
+      wrapRow(a,mkBtn(t.slice(0,40),say(t)+tail));}catch(e){window.__sayErr=(window.__sayErr||0)+1;}});}catch(x){}
+    fit();busy=false;}
+  /* 글자를 크게 하면 한 줄에 안 들어가는 칸은 🔊를 위/아래로 옮겨요 */
+  function fit(){try{[].slice.call(document.querySelectorAll('.hj-tw2:not(.hj-col):not(.hj-pair)')).forEach(function(w){
+    var a=w.querySelector('a,button:not(.hj-say2)');if(!a)return;
+    if(w.scrollWidth>w.clientWidth+1||a.scrollWidth>a.clientWidth+1||w.getBoundingClientRect().right>document.documentElement.clientWidth+1)w.classList.add('hj-col');});}catch(x){}}
+  window.addEventListener('resize',function(){fit();});
+  pass();
+  /* 검색 결과처럼 나중에 생기는 버튼에도 🔊를 붙여요 (0.3초에 한 번만 확인, 내가 만든 변화는 무시) */
+  try{var tm=null,obs=new MutationObserver(function(){if(tm)return;tm=setTimeout(function(){tm=null;pass();try{obs.takeRecords();}catch(x){}},300);});
+    obs.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style','hidden','open']});obs.observe(document.documentElement,{attributes:true,attributeFilter:['class','style']});}catch(x){}
 }
 window.addEventListener('pagehide',function(){try{speechSynthesis.cancel();}catch(x){}});
 }catch(e){}})();
