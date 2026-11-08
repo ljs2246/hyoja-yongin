@@ -4,8 +4,8 @@
  var status=document.getElementById('medicalSearchStatus'),out=document.getElementById('medicalSearchResults'),more=document.getElementById('medicalSearchMore');
  var curKind='emergency',sequence=0,rows=[],shown=0,duplicateKeys=new Set();
  function recordKey(p){return String(p.dutyName||'').replace(/\s+/g,'')+'|'+String(p.dutyAddr||'').replace(/\s+/g,'');}
- function qualityNotes(p){var notes=[];if(duplicateKeys.has(recordKey(p)))notes.push('같은 이름·주소의 등록 자료가 중복돼 있어요. 현재 기관 정보를 다시 확인해 주세요.');
- Object.keys(p).some(function(k){return /^dutyTime/.test(k)&&String(p[k])==='2500';})&&notes.push('운영시간 원천에 해석 미확인 값이 있어요. 심야 운영 여부는 전화로 확인해 주세요.');return notes;}
+ function qualityNotes(p){var notes=[];var ph=curKind==='pharmacy';if(duplicateKeys.has(recordKey(p)))notes.push('같은 이름·주소의 등록 자료가 중복돼 있어요. 현재 기관 정보를 다시 확인해 주세요.');
+ Object.keys(p).some(function(k){return /^dutyTime/.test(k)&&String(p[k])==='2500';})&&notes.push('운영시간 원천에 해석 미확인 값이 있어요. '+(ph?'심야 운영 여부는 지도 앱이나 응급의료포털에서 확인해 주세요.':'심야 운영 여부는 전화로 확인해 주세요.'));return notes;}
  function validRegion(p,gu){
    var address=String(p.dutyAddr||'');
    return /^경기도\s+용인시\s+(처인구|기흥구|수지구)(?:\s|$)/.test(address)&&(!gu||address.startsWith('경기도 용인시 '+gu+' '));
@@ -21,7 +21,7 @@
      var phone=curKind==='pharmacy'?null:window.hjMedicalMaps.emergencyPhone(p.hpid,p.dutyTel1);
      if(phone){var a=document.createElement('a');a.href='tel:'+phone;a.textContent='전화 '+p.dutyTel1;a.style.cssText='min-height:52px;display:flex;align-items:center;font-size:20px;font-weight:700;color:#96344a';card.appendChild(a);}
      else{var unknown=document.createElement('p');unknown.textContent='전화번호 확인 필요 · 지도나 공식 안내에서 확인해 주세요.';card.appendChild(unknown);}
-     var note=document.createElement('p');note.textContent='등록 기관 검색 결과예요. 현재 운영·진료 가능 여부는 전화로 확인해 주세요.';note.style.fontSize='16px';card.appendChild(note);
+     var note=document.createElement('p');note.textContent=curKind==='pharmacy'?'등록 기관 검색 결과예요. 약국 전화번호는 공식 확인 전이라 안내하지 않아요. 현재 운영 여부는 지도 앱이나 응급의료포털에서 확인해 주세요.':'등록 기관 검색 결과예요. 현재 운영·진료 가능 여부는 전화로 확인해 주세요.';note.style.fontSize='16px';card.appendChild(note);
      qualityNotes(p).forEach(function(text){var warn=document.createElement('p');warn.textContent=text;warn.style.cssText='font-size:17px;line-height:1.6;color:#86384a';card.appendChild(warn);});
      card.appendChild(window.hjMapRow(p.dutyName,p.dutyAddr,p.wgs84Lat,p.wgs84Lon));out.appendChild(card);
    });more.hidden=shown>=rows.length;

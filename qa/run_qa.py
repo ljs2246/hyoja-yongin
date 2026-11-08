@@ -157,7 +157,7 @@ with sync_playwright() as p:
             return pg.evaluate("""()=>{const c=[...document.querySelectorAll('#medicalSearchResults article')];
               return {cards:c.length,tel:[...document.querySelectorAll('#medicalSearchResults a[href^=tel]')].map(a=>a.getAttribute('href').slice(4)),
               maps:document.querySelectorAll('#medicalSearchResults a[href*="map"],#medicalSearchResults a[href*="kakao"],#medicalSearchResults a[href*="naver"],#medicalSearchResults a[href*="google"]').length,
-              status:(document.getElementById('medicalSearchStatus')||{}).innerText||''}}""")
+              status:(document.getElementById('medicalSearchStatus')||{}).innerText||'',text:(document.getElementById('medicalSearchResults')||{}).innerText||''}}""")
         cases = [('pharmacy', g, '') for g in ('', '처인구', '기흥구', '수지구')] + [('pharmacy', '', '동백중앙로'), ('pharmacy', '', '약국'),
                  ('emergency', '', ''), ('emergency', '처인구', ''), ('emergency', '기흥구', ''), ('emergency', '수지구', '')]
         for kind, gu, q in cases:
@@ -167,6 +167,7 @@ with sync_playwright() as p:
             if kind == 'pharmacy':
                 if r['tel']: probs.append(f"약국 전화 버튼 {len(r['tel'])}개 노출")
                 if r['cards'] == 0: probs.append('결과 0건')
+                if re.search(r'전화(로|해서)? ?(확인|문의|물어)', r['text'] + r['status']): probs.append('약국 결과에 "전화로 확인" 문구(전화 버튼은 숨김 정책과 모순)')
             else:
                 bad = [t for t in r['tel'] if t not in EM_ALLOW]
                 if bad: probs.append(f'승인 목록 밖 번호 {bad}')
@@ -177,9 +178,10 @@ with sync_playwright() as p:
         pg.goto(U + 'Emergency.html'); pg.wait_for_selector('button.gu')
         for gu in ('처인구', '기흥구', '수지구'):
             pg.click(f'button.gu[data-gu={gu}]'); pg.wait_for_timeout(500)
-            r = pg.evaluate("({items:document.querySelectorAll('#phList > *').length,tel:document.querySelectorAll('#phList a[href^=tel]').length,msg:(document.getElementById('phStatus')||{}).innerText||''})")
+            r = pg.evaluate("({items:document.querySelectorAll('#phList > *').length,all:((document.getElementById('phStatus')||{}).innerText||'')+((document.getElementById('phSrc')||{}).innerText||'')+((document.getElementById('phList')||{}).innerText||''),tel:document.querySelectorAll('#phList a[href^=tel]').length,msg:(document.getElementById('phStatus')||{}).innerText||''})")
             probs = []
             if r['tel']: probs.append(f"전화 버튼 {r['tel']}개 노출")
+            if re.search(r'전화(로|해서)? ?(확인|문의|물어)', r['all']): probs.append('문 연 약국 영역에 "전화로 확인" 문구')
             # 시간표상 지금 문 연 약국이 없는 시간대에는 0건이 정상이다. 이때는 안내 문구가 있어야 한다.
             if r['items'] == 0 and '찾지 못했어요' not in r['msg']: probs.append('목록 0건인데 안내 문구 없음')
             rec('검색', f'지금 문 연 약국 · {gu} ({r["items"]}건)', 'FAIL' if probs else 'PASS', ' / '.join(probs), shot(pg, 'phlist_' + gu) if probs else None)
