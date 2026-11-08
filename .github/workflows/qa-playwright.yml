@@ -1,0 +1,40 @@
+name: 휴대폰 자동검수 (Playwright)
+# 목적: 코드가 바뀔 때마다 휴대폰 화면 모의검사를 돌려, 실패하면 빨간불로 막는다.
+# - 읽기 전용: 코드 수정·배포·글 작성·비밀값 사용 없음 (permissions: contents: read)
+# - 기존 자동갱신(update-data.yml, update-regions.yml)과 분리: 이름·동시실행 그룹이 다르고, 데이터를 쓰거나 커밋하지 않는다.
+# - 예약 실행(cron) 없음: 사람이 코드를 올렸을 때만 돈다.
+on:
+  push:
+    branches: ['test/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: qa-playwright-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Playwright 설치 (무료, 크롬 모의 브라우저)
+        run: pip install playwright && playwright install --with-deps chromium
+      - name: 자동검수 실행 (실패가 1건이라도 있으면 이 단계가 실패)
+        run: python3 qa/run_qa.py --out qa-report
+      - name: 보고서 요약 표시
+        if: always()
+        run: |
+          if [ -f qa-report/report.md ]; then cat qa-report/report.md >> "$GITHUB_STEP_SUMMARY"; else echo "보고서가 만들어지지 않았어요(검수기 자체가 실패)." >> "$GITHUB_STEP_SUMMARY"; fi
+      - name: 보고서·실패 화면 캡처 보관 (14일)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report
+          retention-days: 14
+          path: qa-report/
