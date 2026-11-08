@@ -1,6 +1,6 @@
 # 용인 응급의료기관·약국 자료를 공공데이터포털에서 받아 data/ 폴더에 저장합니다.
 # 인증키는 환경변수 DATA_GO_KR_KEY 로만 읽고, 화면·기록에 절대 출력하지 않습니다.
-import json, os, sys, time, urllib.parse, urllib.request
+import json, os, re, sys, time, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 
@@ -57,6 +57,19 @@ def call(path, params):
         previous_page = items
     raise RuntimeError("페이지 한도를 초과하여 기존 자료를 유지합니다.")
 
+# 자유 입력 글(기타 안내·약국 설명·약도)에는 약국이 직접 적은 휴대전화 등 전화번호가 섞여 있을 수 있어요.
+# 화면에서 쓰지 않는 칸이고 공식 확인 전 번호를 보이지 않는 원칙과도 맞지 않아, 저장 전에 번호 모양을 가려요.
+FREE_TEXT_FIELDS = ("dutyEtc", "dutyInf", "dutyMapimg")
+PHONE_RE = re.compile(r"(?<!\d)(?:\+?82[-\s.]?)?0\d{1,2}[-\s.)]?\d{3,4}[-\s.]?\d{4}(?!\d)|(?<!\d)1[5-9]\d{2}[-\s]?\d{4}(?!\d)")
+MASK = "[번호 가림]"
+
+def scrub_rows(rows):
+    for r in rows:
+        for k in FREE_TEXT_FIELDS:
+            if isinstance(r.get(k), str):
+                r[k] = PHONE_RE.sub(MASK, r[k])
+    return rows
+
 def fetch(path, label):
     rows = []
     for gu in GU:
@@ -67,7 +80,7 @@ def fetch(path, label):
                 break
         print(f"{label} {gu}: {len(got)}건")
         rows += got
-    return rows
+    return scrub_rows(rows)
 
 def main():
     os.makedirs(OUT, exist_ok=True)

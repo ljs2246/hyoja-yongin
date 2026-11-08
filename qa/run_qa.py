@@ -141,6 +141,17 @@ with sync_playwright() as p:
         ctx.close()
 
     # ── 4. 병원·약국 검색 ──
+    if want('전화'):
+        # 자료 파일(data/*.json) 안의 자유 입력 글에 전화번호 모양이 남아 있으면 안 된다(화면에 안 보여도 공개 파일이므로).
+        PH = re.compile(r'(?<!\d)(?:\+?82[-\s.]?)?0\d{1,2}[-\s.)]?\d{3,4}[-\s.]?\d{4}(?!\d)|(?<!\d)1[5-9]\d{2}[-\s]?\d{4}(?!\d)')
+        for fn in ('pharmacy', 'emergency'):
+            try:
+                rows = json.load(open(os.path.join(ROOT, 'data', fn + '.json'), encoding='utf-8'))['목록']
+            except Exception as e:
+                rec('전화', f'자료 파일 {fn}.json 자유 입력 글 번호 검사', 'FAIL', f'읽기 실패: {e}'); continue
+            hit = sum(1 for p in rows for k in ('dutyEtc', 'dutyInf', 'dutyMapimg') if PH.search(str(p.get(k) or '')))
+            rec('전화', f'자료 파일 {fn}.json 자유 입력 글 전화번호 {hit}건 (0건이어야 함)', 'FAIL' if hit else 'PASS', f'{hit}건 남아 있음' if hit else '')
+
     if want('검색'):
         ctx, pg = new_page(b, 390)
         pg.goto(U + 'Emergency.html'); pg.wait_for_selector('#medicalKind')

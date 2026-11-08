@@ -42,5 +42,21 @@ class FetchTests(unittest.TestCase):
         self.assertNotIn("https", str(caught.exception))
 
 
+
+class ScrubTests(unittest.TestCase):
+    def test_masks_phone_numbers_in_free_text(self):
+        rows = [{"dutyName": "가나약국", "dutyEtc": "전화번호 010-8232-7579 휴무 없음", "dutyInf": "070-7608-4016, 031-897-3007, 01082327579, +82 10-1234-5678, 1577-1000", "dutyMapimg": "역 앞 2층"}]
+        out = data.scrub_rows(rows)[0]
+        for k in ("dutyEtc", "dutyInf"):
+            self.assertIsNone(data.PHONE_RE.search(out[k]), out[k])
+        self.assertIn("휴무 없음", out["dutyEtc"])
+        self.assertEqual(out["dutyMapimg"], "역 앞 2층")
+        self.assertEqual(out["dutyName"], "가나약국")
+
+    def test_keeps_non_phone_numbers(self):
+        rows = [{"dutyEtc": "오전9시부터 오후7시까지 2026-11-08 3층 305호 우편 16890", "dutyInf": ""}]
+        out = data.scrub_rows(rows)[0]
+        self.assertEqual(out["dutyEtc"], "오전9시부터 오후7시까지 2026-11-08 3층 305호 우편 16890")
+
 if __name__ == "__main__":
     unittest.main()
