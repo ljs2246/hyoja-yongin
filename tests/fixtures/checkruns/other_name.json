@@ -1,0 +1,1 @@
+{"total_count": 1, "check_runs": [{"name": "lint", "status": "completed", "conclusion": "success", "head_sha": "abc", "started_at": "2026-10-30T01:00:00Z"}]}

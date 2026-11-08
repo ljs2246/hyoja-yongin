@@ -9,7 +9,7 @@
   var c=document.createElement('div');c.style.cssText='margin-top:6px;font-weight:700;color:#3B2314';
   var u=['hyoja.yongin','gmail.com'].join('@');
   c.appendChild(document.createTextNode('운영: 효자 용인 운영팀 · 문의: '));
-  var m=document.createElement('a');m.href='mailto:'+u;m.textContent=u;m.style.cssText='color:#B8501A;text-decoration:underline;overflow-wrap:anywhere';
+  var m=document.createElement('a');m.href='mailto:'+u;m.appendChild(document.createTextNode(u.split('@')[0]+'@'));m.appendChild(document.createElement('wbr'));m.appendChild(document.createTextNode(u.split('@')[1]));m.style.cssText='color:#B8501A;text-decoration:underline;overflow-wrap:normal;word-break:keep-all;display:block;padding:10px 0;min-height:44px';
   c.appendChild(m);
   var fb=document.createElement('a');fb.href='mailto:'+u+'?subject='+encodeURIComponent('효자 용인 의견');fb.textContent='의견 보내기';
   fb.style.cssText='display:flex;align-items:center;justify-content:center;margin-top:10px;min-height:48px;border-radius:24px;border:2px solid #D9A066;background:#fff;color:#B8501A;font-size:18px;font-weight:700;text-decoration:none';
@@ -72,4 +72,22 @@
     var gb=t.closest('button.gu[data-gu]');if(gb){var c=GU[gb.getAttribute('data-gu')];if(c&&c!=='all')ev('gu-'+c);return;}
     var sb=t.closest('#hj-sizebar button[data-k]');if(sb)ev('size-'+sb.getAttribute('data-k'));
   },true);
+})();
+
+/* 임시 장애 차단 스위치(킬스위치): data/killswitch.json 의 active 가 true 일 때만 동작. 기본은 꺼짐.
+   hide: 숨길 항목의 CSS 선택자 목록(예: 공공데이터 전화 링크). 숨긴 자리에는 notice 문구를 보여 준다.
+   119·112·129 같은 표준 긴급번호는 data-hj-keep 표시가 있으면 어떤 경우에도 숨기지 않는다. 켜고 끄는 것은 승인된 사람만(저장소 쓰기 권한). */
+(function(){
+  try{
+    fetch('data/killswitch.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(k){
+      if(!k||k.active!==true||!Array.isArray(k.hide)||!k.hide.length)return;
+      var css=k.hide.filter(function(s){return typeof s==='string'&&s.length<200;}).map(function(s){return s+':not([data-hj-keep])';}).join(',');
+      if(!css)return;
+      var st=document.createElement('style');st.setAttribute('data-hj-killswitch','1');st.textContent=css+'{display:none!important}';document.head.appendChild(st);
+      var n=document.createElement('div');n.setAttribute('role','status');n.setAttribute('data-hj-killswitch-notice','1');
+      n.style.cssText='margin:12px;padding:14px;border:2px solid #C0392B;border-radius:14px;background:#FFF3F0;font-size:19px;line-height:1.6';
+      n.textContent=String(k.notice||'일부 정보를 확인하는 중이라 잠시 가렸어요. 급할 때는 119에 전화해 주세요.');
+      document.body.insertBefore(n,document.body.firstChild);
+    }).catch(function(){});
+  }catch(e){}
 })();

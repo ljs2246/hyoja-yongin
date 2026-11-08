@@ -1,0 +1,601 @@
+{
+ "date": "2026-10-30",
+ "rule": "공식 URL·확인일·번호 일치 시에만 공개. 미확인 번호는 비공개 전환 대상",
+ "summary": {
+  "전체": 65,
+  "공식 일치": 7,
+  "미확인": 58
+ },
+ "items": [
+  {
+   "number": "0312018571",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0312700000",
+   "pages": [
+    "Jobs.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0312700024",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0312848852",
+   "pages": [
+    "Jobs.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313000114",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313000119",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313205000",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313213636",
+   "pages": [
+    "Ad.html",
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313220001",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313244911",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313246911",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313248940",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313249303",
+   "pages": [
+    "Health.html",
+    "Jobs.html",
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313249305",
+   "pages": [
+    "Jobs.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313260243",
+   "pages": [
+    "Jobs.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313293500",
+   "pages": [
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313321119",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313360040",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313370114",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0313387100",
+   "pages": [
+    "Ad2.html",
+    "index.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03151898511",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03151899001",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "0315267755",
+   "pages": [
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930067",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930192",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930199",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930316",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930408",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930415",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930805",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930883",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161930888",
+   "pages": [
+    "Health.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932067",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932114",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932165",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932214",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932462",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161932466",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161933152",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161933336",
+   "pages": [
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161934796",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161935114",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03161938602",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center010102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938642",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center03.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938662",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center040102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938693",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center050102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938733",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center070102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938844",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center110102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03161938871",
+   "pages": [
+    "Centers.html"
+   ],
+   "status": "공식 원문 일치(노출)",
+   "sourceUrl": "https://www.sujigu.go.kr/lmth/06center100102.asp",
+   "checked": "2026-10-26"
+  },
+  {
+   "number": "03180212114",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "03180212130",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "07046572214",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "07049080909",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "07079541967",
+   "pages": [
+    "index.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "07082110390",
+   "pages": [
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "112",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "119",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "129",
+   "pages": [
+    "Emergency.html",
+    "index.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "1355",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "15510077",
+   "pages": [
+    "Emergency.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "15771000",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "15882588",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "16003190",
+   "pages": [
+    "Welfare.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "16444000",
+   "pages": [
+    "Culture.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  },
+  {
+   "number": "16660420",
+   "pages": [
+    "Transit.html"
+   ],
+   "status": "공식 근거 기록 없음·미확인",
+   "sourceUrl": null,
+   "checked": null
+  }
+ ]
+}

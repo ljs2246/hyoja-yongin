@@ -1,0 +1,36 @@
+name: 병원 방문 도우미 QA (시험 브랜치)
+on:
+  push:
+    branches:
+      - 'test/visit-helper-privacy-pete-20261030'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visit-helper-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 모의 브라우저 준비
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: 기존 병원 방문 도우미 모의시험
+        run: python experiments/visit-helper/tests-visit.py
+      - name: 방문기록·사진·알림 삭제 모의시험 15건
+        run: python experiments/visit-helper/tests-privacy.py
+      - name: 12시간 자동 삭제 모의시험 11건
+        run: python experiments/visit-helper/tests-expiry.py
+      - name: 가상 대기판 모의시험 16건
+        run: python experiments/hospital-queue/tests-demo.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: 대기 엔진·어댑터·모의 서버 시험 83건
+        run: node --test experiments/hospital-queue/*.test.cjs

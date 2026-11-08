@@ -1,0 +1,165 @@
+{
+ "dirty": true,
+ "taskId": "11a1248d5c45",
+ "runId": "20261030-132330-375865",
+ "startedKST": "2026-10-30T13:23:30+09:00",
+ "branch": "test/yongin-pilot-prep-v2",
+ "commit": "ae0d5d5",
+ "approver": null,
+ "deployed": false,
+ "published": false,
+ "steps": [
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "전화 링크 공식근거 검사",
+   "input": "화면 HTML 전체 tel 링크",
+   "command": "python3 scripts/check-phones.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "전화 링크 검사 통과"
+  },
+  {
+   "department": "05 구글 드라이브 문서관리 담당",
+   "task": "드라이브 업로더 안전장치 시험(가짜 서버)",
+   "input": "scripts/drive-upload.py",
+   "command": "python3 tests/drive-upload.test.py",
+   "attempts": 1,
+   "seconds": 0.7,
+   "result": "통과",
+   "tail": "통과 8 / 전체 8"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식 자료 갱신 관문 검사",
+   "input": "data/emergency.json·pharmacy.json",
+   "command": "python3 scripts/check-data.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "자료 검사 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식 자료 변경 탐지 보고(읽기 전용)",
+   "input": "data/*.json 직전 저장본과 비교",
+   "command": "python3 scripts/detect-changes.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "data/pharmacy.json 신규 0 삭제 0 번호변경 0 비정상시간 2 긴급영향 없음"
+  },
+  {
+   "department": "09 일정·회계·경영 보고 담당",
+   "task": "작업 현황 통합 관리표 검사",
+   "input": "docs/automation/work-board.json",
+   "command": "python3 scripts/work-board.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "관리표 검사 통과 {'완료': 9, '미검증': 2, '검수중': 12, '미구현': 4, '보류': 4}"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "공식정보 근거·확인일 신선도 검사",
+   "input": "docs/phone-policy-log.json",
+   "command": "python3 scripts/check-freshness.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "신선도 검사 통과"
+  },
+  {
+   "department": "06 운영·보안 담당",
+   "task": "보안 검사(비밀정보·외부 스크립트·권한)",
+   "input": "저장소 전체 파일",
+   "command": "python3 scripts/check-security.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "보안 검사 통과"
+  },
+  {
+   "department": "06 운영·보안 담당",
+   "task": "보호 규칙·자동 갱신 흐름 충돌 사전 점검",
+   "input": ".github/workflows",
+   "command": "python3 scripts/check-ruleset-compat.py",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "보호 규칙 호환 점검 통과"
+  },
+  {
+   "department": "02 정보 검증·격리 담당",
+   "task": "격리 자료(일반 병원) 고객 화면 노출 차단 점검",
+   "input": "data/staging",
+   "command": "python3 scripts/check-staging.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "격리 자료 노출 점검 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "접근성·고령친화 정적 검사",
+   "input": "화면 HTML 전체",
+   "command": "python3 scripts/check-a11y.py",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "접근성 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "효마음 데모 단위검사(격리 기능)",
+   "input": "lab/hyomaeum/hyomaeum-core.js",
+   "command": "node tests/hyomaeum.test.cjs",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "효마음 단위검사 20건 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "가족 기능 단위검사",
+   "input": "family.js",
+   "command": "node tests/family.test.cjs",
+   "attempts": 1,
+   "seconds": 0.0,
+   "result": "통과",
+   "tail": "통과 13 실패 0"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "의료·지역 검사",
+   "input": "medical-maps/region 스크립트",
+   "command": "node scripts/test-medical-maps.cjs && node scripts/test-region-core.cjs && node scripts/test-region-profiles.cjs",
+   "attempts": 1,
+   "seconds": 0.1,
+   "result": "통과",
+   "tail": "12개 내 지역·부모님 지역 저장·복원·오류 검사 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "효마음 데모 화면 모의검사",
+   "input": "Chromium 모의 기기",
+   "command": "python3 tests/hyomaeum-e2e.py",
+   "attempts": 1,
+   "seconds": 5.5,
+   "result": "통과",
+   "tail": "효마음 화면 모의검사 16/16 통과"
+  },
+  {
+   "department": "03 앱 개발·테스트 담당",
+   "task": "휴대폰 화면 모의검사",
+   "input": "Chromium 모의 기기 3종",
+   "command": "python3 tests/e2e-mobile.py",
+   "attempts": 1,
+   "seconds": 38.5,
+   "result": "통과",
+   "tail": "통과 97 / 전체 97"
+  }
+ ],
+ "status": "전체 통과",
+ "endedKST": "2026-10-30T13:24:16+09:00"
+}

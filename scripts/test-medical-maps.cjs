@@ -36,3 +36,33 @@ assert.equal(search.validRegion({dutyAddr:'경기도 용인시 기흥구 도로 
 assert.equal(search.validRegion({dutyAddr:'경기도 용인시 기흥구 도로 12'},''),true);
 delete global.document;
 console.log('용인 지역·구 경계 필터 검사 통과');
+// 사고 모의훈련 1: 기관 번호로 부적절한 형식(휴대전화·유료·수신자부담)은 화면에 번호 링크로 나오지 않음
+assert.equal(maps.phone('010-1234-5678'),null);
+assert.equal(maps.phone('060-700-1234'),null);
+assert.equal(maps.phone('080-123-4567'),null);
+
+// 약국 전화 승인 전 숨김: 승인 목록이 비어 있으면 형식이 맞아도 null
+assert.equal(maps.pharmacyPhone('031-328-0325'),null);
+assert.equal(maps.pharmacyPhone('070-8667-3173'),null);
+assert.equal(maps.pharmacyPhone('031-300-0114'),null);
+// 자료 확인일 경과 판단(7일): 5일=정상, 8일=경고, 날짜 해석 불가=경고
+const now=Date.UTC(2026,10,4);
+assert.equal(maps.isStale('2026-10-30 10:41',now,7),false);
+assert.equal(maps.isStale('2026-10-27 10:41',now,7),true);
+assert.equal(maps.isStale('',now,7),true);
+assert.equal(maps.matchQuery('경기도 용인시 기흥구 보라동 우리내과의원','기흥 내과'),true);
+assert.equal(maps.matchQuery('경기도 용인시 기흥구 보라동 우리내과의원','보라동 외과'),false);
+assert.equal(maps.matchQuery('경기도 용인시 수지구 우리내과','기흥 내과'),false);
+assert.equal(maps.matchQuery('가나다약국','  '),true);
+assert.equal(maps.matchQuery('Alpha Pharmacy','ALPHA'),true);
+assert.equal(maps.isStale('날짜없음',now,7),true);
+// 응급의료기관 허용목록: 목록에 있는 기관·번호가 정확히 일치할 때만 번호를 돌려줌
+assert.equal(maps.emergencyPhone('A2100122','031-337-0114'),'0313370114');
+assert.equal(maps.emergencyPhone('A2100122','031-337-0115'),null);   // 번호가 한 자리 달라도 숨김
+assert.equal(maps.emergencyPhone('A2100019','031-337-0114'),null);   // 다른 기관 번호는 숨김
+assert.equal(maps.emergencyPhone('A2121142','031-1551-0077'),null);  // 메디필드: 정책 번호와 불일치 → 숨김
+assert.equal(maps.emergencyPhone('A2100020','1899-1004'),null);      // 세브란스: 용도가 다른 번호 → 숨김
+assert.equal(maps.emergencyPhone('','031-337-0114'),null);
+assert.equal(maps.emergencyPhone(undefined,undefined),null);
+assert.equal(maps.emergencyPhone('A2100122','010-1234-5678'),null);
+console.log('약국 전화 숨김·자료 경과 검사 통과');

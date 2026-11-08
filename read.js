@@ -1,5 +1,5 @@
 (function(){
-  if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance)return;
+  var supported=('speechSynthesis' in window)&&!!window.SpeechSynthesisUtterance;
   var kids=document.body.children,wrap=null;
   for(var i=0;i<kids.length;i++){if(kids[i].tagName==='DIV'){wrap=kids[i];break;}}
   if(!wrap)return;
@@ -39,12 +39,13 @@
     var v=pickVoice();if(v)u.voice=v;
     u.onend=next;u.onerror=function(){speaking=false;label();msg.style.display='block';msg.textContent='이 폰에서는 소리 읽기가 잘 되지 않아요.';};
     speechSynthesis.speak(u);}
-  function stop(){speaking=false;queue=[];try{speechSynthesis.cancel();}catch(e){}label();}
+  function stop(){speaking=false;queue=[];try{if(supported)speechSynthesis.cancel();}catch(e){}label();}
   btn.onclick=function(){
+    if(!supported){msg.style.display='block';msg.textContent='지금 열린 화면(카카오톡 등 앱 안 화면)에서는 소리 읽기를 쓸 수 없어요. 오른쪽 위 ⋮ 메뉴에서 「다른 브라우저로 열기」를 눌러 크롬이나 삼성 인터넷으로 열어 주세요.';return;}
     if(speaking){stop();return;}
     msg.style.display='none';queue=collect();
     if(!queue.length){msg.style.display='block';msg.textContent='읽을 내용이 없어요.';return;}
-    speaking=true;label();try{speechSynthesis.cancel();}catch(e){}next();};
+    speaking=true;label();try{speechSynthesis.cancel();}catch(e){}setTimeout(next,120);};
   window.addEventListener('pagehide',stop);
   label();
 })();

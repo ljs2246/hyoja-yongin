@@ -1,0 +1,410 @@
+[
+ {
+  "number": "03161938602",
+  "agency": "풍덕천1동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center010102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161938642",
+  "agency": "신봉동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center03.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161938662",
+  "agency": "죽전1동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center040102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161938693",
+  "agency": "죽전2동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center050102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161938871",
+  "agency": "죽전3동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center100102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "담당부서 죽전3동 전화번호 표기 확인"
+ },
+ {
+  "number": "03161938733",
+  "agency": "상현1동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center070102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161938844",
+  "agency": "상현3동 행정복지센터",
+  "url": "https://www.sujigu.go.kr/lmth/06center110102.asp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0312018571",
+  "agency": "백남준아트센터 관람문의",
+  "url": "https://njp.ggcf.kr/",
+  "found": false,
+  "method": "scrape",
+  "note": "메인 페이지에 031-201-8571 표기 없음(스크랩 성공, 번호 미발견)"
+ },
+ {
+  "number": "0313360040",
+  "agency": "용인자연휴양림",
+  "url": "https://www.foresttrip.go.kr/rep/or/fcfsRsrvtMain.do?hmpgId=ID02030031&menuId=001001",
+  "found": false,
+  "method": "scrape",
+  "note": "예약 메인 페이지에 031-336-0040 표기 없음(스크랩 성공, 번호 미발견)"
+ },
+ {
+  "number": "03161935114",
+  "agency": "처인구청 대표",
+  "url": "https://www.cheoingu.go.kr/",
+  "found": false,
+  "method": "scrape",
+  "note": "처인구청 메인 페이지에 031-6193-5114 표기 없음(스크랩 성공, 번호 미발견)"
+ },
+ {
+  "number": "0313205000",
+  "agency": "에버랜드 고객센터",
+  "url": "https://www.everland.com/cscenter/faq-list",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161932067",
+  "agency": "용인시 관광과",
+  "url": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260327153357010",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161932165",
+  "agency": "용인시 문화예술과",
+  "url": "https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "129",
+  "agency": "보건복지상담센터 129",
+  "url": "https://www.mohw.go.kr/orgSearch.es?mid=a10604040000&org_cd=1352700",
+  "found": true,
+  "method": "scrape",
+  "note": "\"보건복지 상담은 전국 어디서나 129\" 표기(부서안내 페이지, 129 상담센터)"
+ },
+ {
+  "number": "119",
+  "agency": "119 긴급신고(구급·구조)",
+  "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+  "found": true,
+  "method": "scrape",
+  "note": "긴급신고 119 표기 확인"
+ },
+ {
+  "number": "03151899001",
+  "agency": "용인세브란스병원 응급실",
+  "url": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "found": true,
+  "method": "scrape",
+  "note": "경기도청 응급의료기관 현황표 용인세브란스 응급실 5189-9001 표기 확인. (참고: 병원 사이트 응급진료 안내에는 031-5189-8015~8016 별도 표기, 9001 없음)"
+ },
+ {
+  "number": "03151898511",
+  "agency": "용인세브란스병원 대표",
+  "url": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "found": true,
+  "method": "scrape",
+  "note": "경기도청 응급의료기관 현황표 용인세브란스 대표 5189-8511 표기 확인. (참고: 병원 사이트 주요전화번호 페이지에는 1899-1004 표기, 8511 없음)"
+ },
+ {
+  "number": "0313000119",
+  "agency": "강남병원 응급의료센터",
+  "url": "https://www.knmc.or.kr/clin/clin6.php",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0313000114",
+  "agency": "강남병원 대표",
+  "url": "https://www.knmc.or.kr/clin/clin6.php",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03180212130",
+  "agency": "다보스병원 응급실",
+  "url": "https://www.davoshospital.co.kr/guide/page05.html",
+  "found": false,
+  "method": "scrape",
+  "note": "병원 응급 안내 페이지에는 응급의료 문의 031-8021-2119, 예약문의 031-8021-2114만 표기, 031-8021-2130 없음. (경기도청 현황표에는 다보스 응급실 8021-2130 표기 — 상충)"
+ },
+ {
+  "number": "0313220001",
+  "agency": "용인서울병원 응급실",
+  "url": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "found": true,
+  "method": "scrape",
+  "note": "경기도청 현황표 용인서울병원 응급실 \"322-0001\"(지역번호 031 생략 표기) 확인"
+ },
+ {
+  "number": "0313370114",
+  "agency": "용인서울병원 대표",
+  "url": "https://yishospital.com/?page_id=5240",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0313321119",
+  "agency": "메디필드한강병원 응급실",
+  "url": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "15510077",
+  "agency": "메디필드한강병원 대표",
+  "url": "https://www.gg.go.kr/contents/contents.do?ciIdx=987101&menuId=266061",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "15771122",
+  "agency": "용인시 민원안내콜센터",
+  "url": "https://www.yongin.go.kr/home/cvIf/cvIfTotal/cvIfTotal12.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161932114",
+  "agency": "용인시청 대표",
+  "url": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260331143713710",
+  "found": false,
+  "method": "scrape",
+  "note": "해당 게시글에는 관광과 031-6193-2067만 표기, 031-6193-2114 없음"
+ },
+ {
+  "number": "0313249303",
+  "agency": "용인시처인노인복지관",
+  "url": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930067",
+  "agency": "처인구보건소(예방접종)",
+  "url": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930316",
+  "agency": "기흥구보건소(예방접종)",
+  "url": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930805",
+  "agency": "수지구보건소(예방접종)",
+  "url": "https://www.yongin.go.kr/home/www/www03/www03_03/www03_03_02/www03_03_02_02.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930199",
+  "agency": "처인구 치매안심센터",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930408",
+  "agency": "기흥구 치매안심센터",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161930883",
+  "agency": "수지구 치매안심센터",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "수지구 \"031)6193-0883~0889\" 범위 표기"
+ },
+ {
+  "number": "03161930192",
+  "agency": "처인구보건소 치매치료관리비",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "처인구 치매치료관리비 문의 \"031)6193-0192\" 표기"
+ },
+ {
+  "number": "03161930415",
+  "agency": "기흥구보건소 치매치료관리비",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "기흥구 치매치료관리비 문의 \"031)6193-0415\" 표기"
+ },
+ {
+  "number": "03161930888",
+  "agency": "수지구보건소 치매치료관리비",
+  "url": "https://www.yongin.go.kr/home/health/healthSvc/imbcltyMng.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "수지구 치매치료관리비 문의 \"031)6193-0888\" 표기"
+ },
+ {
+  "number": "0313260243",
+  "agency": "용인시니어클럽",
+  "url": "https://www.yongin.go.kr/home/job/yiJobInfo/oldJob.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0313249305",
+  "agency": "용인시처인노인복지관(031-324-9303~5)",
+  "url": "http://www.yiswc.or.kr/About_YISWC_08.php",
+  "found": true,
+  "method": "scrape",
+  "note": "대표전화 \"031-324-9303~5\" 범위 표기로 9305 포함"
+ },
+ {
+  "number": "0312848852",
+  "agency": "용인시기흥노인복지관",
+  "url": "https://www.ygsenior.or.kr/",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "07082110390",
+  "agency": "다봄센터(고령 어르신 동행서비스)",
+  "url": "http://www.yongin.go.kr/home/www/www18/www18_02/www18_02_06.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0313293500",
+  "agency": "용인에버라인 대표",
+  "url": "https://ever-line.co.kr/",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "16660420",
+  "agency": "경기도 교통약자 광역이동지원센터",
+  "url": "https://ggsts.gg.go.kr/",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "0315267755",
+  "agency": "용인시 교통약자 이동지원센터(바우처택시)",
+  "url": "https://www.yonginnuri.or.kr/",
+  "found": true,
+  "method": "scrape",
+  "note": "번호가 이미지로 제공되며 이미지 대체텍스트(alt)에 031-526-7755 표기"
+ },
+ {
+  "number": "03161933336",
+  "agency": "용인시 대중교통과",
+  "url": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1020&q_bbscttSn=20260327101726830",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "112",
+  "agency": "112 긴급신고(경찰)",
+  "url": "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+  "found": true,
+  "method": "scrape",
+  "note": "긴급신고 112 표기 확인"
+ },
+ {
+  "number": "03161932214",
+  "agency": "용인시 노인복지과",
+  "url": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_03.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "1355",
+  "agency": "국민연금 고객센터",
+  "url": "https://www.nps.or.kr/pbcpgdnc/ognzprsn/getOHAG0021M0.do",
+  "found": true,
+  "method": "scrape",
+  "note": "지사찾기 페이지 담당란에 \"국민연금 고객센터 (1355)\" 표기"
+ },
+ {
+  "number": "16003190",
+  "agency": "에너지바우처 통합 상담센터",
+  "url": "https://www.energyv.or.kr/",
+  "found": true,
+  "method": "scrape",
+  "note": "콜센터 상담 1600-3190 표기"
+ },
+ {
+  "number": "03161932462",
+  "agency": "용인시 노인복지과",
+  "url": "https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_07.jsp",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 하단 담당부서 연락처(노인복지과 031-6193-2462)로 표기. 도시락 배달 문의 2462 명시는 www18_02_03 페이지"
+ },
+ {
+  "number": "03161932466",
+  "agency": "용인시 노인복지과 노인돌봄팀",
+  "url": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1265&q_bbscttSn=20250828160000069",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ },
+ {
+  "number": "03161933152",
+  "agency": "용인시 장애인복지과",
+  "url": "https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1001&q_bbscttSn=20260203093702620",
+  "found": true,
+  "method": "scrape",
+  "note": "페이지 본문에 번호 표기 확인"
+ }
+]

@@ -15,7 +15,7 @@
     wrap.classList.toggle('hj-narrow',document.documentElement.clientWidth/zooms[size]<340);
     var nav=wrap.querySelector('div[style*="repeat(6"]');
     if(nav){nav.setAttribute('data-hjnav','1');var inner=document.documentElement.clientWidth/zooms[size];
-      nav.style.setProperty('grid-template-columns',inner<430?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))','important');
+      nav.style.setProperty('grid-template-columns',inner<300?'repeat(2,minmax(0,1fr))':(inner<560?'repeat(3,minmax(0,1fr))':'repeat(6,minmax(0,1fr))'),'important');
       var na=nav.querySelectorAll('a');for(var k=0;k<na.length;k++){na[k].style.whiteSpace='nowrap';na[k].style.padding='0';}}
     var bs=bar.querySelectorAll('button');
     for(var i=0;i<bs.length;i++){var on=bs[i].getAttribute('data-k')===size;
@@ -33,9 +33,13 @@
   var st=document.createElement('style');
   st.textContent='a[href^="tel:"],a[style*="min-height"]{box-sizing:border-box!important;padding:12px 20px!important;text-align:center;line-height:1.4!important;flex-wrap:wrap;gap:2px .6em;max-width:100%;min-width:0}a[href^="tel:"] .tn{white-space:nowrap}span[style*="flex:1"] a[href^="tel:"],span[style*="flex: 1"] a[href^="tel:"]{padding:0!important;display:inline!important;border-radius:0!important}a[href^="tel:"] span{min-width:0}span[style*="flex:1"],span[style*="flex: 1"]{min-width:0;overflow-wrap:anywhere}div[style*="grid-template-columns: 82px 1fr"]{grid-template-columns:82px minmax(0,1fr)!important}div[style*="1fr"]>*{min-width:0}.hj-narrow div[style*="82px"]{grid-template-columns:minmax(0,1fr)!important}';
   document.head.appendChild(st);
-  var tl=document.querySelectorAll('a[href^="tel:"]');
-  for(var j=0;j<tl.length;j++){var a=tl[j];if(a.children.length)continue;
-    a.innerHTML=a.textContent.replace(/([0-9][0-9\-~]{5,})/g,'<span class="tn">$1</span>');}
+  st.textContent+='body{word-break:keep-all;overflow-wrap:break-word}p a[href]:not([class]),li a[href]:not([class]){padding:12px 4px;margin:-12px -4px}label,select,input{max-width:100%;box-sizing:border-box}select,input[type=search],input[type=text]{width:100%}.hj-medical-maps a{word-break:keep-all;line-height:1.3;padding:8px 6px;text-align:center}';
+  function wrapTel(){var tl=document.querySelectorAll('a[href^="tel:"]');
+    for(var j=0;j<tl.length;j++){var a=tl[j];if(a.children.length)continue;
+      a.innerHTML=a.textContent.replace(/([0-9][0-9\-~]{5,})/g,'<span class="tn">$1</span>');}}
+  wrapTel();
+  // 약국·병원 목록처럼 나중에 그려지는 전화 버튼도 같은 규칙을 적용해요
+  if(window.MutationObserver){var busy=false;new MutationObserver(function(){if(busy)return;busy=true;setTimeout(function(){wrapTel();busy=false;},50);}).observe(document.body,{childList:true,subtree:true});}
   wrap.insertBefore(bar,wrap.firstChild);
   paint();
   window.addEventListener('resize',paint);

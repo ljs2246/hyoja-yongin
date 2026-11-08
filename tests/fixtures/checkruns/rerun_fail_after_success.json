@@ -1,0 +1,1 @@
+{"total_count": 2, "check_runs": [{"name": "qa", "status": "completed", "conclusion": "success", "head_sha": "abc", "started_at": "2026-10-30T01:00:00Z"}, {"name": "qa", "status": "completed", "conclusion": "failure", "head_sha": "abc", "started_at": "2026-10-30T02:00:00Z"}]}

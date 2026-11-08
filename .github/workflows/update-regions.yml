@@ -1,12 +1,14 @@
 name: 전국 지역코드 원본 수집·검사
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - scripts/fetch_regions.py
-      - .github/workflows/update-regions.yml
+    inputs:
+      dry_run:
+        description: '1이면 아무것도 올리지 않고 예정만 출력(시험용)'
+        default: '1'
 permissions:
-  contents: write
+  contents: write        # 갱신 브랜치(auto/regions-*)에만 push
+  pull-requests: write
+  actions: write         # 필수 검사 qa 실행 요청
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -18,11 +20,12 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         run: python3 scripts/fetch_regions.py
-      - name: 결과 기록
+      - name: "결과 기록 (PR 방식, main 직접 push 없음, 시험용 dry_run 기본 1)"
         if: always()
-        run: |
-          git config user.name "자동 갱신"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/regions-status.json
-          if test -f data/regions-source.json; then git add data/regions-source.json; fi
-          git diff --cached --quiet || (git commit -m "공식 지역코드 수집 결과" && git pull --rebase -q && git push)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DRY_RUN: ${{ github.event_name == 'schedule' && '0' || (inputs.dry_run || '1') }}
+          PREFIX: auto/regions
+          PATHS: data/regions-status.json data/regions-source.json
+          CHECK: none
+        run: bash scripts/auto-data-pr.sh

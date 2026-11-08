@@ -1,0 +1,28 @@
+name: 전국 지역코드 원본 수집·검사
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/fetch_regions.py
+      - .github/workflows/update-regions.yml
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 수집기 검사
+        run: python3 -m unittest discover -s scripts -p test_fetch_regions.py -v
+      - name: 공식 지역 원본 수집
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: python3 scripts/fetch_regions.py
+      - name: 결과 기록
+        if: always()
+        run: |
+          git config user.name "자동 갱신"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/regions-status.json
+          if test -f data/regions-source.json; then git add data/regions-source.json; fi
+          git diff --cached --quiet || (git commit -m "공식 지역코드 수집 결과" && git pull --rebase -q && git push)

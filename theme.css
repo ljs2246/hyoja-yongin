@@ -21,3 +21,48 @@
 .hj-subpage #hj-sizebar button{min-height:52px!important;font-size:17px!important;border-color:#C8AA94!important}
 @media(max-width:360px){.hj-brand{padding:16px 14px}.hj-subpage .hj-content{padding:18px 14px 24px!important}.hj-subpage .hj-card{padding:16px!important}.hj-subpage .hj-heading{font-size:28px!important}}
 @media(prefers-reduced-motion:reduce){.hj-subpage *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+.home-skip{position:absolute;top:-100px;left:12px;z-index:100;background:#fff;color:#3B2314;padding:12px;border-radius:8px;font-size:18px;font-weight:700}.home-skip:focus{top:8px}
+
+/* 디자인 1차 확대(2026-11-07): 코랄 레드·베이지·아이보리·올리브. 긴급=빨강, 일반=베이지·아이보리, 올리브=보조 */
+.hj-subpage{background:#FFF9EF!important}
+.hj-subpage .hj-page{background:#FFF9EF!important;color:#3B2822!important}
+.hj-brand{border-bottom:2px solid #EBDCC3}
+.hj-brand>a{color:#3B2822}
+.hj-brand small{color:#6A4A3E}
+.hj-subpage .hj-notice{background:#F5EBD7!important;color:#5A3A2E!important}
+.hj-subpage .hj-heading{color:#3B2822!important}
+.hj-subpage .hj-card{background:#FFFDF7!important;border:2px solid #E6D3B8!important;box-shadow:0 5px 0 #DCC6A6!important}
+.hj-subpage .hj-warm-action{background:linear-gradient(180deg,#C94034,#A92B22)!important;box-shadow:0 5px 0 #7E1F18!important;color:#fff!important}
+.hj-subpage .hj-back{color:#4F5B32!important;border:2px solid #6C7A47!important;background:#FFFDF7!important;font-weight:800}
+.hj-subpage #hj-sizebar{background:#F5EBD7!important;border-color:#E6D3B8!important}
+.hj-subpage #hj-sizebar button{border:2px solid #C23A2E!important;color:#A92B22!important;background:#fff}
+.hj-subpage #hj-sizebar button[aria-pressed=true]{background:#C23A2E!important;border-color:#A92B22!important;color:#fff!important}
+.hj-subpage a:focus-visible,.hj-subpage button:focus-visible{outline:3px solid #A92B22}
+/* 전체 메뉴 타일: 긴급만 빨강, 나머지는 베이지·아이보리로 통일 */
+.hj-subpage a[style*="background: #EADFF5"],.hj-subpage a[style*="background: #DCEBF7"],.hj-subpage a[style*="background: #DDF1E4"],.hj-subpage a[style*="background: #FFEDC9"],.hj-subpage a[style*="border: 2px solid #F0D6B5"][style*="min-height"]{background:#FFF4E3!important;border:2px solid #E6D3B8!important;box-shadow:0 5px 0 #DCC6A6!important;color:#3B2822!important}
+.hj-subpage a[style*="background: #B3261E"]{background:linear-gradient(180deg,#C94034,#A92B22)!important;box-shadow:0 5px 0 #7E1F18!important}
+.hj-subpage a[href="Regions.html"][style*="border:2px solid #e5d2c3"]{background:#F5EBD7!important;border:2px solid #D9BE98!important;color:#3B2822!important}
+.hj-subpage a[href="Regions.html"] strong{color:#3B2822!important}
+
+/* 2차 디자인: 전체 메뉴 세로 카드, 하단 홈·메뉴·가족 */
+.hj-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hj-allmenu{display:flex;flex-direction:column;gap:14px}
+.hj-row{display:flex;align-items:center;gap:14px;min-height:92px;padding:12px 16px;border-radius:28px;background:#fff;border:2px solid #F0E0CB;box-shadow:0 5px 0 #E6D3B8;text-decoration:none;color:#3B2822!important}
+.hj-row .hj-ic{flex:none;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hj-row-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.hj-row-t>span:first-child{font-size:26px;font-weight:900;line-height:1.3}
+.hj-row-t>span:last-child{font-size:18px;line-height:1.4;color:#6A4A3E}
+.hj-row .hj-chev{font-size:34px;color:#6C7A47;font-weight:700}
+.hj-row-urgent{background:linear-gradient(180deg,#C23A2E,#A92B22);border-color:#A92B22;box-shadow:0 6px 0 #7E1F18;color:#fff!important}
+.hj-row-urgent .hj-bang{background:rgba(255,255,255,.22);color:#fff;font-size:30px;font-weight:900}
+.hj-row-urgent .hj-row-t>span:last-child,.hj-row-urgent .hj-chev{color:#fff}
+.hj-row-fam{background:#F5EBD7;border-color:#D9BE98;box-shadow:0 5px 0 #D9BE98}
+.hj-together{background:#FFF4E3;border:2px solid #E6D3B8;border-left:8px solid #D9776F;border-radius:22px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.hj-together b{font-size:24px;color:#A92B22}
+.hj-together span{font-size:19px;color:#3B2822}
+.hj-sendfam{display:flex;align-items:center;justify-content:center;min-height:68px;border-radius:34px;background:#fff;border:2px solid #D9BE98;box-shadow:0 4px 0 #E6D3B8;color:#A92B22!important;font-size:23px;font-weight:900;text-decoration:none}
+.hj-more{font-size:22px;margin:8px 0 0;color:#3B2822}
+body:not(.family-home) .home-nav{position:sticky;bottom:0;z-index:30;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;background:#fff!important;border-top:2px solid #EBDCC3!important;border-radius:0!important;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))!important;box-shadow:0 -6px 16px #5A3A2E14!important}
+body:not(.family-home) .home-nav>a{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:64px!important;color:#6A4A3E!important;font-size:18px!important;font-weight:800;text-decoration:none;background:transparent!important;padding:0!important}
+body:not(.family-home) .home-nav>a[aria-current=page]{color:#A92B22!important;background:#FBE9E3!important;border-radius:16px}

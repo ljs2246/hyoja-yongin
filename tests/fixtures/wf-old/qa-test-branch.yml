@@ -1,0 +1,60 @@
+name: 자동 검수 (테스트 브랜치 전용)
+# 목적: 테스트 브랜치 푸시마다 자동 시험·실행 기록 생성. 배포·게시·결제 없음. 운영 main 반영은 사용자 최종 승인 후 사람이 수행.
+on:
+  push:
+    branches: ['test/**']
+  workflow_dispatch:
+  pull_request:
+    branches: [main]      # main 보호 규칙의 필수 검사로 사용(운영 병합 전 자동 검수)
+  schedule:
+    - cron: '0 23 * * *'  # 매일 한국시간 08:00. 주의: 예약 실행은 기본 브랜치(main)에 이 파일이 있어야 동작 → 사용자 승인·병합 후 시작
+permissions:
+  contents: read        # 읽기 전용: 코드 수정·배포·이슈 작성 권한 없음
+concurrency:
+  group: qa-${{ github.event_name }}-${{ github.ref }}   # 같은 대상의 중복 실행·중복 보고 방지
+  cancel-in-progress: true
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15   # 멈춤 방지(초과 시 자동 중단)
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: 휴대폰 화면 모의검사 도구 설치
+        run: pip install playwright && playwright install --with-deps chromium
+      - name: 단계별 자동 실행(실패 시 즉시 중단)
+        env:
+          HJ_ALLOW_MAIN_READONLY: ${{ github.event_name == 'schedule' && '1' || '' }}   # 예약 점검만 main을 읽기 전용으로 검사(변경·배포 없음)
+        run: python3 scripts/auto-run.py ${{ github.event_name == 'schedule' && '--force' || '' }}
+      - name: 사고 모의훈련 3종+킬스위치 시험
+        run: python3 tests/incident-drills.py
+      - name: 실행 기록·알림 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-records
+          retention-days: 90
+          path: |
+            docs/runs/
+            tests/e2e-mobile-results.json
+            tests/incident-drills-results.json
+  notify:
+    # 실패 알림: 이슈 1건만 만들고 이미 열려 있으면 댓글로 이어 씀(중복 보고 방지). 공개 저장소이므로 본문에는 실행 링크와 날짜만 쓰고 자료·번호·로그 내용은 쓰지 않음
+    needs: qa
+    if: failure() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          T="[자동 검수 실패] 매일 오전 8시 점검"
+          N=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$T\" in:title" --json number --jq '.[0].number // empty')
+          B="실패한 실행: $RUN_URL (확인 후 원인 수정 전까지 다음 단계 반영 금지)"
+          if [ -n "$N" ]; then gh issue comment "$N" --repo "$GITHUB_REPOSITORY" --body "$B"; else gh issue create --repo "$GITHUB_REPOSITORY" --title "$T" --body "$B"; fi

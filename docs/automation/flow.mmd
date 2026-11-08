@@ -1,0 +1,14 @@
+flowchart LR
+  T1["① 트리거<br/>테스트 브랜치 푸시 · 수동 실행"]:::done --> C["② 수집<br/>공식 API 원문(기존 일일 수집: 응급·약국)"]:::partial
+  C --> V["③ 검증(02)<br/>전화 링크 공식근거 검사<br/>약국 중복·시간 격리"]:::done
+  V -->|합격| Q["④ 자동시험(03)<br/>단위·모의기기 검사 91건"]:::done
+  V -->|불일치·미확인| X["격리·숨김<br/>고객 화면 노출 차단"]:::done
+  Q -->|실패| S["자동 중단 + 알림 파일<br/>다음 단계 미실행"]:::done
+  Q -->|통과| P["⑤ 피트 검수<br/>검수 결과 Drive 02·01 저장"]:::manual
+  P --> U["⑥ 사용자 최종 승인"]:::manual
+  U --> R["⑦ 운영 반영·게시<br/>사람이 수행(자동 금지)"]:::manual
+  T1 -.-> L["⑧ 감사 로그<br/>run-*.json: 작업ID·부서·입력·커밋·결과·오류·승인자"]:::done
+  S -.-> L
+  classDef done fill:#DFF3E0,stroke:#2E7D32,color:#1B3D1F
+  classDef partial fill:#FFF3D6,stroke:#B26A00,color:#4A3000
+  classDef manual fill:#E6EDF7,stroke:#2F5597,color:#1F2F4D
