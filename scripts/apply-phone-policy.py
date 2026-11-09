@@ -9,7 +9,7 @@ SRC={
 '1355':('국민연금 고객센터','https://www.nps.or.kr/pbcpgdnc/ognzprsn/getOHAG0021M0.do'),
 '16003190':('에너지바우처 통합 상담센터','https://www.energyv.or.kr/'),
 '16660420':('경기도 교통약자 광역이동지원센터','https://ggsts.gg.go.kr/'),
-'15771122':('용인시 민원안내콜센터','https://www.yongin.go.kr/home/cvIf/cvIfTotal/cvIfTotal12.jsp'),
+'15771122':('용인시 민원상담 콜센터','https://www.yongin.go.kr/home/cvIf/cvIfTotal/cvIfTotal12.jsp'),
 '03161932114':('용인시청 대표','https://www.yongin.go.kr/user/bbs/BD_selectBbs.do?q_bbsCode=1013&q_clCode=1&q_bbscttSn=20260331143713710'),
 '03161932165':('용인시 문화예술과','https://www.yongin.go.kr/partInfo/cultureArt/BD_selectCultureArt.do?q_showIdx=16905&q_year=2026&q_month=10'),
 '03161932462':('용인시 노인복지과','https://www.yongin.go.kr/home/www/www18/www18_02/www18_02_07.jsp'),
