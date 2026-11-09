@@ -42,8 +42,8 @@ if(path==='Emergency.html'){
   /* 약국·응급실 지도 찾기 버튼 묶음: 묶음마다 🔊 한 줄 */
   [['약국','가까운 약국을 지도에서 찾는 버튼이에요. 네이버 약국, 카카오 약국 중에서 고르세요.'],['응급실','가까운 응급실을 지도에서 찾는 버튼이에요. 네이버 응급실, 카카오 응급실 중에서 고르세요.']].forEach(function(k){
     var as=[].filter.call(document.querySelectorAll('a[target="_blank"]'),function(a){return clean(a).replace(/\s/g,'')===('네이버'+k[0])||clean(a).replace(/\s/g,'')===('카카오'+k[0]);});
-    if(!as.length)return;var row=as[0].parentNode;if(!row||row.querySelector('.hj-say2'))return;
-    var b=mkBtn(k[0]+' 찾기 지도 버튼',k[1]);b.textContent='🔊';var w=document.createElement('div');w.className='hj-tw2 hj-pair';row.parentNode.insertBefore(w,row);w.appendChild(b);
+    if(!as.length)return;var row=as[0].parentNode;if(!row)return;row.setAttribute('data-hjmap','1');if(document.querySelector('.hj-pair[data-hjk="'+k[0]+'"]'))return;
+    var b=mkBtn(k[0]+' 찾기 지도 버튼',k[1]);b.textContent='🔊';var w=document.createElement('div');w.className='hj-tw2 hj-pair';w.setAttribute('data-hjk',k[0]);row.parentNode.insertBefore(w,row);w.appendChild(b);
     var lab=document.createElement('span');lab.textContent=k[0]+' 찾기 버튼 듣기';lab.style.cssText='font-size:18px;font-weight:700;color:#6A4A33';w.appendChild(lab);});
 }
 
@@ -54,7 +54,7 @@ if(path!=='Review.html'){
   function pass(){
     if(busy)return;busy=true;
     try{[].slice.call(document.querySelectorAll('a[href],button')).forEach(function(a){try{
-      if(a.closest(SKIP)||a.classList.contains('hj-say2')||a.disabled)return;
+      if(a.closest(SKIP)||a.classList.contains('hj-say2')||a.disabled)return;if(a.parentNode&&a.parentNode.getAttribute&&a.parentNode.getAttribute('data-hjmap'))return;
       var h=a.getAttribute('href')||'';
       if(a.tagName==='A'&&(h.charAt(0)==='#'||h==='index.html'||h===''))return;
       if(getComputedStyle(a).display==='none')return;

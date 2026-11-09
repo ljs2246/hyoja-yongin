@@ -6,7 +6,7 @@ H=functools.partial(http.server.SimpleHTTPRequestHandler,directory=__import__('o
 s=socketserver.TCPServer(('127.0.0.1',0),H);port=s.server_address[1];threading.Thread(target=s.serve_forever,daemon=True).start()
 JS="""()=>{const SK='[data-hjnav],[data-hjfoot],#hj-readbar,#hj-sizebar,#hj-sndbar,#sizeBtns,#hj-share-x,#hj-kakao,footer,header,.home-nav,details.home-sound-settings,form,[role=tablist]';
 const tg=[...document.querySelectorAll('a[href],button')].filter(e=>{if(e.closest(SK)||e.classList.contains('hj-say2')||e.classList.contains('hj-say')||e.disabled)return false;const h=e.getAttribute('href')||'';if(e.tagName==='A'&&(h[0]==='#'||h==='index.html'||h===''))return false;return (e.textContent||'').trim()&&getComputedStyle(e).display!=='none'});
-const unc=tg.filter(e=>!e.closest('.hj-tw2,.hj-tw')).map(e=>e.textContent.trim().slice(0,20));
+const unc=tg.filter(e=>!e.closest('.hj-tw2,.hj-tw')&&!(e.parentNode.getAttribute&&e.parentNode.getAttribute('data-hjmap')&&document.querySelectorAll('.hj-pair').length>=2)).map(e=>e.textContent.trim().slice(0,20));
 const de=document.documentElement;const sm=[...document.querySelectorAll('.hj-say2')].filter(b=>{const r=b.getBoundingClientRect();return r.width&&(r.width<44||r.height<44)}).length;
 const orphan=[...document.querySelectorAll('.hj-tw2:not(.hj-pair)')].filter(w=>!w.querySelector('a,button:not(.hj-say2)')).length;
 return [tg.length,document.querySelectorAll('.hj-say2').length,unc.length,unc.slice(0,3),de.scrollWidth>de.clientWidth+1,sm,orphan]}"""
