@@ -1,6 +1,8 @@
 /* 버튼 옆 🔊: 누르면 그 버튼 내용만 읽어 줌(버튼 자체를 누르면 평소처럼 동작). 전화 버튼도 🔊는 전화를 걸지 않음. */
 (function(){try{
-if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance)return;
+var OK=('speechSynthesis' in window)&&!!window.SpeechSynthesisUtterance;
+/* 앱 안 화면 등 소리 기능이 없는 곳에서도 🔊는 보이고, 누르면 이유와 해결 방법을 알려 줌 */
+window.__hjSayNotice=function(){var n=document.getElementById('hj-say-notice');if(!n){n=document.createElement('div');n.id='hj-say-notice';n.setAttribute('role','status');n.style.cssText='position:fixed;left:12px;right:12px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:99999;background:#3B2A20;color:#fff;padding:14px 16px;border-radius:14px;font-size:17px;line-height:1.5;box-shadow:0 4px 16px rgba(0,0,0,.3)';n.textContent='지금 열린 화면(앱 안 화면)에서는 소리 읽기를 쓸 수 없어요. 오른쪽 위 ⋮ 메뉴에서 「다른 브라우저로 열기」를 눌러 크롬이나 삼성 인터넷으로 열어 주세요.';document.body.appendChild(n);}n.hidden=false;clearTimeout(n._t);n._t=setTimeout(function(){n.hidden=true;},7000);};
 var path=location.pathname.split('/').pop()||'index.html',cur=null;
 var D={'0':'공','1':'일','2':'이','3':'삼','4':'사','5':'오','6':'육','7':'칠','8':'팔','9':'구'};
 function digits(s){return s.split('').map(function(c){return D[c];}).join(' ');}
@@ -11,6 +13,7 @@ function say(t){t=t.replace(/([가-힣A-Za-z)])(\d)/g,'$1 $2');
 function clean(a){return (a.textContent||'').replace(/\s+/g,' ').trim();}
 function reset(){document.querySelectorAll('.hj-say2').forEach(function(b){b.setAttribute('aria-pressed','false');b.textContent='🔊';});cur=null;}
 function speak(b,text){
+  if(!OK){window.__hjSayNotice();return;}
   if(cur===b){try{speechSynthesis.cancel();}catch(x){}reset();return;}
   try{speechSynthesis.cancel();}catch(x){}reset();cur=b;b.setAttribute('aria-pressed','true');b.textContent='■';
   setTimeout(function(){var u=new SpeechSynthesisUtterance(text);u.lang='ko-KR';u.rate=0.9;
@@ -69,5 +72,5 @@ if(path!=='Review.html'){
   try{var tm=null,obs=new MutationObserver(function(){if(tm)return;tm=setTimeout(function(){tm=null;pass();try{obs.takeRecords();}catch(x){}},300);});
     obs.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style','hidden','open']});obs.observe(document.documentElement,{attributes:true,attributeFilter:['class','style']});}catch(x){}
 }
-window.addEventListener('pagehide',function(){try{speechSynthesis.cancel();}catch(x){}});
+window.addEventListener('pagehide',function(){try{if(OK)speechSynthesis.cancel();}catch(x){}});
 }catch(e){}})();

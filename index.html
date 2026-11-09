@@ -317,7 +317,7 @@ if(location.hash==='#family')mark(true);
 <script>
 /* 홈 화면 큰 버튼 옆 🔊: 누르면 그 버튼 이름만 읽어 줌(버튼 자체를 누르면 평소처럼 이동) */
 (function(){try{
-if(!('speechSynthesis' in window)||!window.SpeechSynthesisUtterance)return;
+var OK=('speechSynthesis' in window)&&!!window.SpeechSynthesisUtterance;
 var tiles=document.querySelectorAll('.hj-grid>a.hj-tile'),cur=null;
 function reset(){document.querySelectorAll('.hj-say').forEach(function(b){b.setAttribute('aria-pressed','false');b.textContent='\uD83D\uDD0A';});cur=null;}
 tiles.forEach(function(a){
@@ -325,13 +325,14 @@ tiles.forEach(function(a){
  var w=document.createElement('div');w.className='hj-tw';a.parentNode.insertBefore(w,a);w.appendChild(a);
  var b=document.createElement('button');b.type='button';b.className='hj-say';b.textContent='\uD83D\uDD0A';b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',label+' 소리로 듣기');
  b.onclick=function(e){e.preventDefault();e.stopPropagation();
+  if(!OK){if(window.__hjSayNotice)window.__hjSayNotice();return;}
   if(cur===b){try{speechSynthesis.cancel();}catch(x){}reset();return;}
   try{speechSynthesis.cancel();}catch(x){}reset();cur=b;b.setAttribute('aria-pressed','true');b.textContent='\u25A0';
   setTimeout(function(){var u=new SpeechSynthesisUtterance(label+' 화면으로 가는 버튼이에요.');u.lang='ko-KR';u.rate=0.9;
    var v=(speechSynthesis.getVoices()||[]).filter(function(x){return /^ko/i.test(x.lang);})[0];if(v)u.voice=v;
    u.onend=u.onerror=function(){if(cur===b)reset();};speechSynthesis.speak(u);},120);};
  w.appendChild(b);});
-window.addEventListener('pagehide',function(){try{speechSynthesis.cancel();}catch(x){}});
+window.addEventListener('pagehide',function(){try{if(OK)speechSynthesis.cancel();}catch(x){}});
 }catch(e){}})();
 </script>
 <script src="say.js"></script>
