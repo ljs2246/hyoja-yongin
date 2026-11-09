@@ -298,9 +298,13 @@ m.parentNode.insertBefore(box,m.nextSibling);}
 b.addEventListener('click',function(){
 var url=location.href.split('#')[0];
 var d={title:'효자 용인',text:'어르신께 꼭 필요한 용인 정보예요. 눌러서 열어 보세요.',url:url};
-if(navigator.share){navigator.share(d).catch(function(e){if(e&&e.name!=='AbortError')say('보내지 못했어요. 주소를 길게 눌러 복사해 주세요.');});return;}
-if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){say('주소를 복사했어요. 카카오톡 대화창에 붙여넣기 해 주세요.');},function(){say(url);});}
-else{say('이 주소를 복사해 보내 주세요: '+url);}
+function copyUrl(){
+var ok=false;try{var ta=document.createElement('textarea');ta.value=url;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,url.length);ok=document.execCommand('copy');document.body.removeChild(ta);}catch(x){}
+if(ok){say('주소를 복사했어요. 카카오톡 대화창에 붙여넣기 해 주세요.');return;}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){say('주소를 복사했어요. 카카오톡 대화창에 붙여넣기 해 주세요.');},function(){say('이 주소를 복사해 보내 주세요: '+url);});}
+else{say('이 주소를 복사해 보내 주세요: '+url);}}
+if(navigator.share){navigator.share(d).catch(function(e){if(e&&e.name==='AbortError')return;copyUrl();});return;}
+copyUrl();
 });})();
 </script>
 <script src="events.js"></script><script>(function(){var box=document.querySelector('.home-sound-settings');if(!box)return;['hj-readbar','hj-sndbar'].forEach(function(id){var el=document.getElementById(id);if(el)box.appendChild(el);});window.addEventListener('resize',function(){var z=document.getElementById('zoomBox'),v=Number(z.style.zoom)||1;z.classList.toggle('home-narrow',document.documentElement.clientWidth/v<430);});})();</script><script src="region-core.js?v=1"></script><script src="region-profiles.js?v=1"></script><script src="region-catalog.js?v=1"></script><script src="region-ui.js?v=1"></script><script>
