@@ -33,7 +33,12 @@
     if(!fam.length&&!editing){c2.appendChild(el('div','font-size:19px;line-height:1.5;color:#6A4A33','가족 3명까지 저장하면 사진을 눌러 바로 전화해요.'));}
     fam.forEach(function(f){var row=el('div','display:flex;align-items:center;gap:8px');row.appendChild(avatar(f,64));
       var a=el('a',btn+'flex:1;min-width:0;background:linear-gradient(180deg,#D2691E,#A8470F);color:#fff;box-shadow:0 5px 0 #7A3510;font-size:22px;flex-direction:column;gap:2px;min-height:76px;padding-left:6px;padding-right:6px;box-sizing:border-box;overflow:hidden',f.name+'에게 전화');
-      a.appendChild(el('span','font-size:clamp(14px,4.4vw,18px);white-space:nowrap;letter-spacing:-.3px;max-width:100%',fmt(f.phone)));a.href='tel:'+digits(f.phone);a.setAttribute('aria-label',f.name+'에게 전화 걸기 '+fmt(f.phone));row.appendChild(a);c2.appendChild(row);});
+      a.appendChild(el('span','font-size:clamp(14px,4.4vw,18px);white-space:nowrap;letter-spacing:-.3px;max-width:100%',fmt(f.phone)));a.href='tel:'+digits(f.phone);a.setAttribute('aria-label',f.name+'에게 전화 걸기 '+fmt(f.phone));row.appendChild(a);
+      var one=el('div','display:flex;flex-direction:column;gap:6px');one.appendChild(row);
+      var d1=el('button',btn+'background:#fff;color:#6A4A33;font-size:17px;min-height:48px','이 가족만 지우기');d1.type='button';d1.setAttribute('aria-label',f.name+' 한 명만 지우기');
+      var tm=null;d1.onclick=function(){if(d1.getAttribute('data-ask')!=='1'){d1.setAttribute('data-ask','1');d1.textContent='정말 지울까요? 한 번 더 누르세요';d1.style.color='#B3261E';d1.style.borderColor='#B3261E';clearTimeout(tm);tm=setTimeout(function(){d1.removeAttribute('data-ask');d1.textContent='이 가족만 지우기';d1.style.color='#6A4A33';d1.style.borderColor='#D9A066';},6000);return;}
+        clearTimeout(tm);var rest=(st?load(st):[]).filter(function(x){return x.phone!==f.phone;});if(st)save(st,rest);render(false);};
+      one.appendChild(d1);c2.appendChild(one);});
     if(editing){
       var photo=null;
       var n=el('input',btn+'background:#fff;font-weight:500;justify-content:flex-start');n.placeholder='이름 (예: 큰딸)';n.maxLength=10;n.setAttribute('aria-label','이름');
@@ -51,13 +56,14 @@
         var o={name:nm,phone:digits(p.value)};if(photo)o.photo=photo;fam.push(o);
         if(!(st&&save(st,fam))){fam.pop();if(o.photo){delete o.photo;fam.push(o);if(st&&save(st,fam)){m.textContent='';render(false);return;}fam.pop();}m.textContent='이 휴대폰에서는 저장되지 않아요.';return;}render(false);};
       var x=el('button',btn+'background:#fff;color:#B8501A','닫기');x.type='button';x.onclick=function(){render(false);};
-      [n,p,prev,m,s,x].forEach(function(e){c2.appendChild(e);});
+      var warn=el('div','font-size:17px;line-height:1.5;color:#B3261E;font-weight:700','모르는 사람이 시켜서 저장하는 번호는 저장하지 마세요. 전화 사기(보이스피싱)일 수 있어요. 직접 아는 가족만 저장해 주세요.');
+      [warn,n,p,prev,m,s,x].forEach(function(e){c2.appendChild(e);});
     }else{
       if(fam.length<3){var add=el('button',btn+'background:#fff;color:#B8501A','＋ 가족 저장하기');add.type='button';add.onclick=function(){render(true);};c2.appendChild(add);}
       if(fam.length){var del=el('button',btn+'background:#fff;color:#6A4A33;font-size:18px;min-height:52px','저장한 가족 지우기');del.type='button';
         del.onclick=function(){if(st)save(st,[]);render(false);};c2.appendChild(del);}
     }
-    c2.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','이 휴대폰에만 저장돼요. 밖으로 보내지 않아요.'));
+    c2.appendChild(el('div','font-size:16px;line-height:1.5;color:#6A4A33','직접 입력하신 번호예요. 이 휴대폰에만 저장되고 밖으로 보내지 않아요. 가족이 번호를 지워 달라고 하면 "이 가족만 지우기"를 눌러 주세요. 휴대폰을 바꾸면 다시 저장해야 해요.'));
     host.appendChild(c2);
   }
   render(false);

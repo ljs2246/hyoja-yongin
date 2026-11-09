@@ -245,7 +245,7 @@ with sync_playwright() as p:
         NOPREVENT = """document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(a&&/^(tel:|https:\\/\\/map\\.)/.test(a.getAttribute('href')||''))e.preventDefault();});"""
 
         def stats_ctx(init=None, w=390):
-            ctx = b.new_context(viewport={'width': w, 'height': 800}, has_touch=True, is_mobile=True)
+            ctx = b.new_context(viewport={'width': w, 'height': 800}, has_touch=True, is_mobile=True, bypass_csp=True)  # 통계 코드 자체 검사용: 운영에서 통계를 켤 때는 CSP img-src에 통계 주소를 따로 허용해야 함
             pg = ctx.new_page()
             pg.route(re.compile(r'.*(fonts\.googleapis|fonts\.gstatic).*'), lambda r: r.abort())
             pg.route(re.compile(r'https://map\.(naver|kakao)\.com/.*'), lambda r: r.abort())

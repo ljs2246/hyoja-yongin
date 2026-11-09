@@ -88,7 +88,7 @@ with sync_playwright() as p:
 
     # 가족에게 보내기
     g = 'B 가족에게 보내기'
-    pg.evaluate("window.__cb=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:t=>{window.__cb.push(t);return Promise.resolve();}},configurable:true});Object.defineProperty(navigator,'share',{value:undefined,configurable:true})")
+    pg.evaluate("window.__cb=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:t=>{window.__cb.push(t);return Promise.resolve();}},configurable:true});Object.defineProperty(navigator,'share',{value:undefined,configurable:true});document.execCommand=function(c){if(c!=='copy')return false;var t=document.querySelector('textarea[readonly]');window.__cb.push(t&&t.value);return true;}")
     try:
         tap(pg, '#hj-kakao'); pg.wait_for_timeout(400)
         cb = pg.evaluate('window.__cb'); msg = pg.evaluate("(document.getElementById('hj-share-msg')||{}).innerText||''")
