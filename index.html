@@ -317,6 +317,9 @@ function goFam(){var t=document.getElementById('family');if(t)t.scrollIntoView({
 home.addEventListener('click',function(e){e.preventDefault();try{history.replaceState(null,'',location.pathname+location.search)}catch(x){}mark(false);window.scrollTo(0,0);});
 fam.addEventListener('click',function(e){e.preventDefault();try{history.replaceState(null,'',location.pathname+location.search+'#family')}catch(x){}mark(true);goFam();});
 window.addEventListener('hashchange',function(){mark(location.hash==='#family');});
+/* 손가락으로 화면을 내리거나 올릴 때도 강조 표시가 화면 내용을 따라가게 함 */
+var tick=false;function follow(){tick=false;var t=document.getElementById('family');if(!t)return;var r=t.getBoundingClientRect();mark(r.top<window.innerHeight*0.5);}
+window.addEventListener('scroll',function(){if(tick)return;tick=true;(window.requestAnimationFrame||setTimeout)(follow);},{passive:true});
 if(location.hash==='#family')mark(true);
 }catch(e){}})();
 </script>
