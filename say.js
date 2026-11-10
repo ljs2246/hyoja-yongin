@@ -22,7 +22,7 @@ function speak(b,text){
 function mkBtn(label,text){var b=document.createElement('button');b.type='button';b.className='hj-say2';b.textContent='🔊';
   b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',label+' 소리로 듣기');
   b.onclick=function(e){e.preventDefault();e.stopPropagation();speak(b,text);};return b;}
-function wrapRow(a,btn){var w=document.createElement('div');w.className='hj-tw2';try{var pp=a.parentNode,pd=pp&&getComputedStyle(pp);if(pd&&(pd.display==='grid'||(pd.display==='flex'&&pd.flexDirection.indexOf('row')===0)||pd.display==='inline-flex'))w.className='hj-tw2 hj-col';}catch(x){}a.parentNode.insertBefore(w,a);w.appendChild(btn);w.appendChild(a);}
+function wrapRow(a,btn,after){var w=document.createElement('div');w.className='hj-tw2';try{var pp=a.parentNode,pd=pp&&getComputedStyle(pp);if(pd&&(pd.display==='grid'||(pd.display==='flex'&&pd.flexDirection.indexOf('row')===0)||pd.display==='inline-flex'))w.className='hj-tw2 hj-col';}catch(x){}a.parentNode.insertBefore(w,a);if(after){w.className='hj-tw2 hj-col hj-after';w.appendChild(a);w.appendChild(btn);}else{w.appendChild(btn);w.appendChild(a);}}
 var css=document.createElement('style');
 css.textContent='.hj-tw2{display:flex;align-items:center;gap:8px;width:100%}.hj-tw2>a{flex:1;min-width:0}'
 +'.hj-say2{flex:0 0 auto;width:auto;min-width:96px;height:56px;border-radius:28px;padding:0 14px;gap:4px;border:2px solid #D9A066;background:#fff;color:#7A3510;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #E8C79B}'
@@ -30,6 +30,7 @@ css.textContent='.hj-tw2{display:flex;align-items:center;gap:8px;width:100%}.hj-
 +'.hj-say2[aria-pressed=true]{background:#7A3510;color:#fff;border-color:#7A3510}.hj-say2:focus-visible{outline:3px solid #A92B22;outline-offset:2px}'
 +':is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair){flex-direction:column;align-items:stretch;gap:6px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2{flex:0 0 auto;width:100%;height:52px;border-radius:26px;font-size:20px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2::after{content:" 듣기";font-size:18px;font-weight:700}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2[aria-pressed=true]::after{content:" 멈추기"}'
 +'.hj-tw2.hj-col{flex-direction:column;align-items:stretch;gap:6px;min-width:0}.hj-tw2.hj-col .hj-say2{flex:0 0 auto;width:100%;min-width:0;padding:0 4px;height:52px;border-radius:26px;font-size:20px}'
++'.hj-tw2.hj-after .hj-say2{height:48px;font-size:20px}.hj-tw2.hj-after{gap:6px;margin-bottom:6px}'
 +'.hj-tw2.hj-pair{margin:6px 0}.hj-tw2.hj-pair .hj-say2{flex:0 0 auto;width:auto;height:52px;border-radius:26px;padding:0 16px;font-size:18px;font-weight:700;gap:6px}';
 document.head.appendChild(css);
 /* 홈: 급할 때 */
@@ -39,7 +40,7 @@ if(urgent){wrapRow(urgent,mkBtn('급할 때','급할 때. 일일구, 병원, 약
 if(path==='Emergency.html'){
   document.querySelectorAll('main a[href^="tel:"],#main-content a[href^="tel:"]').forEach(function(a){
     if(a.closest('[data-hjnav]')||a.closest('.hj-tw2'))return;var t=clean(a);if(!t)return;
-    wrapRow(a,mkBtn(t,say(t)+'. 누르면 바로 전화가 걸려요.'));});
+    wrapRow(a,mkBtn(t,say(t)+'. 누르면 바로 전화가 걸려요.'),true);});
   /* 약국·응급실 지도 찾기 버튼 묶음: 묶음마다 🔊 한 줄 */
   [['약국','가까운 약국을 지도에서 찾는 버튼이에요. 네이버 약국, 카카오 약국 중에서 고르세요.'],['응급실','가까운 응급실을 지도에서 찾는 버튼이에요. 네이버 응급실, 카카오 응급실 중에서 고르세요.']].forEach(function(k){
     var as=[].filter.call(document.querySelectorAll('a[target="_blank"]'),function(a){return clean(a).replace(/\s/g,'')===('네이버'+k[0])||clean(a).replace(/\s/g,'')===('카카오'+k[0]);});
