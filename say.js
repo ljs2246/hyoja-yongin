@@ -25,10 +25,11 @@ function mkBtn(label,text){var b=document.createElement('button');b.type='button
 function wrapRow(a,btn){var w=document.createElement('div');w.className='hj-tw2';try{var pp=a.parentNode,pd=pp&&getComputedStyle(pp);if(pd&&(pd.display==='grid'||(pd.display==='flex'&&pd.flexDirection.indexOf('row')===0)||pd.display==='inline-flex'))w.className='hj-tw2 hj-col';}catch(x){}a.parentNode.insertBefore(w,a);w.appendChild(btn);w.appendChild(a);}
 var css=document.createElement('style');
 css.textContent='.hj-tw2{display:flex;align-items:center;gap:8px;width:100%}.hj-tw2>a{flex:1;min-width:0}'
-+'.hj-say2{flex:0 0 56px;width:56px;height:56px;border-radius:50%;border:2px solid #D9A066;background:#fff;color:#7A3510;font-size:24px;line-height:1;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #E8C79B}'
++'.hj-say2{flex:0 0 auto;width:auto;min-width:96px;height:56px;border-radius:28px;padding:0 14px;gap:4px;border:2px solid #D9A066;background:#fff;color:#7A3510;font-size:24px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 #E8C79B}'
++'.hj-say2::after{content:" 듣기";font-size:18px;font-weight:700}.hj-say2[aria-pressed=true]::after{content:" 멈추기"}'
 +'.hj-say2[aria-pressed=true]{background:#7A3510;color:#fff;border-color:#7A3510}.hj-say2:focus-visible{outline:3px solid #A92B22;outline-offset:2px}'
 +':is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair){flex-direction:column;align-items:stretch;gap:6px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2{flex:0 0 auto;width:100%;height:52px;border-radius:26px;font-size:20px}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2::after{content:" 듣기";font-size:18px;font-weight:700}:is(.hj-narrow,.home-narrow) .hj-tw2:not(.hj-pair) .hj-say2[aria-pressed=true]::after{content:" 멈추기"}'
-+'.hj-tw2.hj-col{flex-direction:column;align-items:stretch;gap:6px;min-width:0}.hj-tw2.hj-col .hj-say2{flex:0 0 auto;width:100%;height:52px;border-radius:26px;font-size:20px}'
++'.hj-tw2.hj-col{flex-direction:column;align-items:stretch;gap:6px;min-width:0}.hj-tw2.hj-col .hj-say2{flex:0 0 auto;width:100%;min-width:0;padding:0 4px;height:52px;border-radius:26px;font-size:20px}'
 +'.hj-tw2.hj-pair{margin:6px 0}.hj-tw2.hj-pair .hj-say2{flex:0 0 auto;width:auto;height:52px;border-radius:26px;padding:0 16px;font-size:18px;font-weight:700;gap:6px}';
 document.head.appendChild(css);
 /* 홈: 급할 때 */
