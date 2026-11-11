@@ -19,8 +19,14 @@ git -C "$T/restore" fsck --no-progress >/dev/null 2>&1; ok $? "복원본 객체 
 ( cd "$T/restore" && python3 tests/offline-stale-test.py >/dev/null 2>&1 ); ok $? "복원본에서 오프라인 옛 저장본 시험"
 # 패치만으로 복원
 # 병합 커밋이 있으면 format-patch+am 은 병합 내용을 빠뜨려 복원이 안 되므로, 기준~현재의 순수 차이(바이너리 포함)를 한 장의 패치로 만들어 적용한다.
-git diff --binary "$BASE" HEAD > "$T/all.patch" 2>/dev/null; [ -s "$T/all.patch" ]; ok $? "패치 파일 생성($(wc -c < "$T/all.patch") bytes)"
-git clone -q "$T/full.bundle" "$T/pr" 2>/dev/null && git -C "$T/pr" checkout -q "$BASE" 2>/dev/null && git -C "$T/pr" apply --index "$T/all.patch" >/dev/null 2>&1; ok $? "기준 커밋 위에 패치 적용(git apply, 병합 커밋 포함 순수 차이)"
+# 기준 커밋이 없는 복제본(이력 없음·얕은 복제)이면 빈 폴더를 기준으로 전체 내용을 패치로 만들어 적용한다.
+if git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+  git diff --binary "$BASE" HEAD > "$T/all.patch" 2>/dev/null; [ -s "$T/all.patch" ]; ok $? "패치 파일 생성($(wc -c < "$T/all.patch") bytes)"
+  git clone -q "$T/full.bundle" "$T/pr" 2>/dev/null && git -C "$T/pr" checkout -q "$BASE" 2>/dev/null && git -C "$T/pr" apply --index "$T/all.patch" >/dev/null 2>&1; ok $? "기준 커밋 위에 패치 적용(git apply, 병합 커밋 포함 순수 차이)"
+else
+  EMPTY=$(git hash-object -t tree /dev/null); git diff --binary "$EMPTY" HEAD > "$T/all.patch" 2>/dev/null; [ -s "$T/all.patch" ]; ok $? "패치 파일 생성(기준 커밋 없음→빈 폴더 기준, $(wc -c < "$T/all.patch") bytes)"
+  rm -rf "$T/pr"; git init -q "$T/pr" 2>/dev/null && git -C "$T/pr" apply --index "$T/all.patch" >/dev/null 2>&1; ok $? "빈 폴더 위에 패치 적용(git apply)"
+fi
 [ "$(git -C "$T/pr" write-tree 2>/dev/null)" = "$(git rev-parse 'HEAD^{tree}')" ]; ok $? "패치 복원 결과 폴더 내용이 원본과 같음(트리 해시 일치)"
 rm -rf "$T/restore" "$T/pr"
 python3 - "$HEAD_SHA" "$BR" "$BSHA" "$P" "$F" "$(printf '%s\n' "${OUT[@]}")" <<'PY'
