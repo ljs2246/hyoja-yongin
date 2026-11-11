@@ -12,9 +12,9 @@ STEP_TIMEOUT=600;RETRY={'python3 tests/e2e-mobile.py':1,'python3 tests/hyomaeum-
 # 동일 작업 번호(taskId): 커밋+수정내용+단계 목록이 같으면 같은 작업. 이미 통과한 작업은 다시 만들지 않는다.
 def task_id():
     ex=[os.path.relpath(a.out).rstrip('/'),'docs/runs']  # 실행 기록 폴더 자체는 작업 내용에 포함하지 않음
-    pat='|'.join('^'+e+'/' for e in ex)+'|e2e-mobile-results|hyomaeum-e2e-results|incident-drills-results|docs/changes-latest.json|docs/automation/work-board.md'
+    pat='|'.join('^'+e+'/' for e in ex)+'|tests/[^/]*-results\\.json|docs/[^/]*-latest\\.json|docs/automation/work-board.md'  # 시험이 매번 다시 쓰는 결과·최신 기록 파일은 작업 내용이 아님(재발 방지: 시험이 늘어도 작업번호가 흔들리지 않음)
     d=sh("git diff HEAD --name-only | grep -Ev '"+pat+"'; git ls-files -o --exclude-standard | grep -Ev '"+pat+"'").stdout
-    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/e2e-mobile-results.json' ':!tests/incident-drills-results.json' ':!tests/hyomaeum-e2e-results.json' ':!docs/changes-latest.json' ':!docs/automation/work-board.md'").stdout
+    d+=sh("git diff HEAD -- . "+' '.join("':!"+e+"'" for e in ex)+" ':!tests/*-results.json' ':!docs/*-latest.json' ':!docs/automation/work-board.md'").stdout
     return hashlib.sha1((sh('git rev-parse HEAD').stdout+d+'|'.join(s[1] for s in STEPS)).encode()).hexdigest()[:12]
 commit=sh('git rev-parse --short HEAD').stdout.strip() or 'unknown'
 branch=sh('git rev-parse --abbrev-ref HEAD').stdout.strip() or 'unknown'
