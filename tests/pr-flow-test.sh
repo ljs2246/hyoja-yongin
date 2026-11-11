@@ -19,8 +19,16 @@ case "$1 $2" in
 esac
 G
 chmod +x $T/bin/gh; export PATH=$T/bin:$PATH GHLOG=$T/gh.log GITHUB_REPOSITORY=o/r
-# 시험 자료(2026-10-30)에 맞춰 기준 시각 고정: 신선도 관문은 켜 둔 채 날짜만 맞춤
-export CHECK="python3 scripts/check-data.py --restore --fresh --now=2026-10-30T12:00"
+# 기준 시각 자동 계산(재발 방지): 고정 날짜 대신 현재 자료의 가장 늦은 '확인한 때' + 6시간을 시험 기준 시각으로 쓴다.
+# 공식 자료가 새로 갱신돼도 시험이 "미래 날짜"로 막히지 않는다. 신선도 관문(--fresh)은 그대로 켜 두며,
+# 오래됨·미래·누락 차단 자체는 tests/data-gate-test.sh 가 별도로 시험한다.
+NOW=$(cd "$ROOT" && python3 -c "
+import json,datetime
+ts=[datetime.datetime.strptime(str(json.load(open(f,encoding='utf-8')).get('확인한 때')),'%Y-%m-%d %H:%M') for f in ('data/emergency.json','data/pharmacy.json')]
+print((max(ts)+datetime.timedelta(hours=6)).strftime('%Y-%m-%dT%H:%M'))
+") || { echo "실패 시험 기준 시각 계산(자료의 확인한 때 형식 오류)"; exit 1; }
+echo "시험 기준 시각(자료 기준 자동 계산): $NOW"
+export CHECK="python3 scripts/check-data.py --restore --fresh --now=$NOW"
 mkdir $T/w && cd $T/w && tar --exclude=.git --exclude=docs/runs -cf - -C $ROOT . | tar -xf - && git init -q . && git checkout -qb main && git add -A >/dev/null && git -c user.email=t@t -c user.name=t commit -qm base && git remote add origin $T/remote.git && git push -q origin main
 BR="auto/data-$(TZ=Asia/Seoul date +%Y%m%d)"
 chg(){ python3 - <<'P'
