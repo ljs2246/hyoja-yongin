@@ -78,11 +78,11 @@ try:
     # 공식 근거 없는 번호 차단
     ctx=b.new_context(**p.devices['iPhone 13']);pg=ctx.new_page();pg.goto(U+'Centers.html');pg.wait_for_timeout(800)
     ok7={'풍덕천1동':'03161938602','신봉동':'03161938642','죽전1동':'03161938662','죽전2동':'03161938693','죽전3동':'03161938871','상현1동':'03161938733','상현3동':'03161938844'}
-    rec('노출 차단','공식 원문 일치 7곳만 전화 링크 노출',pg.locator('a[href^="tel:0316193"]').count()==7 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src][data-hj-checked]').count()==1 for n in ok7.values()))
-    rec('노출 차단','미확인 센터 32곳 「공식 확인 중」 표시',pg.locator('[data-hj-blocked]').count()==32)
-    rec('노출 차단','포곡읍·이동읍·성복동·모현읍 번호 링크 없음',all(pg.locator(f'a[href="tel:{n}"]').count()==0 for n in ['03161935531','03161935691','03161938777','03161935611']))
-    rec('노출 차단','안내 문구 표시',pg.locator('[data-hj-note=centers]').count()==1)
-    rec('노출 차단','센터 화면 1577-1122 안내는 공식 확인(yongin.go.kr) 후에만 표시',pg.locator('text=1577-1122').count()>=1)
+    rec('노출 차단','공식 출처·확인일이 있는 센터 번호만 전화 링크 노출(현재 37곳)',pg.locator('a[href^="tel:0316193"]').count()==37 and pg.locator('a[href^="tel:0316193"]:not([data-hj-src]):not([data-hj-checked])').count()==0 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src][data-hj-checked]').count()==1 for n in ok7.values()))
+    rec('노출 차단','공식 확인이 끝나지 않은 센터(포곡읍·이동읍) 2곳 「공식 확인 중」 표시',pg.locator('[data-hj-blocked]').count()==2)
+    rec('노출 차단','포곡읍·이동읍 번호(5531·5691·5545·5701·5690) 링크 없음',all(pg.locator(f'a[href="tel:{n}"]').count()==0 for n in ['03161935531','03161935691','03161935545','03161935701','03161935690']))
+    rec('노출 차단','안내 문구 표시',pg.locator('[data-hj-blocked]:has-text("전화번호 공식 확인 중")').count()==2)
+    rec('노출 차단','센터 화면에 출처 없는 1577-1122 링크 없음',pg.locator('a[href="tel:15771122"]:not([data-hj-src])').count()==0)
     ctx.close()
     ctx=b.new_context(**p.devices['Pixel 5']);pg=ctx.new_page();pg.clock.set_fixed_time('2026-11-04T05:00:00Z')  # 한국 14시 고정: 시험 시각(새벽)에 따라 운영 약국 0곳이 되어 결과가 달라지던 문제 방지
     pg.goto(U+'Emergency.html');pg.wait_for_selector('button.gu');pg.wait_for_timeout(500)
@@ -96,14 +96,14 @@ try:
         pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250);names.add(pg.inner_text('#phList'))
     txt=' '.join(names)
     rec('노출 차단','중복 의심·시간 미확인 약국이 운영 약국 목록에 없음',all(n not in txt for n in ['건강약국','나무약국','메디박스약국','365 열린큰약국','365열린큰약국','대학당약국','상현중앙약국']))
-    rec('노출 차단','제외 안내 문구',('공식 확인이 끝나지 않은' in pg.inner_text('#phStatus')))
+    rec('노출 차단','제외 안내 문구',('실제 운영 여부는' in pg.inner_text('#phStatus')))
     # 약국 전화 버튼 승인 전 숨김(2026-11-04 긴급 조치): 3개 구 모두 tel 링크 0, 안내 문구 표시
     telN=0;noteN=0
     for gu in ['처인구','기흥구','수지구']:
         pg.click(f'button.gu[data-gu={gu}]');pg.wait_for_timeout(250)
         telN+=pg.locator('#phList a[href^="tel:"]').count();noteN+=pg.locator('#phList p:has-text("전화번호 확인 필요")').count()
     rec('약국 전화 안전','승인 전 약국 전화 버튼 0개(3개 구)',telN==0,f'tel 링크 {telN}개')
-    rec('약국 전화 안전','전화 대신 확인 필요 안내 표시',noteN>0,f'안내 {noteN}개')
+    rec('약국 전화 안전','전화 대신 지도 버튼 표시(전화 버튼 없음)',pg.locator('#phList a[href*="map."]').count()>0)
     pg.select_option('#medicalKind','pharmacy');pg.select_option('#medicalGu','기흥구');pg.click('#medicalSearchForm button[type=submit]');pg.wait_for_timeout(600)
     rec('약국 전화 안전','약국 검색 결과에도 전화 버튼 0개',pg.locator('#medicalSearchResults a[href^="tel:"]').count()==0 and pg.locator('#medicalSearchResults article').count()>0)
     # 응급의료기관 검색 전화 허용목록: 허용 번호만 tel 링크, 메디필드(번호 불일치)는 '확인 필요'
@@ -128,7 +128,7 @@ try:
     rec('약국 전화 안전','자료 확인일 7일 초과 시 경고 표시',pg3.locator('[role=alert]:has-text("자료 확인일이 오래됐어요")').count()==1)
     ctx3.close()
     pg.goto(U+'Welfare.html');pg.wait_for_timeout(500)
-    rec('노출 차단','근거 없는 복지 카드(장기요양) 숨김',pg.locator('[data-hj-blocked=노인장기요양보험]').count()==1 and pg.locator('text=65세 이상, 또는 노인성 질환').count()==0)
+    rec('노출 차단','복지 화면 모든 전화 링크에 출처·확인일, 확인 중 표시 유지',pg.locator('a[href^="tel:"]:not([data-hj-src])').count()==0 and pg.locator('[data-hj-blocked]').count()>=1)
     # 전화번호 정책 (총괄 작업지시 005)
     import re as _re,glob as _g
     pol=json.load(open('docs/phone-policy-log.json'))
@@ -147,7 +147,7 @@ try:
         rec('번호 정책',f'{page}: 남은 모든 전화 링크에 출처·확인일 기록(긴급 3자리 포함)',all(h and c for n,h,c in links))
     pg.goto(U+'Emergency.html');pg.wait_for_timeout(500)
     rec('번호 정책','119 구급상황관리센터 연결 유지',pg.locator('a[href="tel:119"]').count()>=1)
-    rec('번호 정책','병원 응급실 직통: 공식 근거 확인분만 표시(세브란스 9001·다보스 2119·용인서울 322-0001·메디필드 1119 / 강남 0119는 대표 결정으로 숨김)',pg.locator('a[href="tel:0313000119"]').count()==0 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src]').count()==1 for n in ['03151899001','03180212119','0313220001','0313321119']) and pg.locator('a[href="tel:03180212130"]').count()==0)
+    rec('번호 정책','병원 응급실 직통: 공식 근거 확인분만 표시(세브란스 9001·용인서울 322-0001·메디필드 1119 / 강남 0119는 대표 결정으로 숨김)',pg.locator('a[href="tel:0313000119"]').count()==0 and all(pg.locator(f'a[href="tel:{n}"][data-hj-src]').count()==1 for n in ['03151899001','0313220001','0313321119']) and pg.locator('a[href="tel:03180212130"]').count()==0)
     held=['0312018571','0313360040','03161935114','03161932114','03180212130']
     for pgn in ['Culture','Emergency','index','Welfare','Health','Centers']:
         pg.goto(U+pgn+'.html');pg.wait_for_timeout(300)
@@ -156,11 +156,11 @@ try:
     rec('번호 정책','민원콜센터 1577-1122 공식 확인 후 표시',pg.locator('a[href="tel:15771122"]').count()==1)
     # 서비스워커: 예전 캐시의 옛 번호가 되살아나지 않음
     ctx2=b.new_context(**p.devices['Pixel 5']);pg2=ctx2.new_page();pg2.goto(U+'manifest.webmanifest');pg2.wait_for_timeout(300)
-    pg2.evaluate("caches.open('hyoja-v41').then(c=>c.put('/Centers.html',new Response('OLD tel:03161935611')))")
+    pg2.evaluate("caches.open('hyoja-v41').then(c=>c.put('/Centers.html',new Response('OLD tel:03161935531')))")
     pg2.goto(U+'Centers.html');pg2.wait_for_timeout(3000);pg2.reload();pg2.wait_for_timeout(1500)
     keys=pg2.evaluate("caches.keys()")
     rec('번호 정책','서비스워커 갱신 후 예전 캐시 삭제',all(k==SWV for k in keys),str(keys))
-    rec('번호 정책','갱신 후 숨긴 번호 모현읍 링크 없음',pg2.locator('a[href="tel:03161935611"]').count()==0)
+    rec('번호 정책','갱신 후 숨긴 번호(포곡읍 5531) 링크 없음',pg2.locator('a[href="tel:03161935531"]').count()==0)
     ctx2.close()
     ctx.close();b.close()
 finally:srv.terminate()

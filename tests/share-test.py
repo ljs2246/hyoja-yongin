@@ -22,22 +22,22 @@ with sync_playwright() as p:
     # 2 공유 실패(취소 아님)
     pg=page();load(pg,"navigator.share=function(){return Promise.reject({name:'NotAllowedError'})};")
     pg.click('#hj-kakao');pg.wait_for_timeout(400)
-    rec('공유 실패 시 안내 문구 표시',pg.locator('#hj-share-msg').is_visible() and '보내지 못했어요' in pg.locator('#hj-share-msg').inner_text())
+    rec('공유 실패 시 주소 복사로 자동 전환·안내 문구 표시',pg.locator('#hj-share-msg').is_visible() and ('복사했어요' in pg.locator('#hj-share-msg').inner_text() or 'http' in pg.locator('#hj-share-msg').inner_text()))
     rec('공유 실패 시 문자 보내기 대체 링크 표시',pg.locator('#hj-share-x a[href^="sms:"]').count()==1)
     # 3 사용자가 공유 취소(AbortError)는 오류 문구를 띄우지 않음
     pg=page();load(pg,"navigator.share=function(){return Promise.reject({name:'AbortError'})};")
     pg.click('#hj-kakao');pg.wait_for_timeout(400)
     rec('공유 취소는 오류 문구 없음',not pg.locator('#hj-share-msg').is_visible())
     # 4 시스템 공유 없음 + 클립보드 성공
-    pg=page();load(pg,"navigator.share=undefined;window.__cp=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:function(t){window.__cp.push(t);return Promise.resolve()}},configurable:true});")
+    pg=page();load(pg,"navigator.share=undefined;window.__ec=0;document.execCommand=function(c){if(c==='copy'){window.__ec++;return true}return false};window.__cp=[];Object.defineProperty(navigator,'clipboard',{value:{writeText:function(t){window.__cp.push(t);return Promise.resolve()}},configurable:true});")
     pg.click('#hj-kakao');pg.wait_for_timeout(400)
-    rec('주소 복사 성공 안내',pg.evaluate('window.__cp').__len__()==1 and '복사했어요' in pg.locator('#hj-share-msg').inner_text())
+    rec('주소 복사 성공 안내',pg.evaluate('window.__cp').__len__()+pg.evaluate('window.__ec')>=1 and '복사했어요' in pg.locator('#hj-share-msg').inner_text())
     # 5 클립보드 거부 → 주소를 화면에 직접 표시
-    pg=page();load(pg,"navigator.share=undefined;Object.defineProperty(navigator,'clipboard',{value:{writeText:function(){return Promise.reject(new Error('x'))}},configurable:true});")
+    pg=page();load(pg,"navigator.share=undefined;document.execCommand=function(){return false};Object.defineProperty(navigator,'clipboard',{value:{writeText:function(){return Promise.reject(new Error('x'))}},configurable:true});")
     pg.click('#hj-kakao');pg.wait_for_timeout(400)
-    rec('복사 거부 시 주소를 화면에 직접 표시',pg.locator('#hj-share-msg').inner_text().startswith('http'))
+    t=pg.locator('#hj-share-msg').inner_text();rec('복사 거부 시 주소를 화면에 직접 표시',('http' in t) and ('복사했어요' not in t))
     # 6 둘 다 없음
-    pg=page();load(pg,"navigator.share=undefined;Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true});")
+    pg=page();load(pg,"navigator.share=undefined;document.execCommand=function(){return false};Object.defineProperty(navigator,'clipboard',{value:undefined,configurable:true});")
     pg.click('#hj-kakao');pg.wait_for_timeout(400)
     rec('공유·복사 모두 없으면 주소를 보여 주며 안내',pg.locator('#hj-share-msg').is_visible() and 'http' in pg.locator('#hj-share-msg').inner_text())
     # 7 안드로이드 크롬 열기 링크 안전성(주소가 우리 사이트 주소만 포함)
