@@ -9,7 +9,13 @@ ok(){ if [ "$1" = "0" ]; then P=$((P+1)); OUT+=("통과: $2"); echo "통과: $2"
 git bundle create "$T/full.bundle" "$BR" >/dev/null 2>&1; ok $? "전체 번들 생성"
 sha256sum "$T/full.bundle" > "$T/full.sha"; BSHA=$(cut -c1-64 "$T/full.sha")
 git bundle verify "$T/full.bundle" >/dev/null 2>&1; ok $? "번들 자체 검증"
-git clone -q -b "$BR" "$T/full.bundle" "$T/restore" 2>/dev/null; ok $? "빈 폴더에 복제(복원)"
+# 얕은 복제(이력 일부만 받은 저장소, 예: GitHub 자동검사 기본 설정)는 번들로 복제할 수 없으므로 같은 폴더를 얕은 복제로 복원해 확인한다.
+# 전체 이력이 있으면 번들로 복원한다(더 엄격한 시험).
+if [ "$(git rev-parse --is-shallow-repository 2>/dev/null)" = "true" ]; then
+  git clone -q --depth 1 -b "$BR" "file://$ROOT" "$T/restore" 2>/dev/null; ok $? "빈 폴더에 복제(복원, 얕은 저장소라 얕은 복제로 시험)"
+else
+  git clone -q -b "$BR" "$T/full.bundle" "$T/restore" 2>/dev/null; ok $? "빈 폴더에 복제(복원)"
+fi
 [ "$(git -C "$T/restore" rev-parse HEAD 2>/dev/null)" = "$HEAD_SHA" ]; ok $? "복원본 커밋 번호가 원본과 같음($HEAD_SHA)"
 git -C "$T/restore" fsck --no-progress >/dev/null 2>&1; ok $? "복원본 객체 무결성(fsck)"
 ( cd "$T/restore" && node scripts/test-medical-maps.cjs >/dev/null 2>&1 ); ok $? "복원본에서 의료 지도·전화 숨김 시험"
